@@ -449,25 +449,44 @@
       return false;
     }
 
-    function cargarScriptCallbell() {
+    function esperarCallbell(maxIntentos) {
       return new Promise(function (resolve, reject) {
-        const existente = document.querySelector(`script[src="${CALLBELL_SCRIPT_SRC}"]`);
+        let intentos = 0;
 
-        if (existente) {
+        const revisar = function () {
           if (abrirCallbell()) {
             resolve();
             return;
           }
 
-          existente.addEventListener("load", resolve, { once: true });
-          existente.addEventListener("error", reject, { once: true });
+          intentos += 1;
+          if (intentos >= maxIntentos) {
+            reject(new Error("Callbell no disponible"));
+            return;
+          }
+
+          setTimeout(revisar, 200);
+        };
+
+        revisar();
+      });
+    }
+
+    function cargarScriptCallbell() {
+      return new Promise(function (resolve, reject) {
+        const existente = document.querySelector(`script[src="${CALLBELL_SCRIPT_SRC}"]`);
+
+        if (existente) {
+          esperarCallbell(20).then(resolve).catch(reject);
           return;
         }
 
         const script = document.createElement("script");
         script.async = true;
         script.src = CALLBELL_SCRIPT_SRC;
-        script.onload = resolve;
+        script.onload = function () {
+          esperarCallbell(20).then(resolve).catch(reject);
+        };
         script.onerror = reject;
         document.head.appendChild(script);
       });
@@ -485,11 +504,8 @@
 
       cargarScriptCallbell()
         .then(function () {
-          setTimeout(function () {
-            abrirCallbell();
-            botonWebchat.disabled = false;
-            botonWebchat.textContent = "Abrir Webchat";
-          }, 250);
+          botonWebchat.disabled = false;
+          botonWebchat.textContent = "Abrir Webchat";
         })
         .catch(function () {
           botonWebchat.disabled = false;
