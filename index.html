@@ -422,17 +422,70 @@
 
     const botonWebchat = document.getElementById("abrirWebchat");
 
+    function ejecutarComandoCallbell() {
+      const comandos = ["open_chat", "openChat", "open", "show", "toggle_chat"];
+      const apis = [window.Callbell, window.callbell];
+
+      for (const api of apis) {
+        if (typeof api !== "function") {
+          continue;
+        }
+
+        for (const comando of comandos) {
+          try {
+            api(comando);
+            return true;
+          } catch (error) {
+            // Intentamos el siguiente comando/API.
+          }
+        }
+      }
+
+      return false;
+    }
+
+    function obtenerLauncherCallbell() {
+      const selectors = [
+        'button[class*="callbell"]',
+        '[id*="callbell-launcher"]',
+        '[class*="callbell-launcher"]',
+        'div[class*="callbell"] button',
+        'iframe[src*="callbell"]',
+        'iframe[src*="livechat"]'
+      ];
+
+      for (const selector of selectors) {
+        const el = document.querySelector(selector);
+        if (el) {
+          return el;
+        }
+      }
+
+      return null;
+    }
+
+    function ocultarLauncherCallbell() {
+      const launcher = obtenerLauncherCallbell();
+      if (!launcher) {
+        return;
+      }
+
+      launcher.style.opacity = "0";
+      launcher.style.pointerEvents = "none";
+      launcher.style.visibility = "hidden";
+    }
+
     function abrirCallbellIntento(intentosRestantes) {
-      if (window.Callbell && typeof window.Callbell === "function") {
-        window.Callbell("open_chat");
+      if (ejecutarComandoCallbell()) {
         botonWebchat.disabled = false;
         botonWebchat.textContent = "Abrir Webchat";
         return;
       }
 
-      const bubble = document.querySelector('[class*="callbell"], [id*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
-      if (bubble) {
-        bubble.click();
+      const launcher = obtenerLauncherCallbell();
+      if (launcher) {
+        launcher.click();
+        ocultarLauncherCallbell();
         botonWebchat.disabled = false;
         botonWebchat.textContent = "Abrir Webchat";
         return;
@@ -441,22 +494,26 @@
       if (intentosRestantes > 0) {
         setTimeout(function () {
           abrirCallbellIntento(intentosRestantes - 1);
-        }, 250);
+        }, 300);
         return;
       }
 
       botonWebchat.disabled = false;
-      botonWebchat.textContent = "Webchat no disponible";
-      setTimeout(function () {
-        botonWebchat.textContent = "Abrir Webchat";
-      }, 1800);
+      botonWebchat.textContent = "Abrir Webchat";
     }
 
     botonWebchat.addEventListener("click", function () {
       botonWebchat.disabled = true;
       botonWebchat.textContent = "Abriendo webchat...";
-      abrirCallbellIntento(20);
+      abrirCallbellIntento(25);
     });
+
+    const observadorCallbell = new MutationObserver(function () {
+      ocultarLauncherCallbell();
+    });
+
+    observadorCallbell.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("load", ocultarLauncherCallbell);
   </script>
 
   <!-- Start of Async Callbell Code -->
