@@ -17,7 +17,7 @@ body{
   color:#fff;
 }
 
-/* CARD ORIGINAL */
+/* DISEÑO ORIGINAL (NO TOCADO) */
 
 .card{
   width:360px;
@@ -77,11 +77,12 @@ h1 span{
 .oasis-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.8);
   display:none;
   align-items:center;
   justify-content:center;
+  background:rgba(0,0,0,.8);
   z-index:9999;
+  padding:20px;
 }
 
 .oasis-overlay.active{
@@ -89,15 +90,26 @@ h1 span{
 }
 
 .oasis-box{
-  width:90%;
-  max-width:900px;
+  width:min(900px,100%);
   max-height:90vh;
   overflow:auto;
-  padding:30px;
-  border-radius:25px;
   background:linear-gradient(180deg,#140505,#070404);
-  border:1px solid rgba(255,210,110,.3);
+  border:1px solid rgba(255,210,110,.35);
+  border-radius:25px;
+  padding:30px;
   text-align:center;
+}
+
+.close{
+  float:right;
+  cursor:pointer;
+  font-size:25px;
+  color:#ffd36b;
+}
+
+.oasis-box h2{
+  font-size:32px;
+  margin-bottom:10px;
 }
 
 .oasis-box h2 span{
@@ -112,22 +124,16 @@ h1 span{
 }
 
 .oasis-card{
-  display:flex;
-  gap:10px;
   padding:15px;
   border-radius:12px;
   background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,210,110,.2);
   text-decoration:none;
   color:white;
 }
 
 .oasis-card:hover{
   background:rgba(255,211,107,.1);
-}
-
-.close{
-  float:right;
-  cursor:pointer;
 }
 
 @media(max-width:700px){
@@ -157,10 +163,10 @@ h1 span{
 <!-- OASIS -->
 <div class="oasis-overlay" id="oasis">
   <div class="oasis-box">
-    <div class="close" id="cerrar">X</div>
+    <div class="close" id="cerrar">×</div>
 
     <h2>Tu <span>Oasis</span> de Atención</h2>
-    <p>Elegí una línea disponible</p>
+    <p>Si una línea no responde, probá con otra opción.</p>
 
     <div class="oasis-grid" id="grid"></div>
   </div>
@@ -190,11 +196,11 @@ numeros.forEach((num,i)=>{
   grid.appendChild(a);
 });
 
-document.getElementById("abrirOasis").onclick=()=>{
+document.getElementById("abrirOasis").onclick = ()=>{
   document.getElementById("oasis").classList.add("active");
 }
 
-document.getElementById("cerrar").onclick=()=>{
+document.getElementById("cerrar").onclick = ()=>{
   document.getElementById("oasis").classList.remove("active");
 }
 </script>
