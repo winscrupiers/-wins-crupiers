@@ -227,22 +227,22 @@
       </div>
 
       <p class="subtitle">
-        Activá tu beneficio desde el webchat y empezá la noche con WINS CRUPIERS.
+        Activá tu beneficio por WhatsApp y empezá la noche con WINS CRUPIERS.
       </p>
 
       <div class="steps">
         <div class="step">🔥 <span>Pedí tu <b>beneficio activo</b></span></div>
-        <div class="step">💬 <span>Escribinos por <b>webchat</b></span></div>
+        <div class="step">💬 <span>Escribinos por <b>WhatsApp</b></span></div>
         <div class="step">🎁 <span>Te lo activamos al instante</span></div>
       </div>
 
-      <!-- Cambiá este link por tu webchat o WhatsApp -->
-      <a class="cta" href="https://wa.me/5491112345678?text=QUIERO20" target="_blank">
-        Reclamar ahora
+      <!-- Agregá acá todos tus números de WhatsApp -->
+      <a class="cta" href="#" id="whatsappBtn">
+        Reclamar por WhatsApp
       </a>
 
       <p class="note">
-        Beneficio sujeto a disponibilidad. Reclamable únicamente desde webchat.
+        Beneficio sujeto a disponibilidad. Reclamable únicamente por WhatsApp.
       </p>
     </section>
 
@@ -258,6 +258,21 @@
     if (beneficio) {
       document.getElementById("beneficio").textContent = beneficio;
     }
+
+    // Poné acá todos tus números. Siempre con código de país, sin + ni espacios.
+    const numerosWhatsApp = [
+      "595974876315",
+      "595972904825",
+      "595993253595"
+    ];
+
+    const mensaje = encodeURIComponent("QUIERO20");
+
+    document.getElementById("whatsappBtn").addEventListener("click", function (e) {
+      e.preventDefault();
+      const numeroElegido = numerosWhatsApp[Math.floor(Math.random() * numerosWhatsApp.length)];
+      window.open(`https://wa.me/${numeroElegido}?text=${mensaje}`, "_blank");
+    });
   </script>
 </body>
 </html>
