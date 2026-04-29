@@ -300,6 +300,55 @@
     }
 
 
+
+
+    .chat-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      padding: 14px;
+    }
+
+    .chat-overlay.active {
+      display: flex;
+    }
+
+    .chat-modal {
+      width: min(360px, 100%);
+      height: min(640px, 92vh);
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .chat-modal iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .chat-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
     #callbell-launcher,
     [id*="callbell-launcher"],
     [class*="callbell-launcher"] {
@@ -369,6 +418,15 @@
     </div>
   </div>
 
+
+  <div class="chat-overlay" id="chatOverlay">
+    <div class="chat-modal">
+      <button class="chat-close" id="cerrarWebchat">×</button>
+      <iframe id="callbellFrame" title="Webchat Callbell" loading="lazy"></iframe>
+    </div>
+  </div>
+
+
   <script>
     const TODOS_LOS_NUMEROS = [
       "595993428272","595993600664","595993531681","595994148120",
@@ -431,89 +489,29 @@
     });
 
     const botonWebchat = document.getElementById("abrirWebchat");
+    const chatOverlay = document.getElementById("chatOverlay");
+    const cerrarWebchat = document.getElementById("cerrarWebchat");
+    const callbellFrame = document.getElementById("callbellFrame");
     const CALLBELL_UUID = "1617cc7d-c306-467c-9c3e-b93be2b26457";
     const CALLBELL_SCRIPT_TOKEN = "YxhRGuSVgudQ3pPuDJC8cqC8";
-    const CALLBELL_SCRIPT_SRC = `https://dash.callbell.eu/include/livechat/${CALLBELL_SCRIPT_TOKEN}/${CALLBELL_UUID}.js`;
-
-    function abrirCallbell() {
-      if (typeof window.Callbell === "function") {
-        window.Callbell("open_chat");
-        return true;
-      }
-
-      if (typeof window.callbell === "function") {
-        window.callbell("open_chat");
-        return true;
-      }
-
-      return false;
-    }
-
-    function esperarCallbell(maxIntentos) {
-      return new Promise(function (resolve, reject) {
-        let intentos = 0;
-
-        const revisar = function () {
-          if (abrirCallbell()) {
-            resolve();
-            return;
-          }
-
-          intentos += 1;
-          if (intentos >= maxIntentos) {
-            reject(new Error("Callbell no disponible"));
-            return;
-          }
-
-          setTimeout(revisar, 200);
-        };
-
-        revisar();
-      });
-    }
-
-    function cargarScriptCallbell() {
-      return new Promise(function (resolve, reject) {
-        const existente = document.querySelector(`script[src="${CALLBELL_SCRIPT_SRC}"]`);
-
-        if (existente) {
-          esperarCallbell(20).then(resolve).catch(reject);
-          return;
-        }
-
-        const script = document.createElement("script");
-        script.async = true;
-        script.src = CALLBELL_SCRIPT_SRC;
-        script.onload = function () {
-          esperarCallbell(20).then(resolve).catch(reject);
-        };
-        script.onerror = reject;
-        document.head.appendChild(script);
-      });
-    }
+    const CALLBELL_WEBCHAT_URL = `https://dash.callbell.eu/include/livechat/${CALLBELL_SCRIPT_TOKEN}/${CALLBELL_UUID}`;
 
     botonWebchat.addEventListener("click", function () {
-      botonWebchat.disabled = true;
-      botonWebchat.textContent = "Abriendo webchat...";
-
-      if (abrirCallbell()) {
-        botonWebchat.disabled = false;
-        botonWebchat.textContent = "Abrir Webchat";
-        return;
+      if (!callbellFrame.src) {
+        callbellFrame.src = CALLBELL_WEBCHAT_URL;
       }
 
-      cargarScriptCallbell()
-        .then(function () {
-          botonWebchat.disabled = false;
-          botonWebchat.textContent = "Abrir Webchat";
-        })
-        .catch(function () {
-          botonWebchat.disabled = false;
-          botonWebchat.textContent = "No se pudo abrir";
-          setTimeout(function () {
-            botonWebchat.textContent = "Abrir Webchat";
-          }, 1500);
-        });
+      chatOverlay.classList.add("active");
+    });
+
+    cerrarWebchat.addEventListener("click", function () {
+      chatOverlay.classList.remove("active");
+    });
+
+    chatOverlay.addEventListener("click", function (e) {
+      if (e.target.id === "chatOverlay") {
+        chatOverlay.classList.remove("active");
+      }
     });
   </script>
 </body>
