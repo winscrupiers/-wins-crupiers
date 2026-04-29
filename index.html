@@ -430,15 +430,79 @@
     });
 
     const botonWebchat = document.getElementById("abrirWebchat");
-    const CALLBELL_UUID = "1617cc7d-c306-467c-9c3e-b93be2b26457";
-    const CALLBELL_SCRIPT_TOKEN = "YxhRGuSVgudQ3pPuDJC8cqC8";
-    const CALLBELL_WEBCHAT_URL = `https://dash.callbell.eu/include/livechat/${CALLBELL_SCRIPT_TOKEN}/${CALLBELL_UUID}`;
+
+    if (!window.callbellSettings) {
+      window.callbellSettings = {};
+    }
+    window.callbellSettings.uuid = "1617cc7d-c306-467c-9c3e-b93be2b26457";
+    window.callbellSettings.script_token = "YxhRGuSVgudQ3pPuDJC8cqC8";
+
+    const CALLBELL_SCRIPT_SRC = `https://dash.callbell.eu/include/livechat/${window.callbellSettings.script_token}/${window.callbellSettings.uuid}.js`;
+
+    function cargarCallbellScript() {
+      return new Promise(function (resolve, reject) {
+        if (typeof window.Callbell === "function") {
+          resolve();
+          return;
+        }
+
+        const existente = document.querySelector(`script[src="${CALLBELL_SCRIPT_SRC}"]`);
+        if (existente) {
+          existente.addEventListener("load", resolve, { once: true });
+          existente.addEventListener("error", reject, { once: true });
+          setTimeout(resolve, 1500);
+          return;
+        }
+
+        const s = document.createElement("script");
+        s.async = true;
+        s.src = CALLBELL_SCRIPT_SRC;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    function abrirChatCallbell() {
+      const comandos = ["open_chat", "openChat", "show", "open"];
+      if (typeof window.Callbell === "function") {
+        for (const cmd of comandos) {
+          try {
+            window.Callbell(cmd);
+            return true;
+          } catch (e) {}
+        }
+      }
+      if (typeof window.callbell === "function") {
+        for (const cmd of comandos) {
+          try {
+            window.callbell(cmd);
+            return true;
+          } catch (e) {}
+        }
+      }
+      return false;
+    }
 
     botonWebchat.addEventListener("click", function () {
-      const nuevaVentana = window.open(CALLBELL_WEBCHAT_URL, "_blank", "noopener,noreferrer");
-      if (!nuevaVentana) {
-        window.location.href = CALLBELL_WEBCHAT_URL;
-      }
+      botonWebchat.disabled = true;
+      botonWebchat.textContent = "Abriendo webchat...";
+
+      cargarCallbellScript()
+        .then(function () {
+          const ok = abrirChatCallbell();
+          botonWebchat.disabled = false;
+          botonWebchat.textContent = "Abrir Webchat";
+
+          if (!ok) {
+            alert("No se pudo abrir el webchat de Callbell en este momento.");
+          }
+        })
+        .catch(function () {
+          botonWebchat.disabled = false;
+          botonWebchat.textContent = "Abrir Webchat";
+          alert("Error cargando Callbell. Probá de nuevo.");
+        });
     });
   </script>
 </body>
