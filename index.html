@@ -353,6 +353,7 @@
   </div>
 
 <script>
+<script>
 const TODOS_LOS_NUMEROS = [
 "595993428272","595993600664","595993531681","595994148120",
 "595992683436","595992105336","595992693270","595994185084",
@@ -368,23 +369,24 @@ const TODOS_LOS_NUMEROS = [
 const MAX_LINEAS = 6;
 const grid = document.getElementById("grid");
 
+// 🔀 mezcla números
 function mezclar(array){
   return [...array].sort(() => Math.random() - 0.5);
 }
 
+// 🎯 genera oasis
 function cargarNumerosOasis(){
   grid.innerHTML = "";
 
-  const numerosSeleccionados = mezclar(TODOS_LOS_NUMEROS).slice(0, MAX_LINEAS);
+  const seleccion = mezclar(TODOS_LOS_NUMEROS).slice(0, MAX_LINEAS);
 
-  numerosSeleccionados.forEach((num, i) => {
+  seleccion.forEach((num, i) => {
     const visible = "+" + num.slice(0,3) + " " + num.slice(3,6) + " " + num.slice(6);
 
     const a = document.createElement("a");
     a.className = "oasis-card";
     a.href = `https://wa.me/${num}?text=${encodeURIComponent("QUIERO20")}`;
     a.target = "_blank";
-    a.rel = "noopener";
 
     a.innerHTML = `
       <div class="oasis-icon">☎</div>
@@ -398,12 +400,23 @@ function cargarNumerosOasis(){
   });
 }
 
+// 🟡 abrir oasis
 document.getElementById("abrirOasis").onclick = () => {
   cargarNumerosOasis();
   document.getElementById("oasis").classList.add("active");
 };
 
+// 🔴 cerrar oasis
 document.getElementById("cerrar").onclick = () => {
   document.getElementById("oasis").classList.remove("active");
+};
+
+// 🟢 BOTÓN WEBCHAT (CALLBELL)
+document.getElementById("abrirWebchat").onclick = () => {
+  if (window.Callbell) {
+    window.Callbell('open_chat');
+  } else {
+    console.log("Callbell aún no cargó");
+  }
 };
 </script>
