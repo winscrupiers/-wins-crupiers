@@ -299,6 +299,30 @@
       font-size: 15px;
     }
 
+    .webchat-glow {
+      display: none;
+      position: fixed;
+      right: 16px;
+      bottom: 12px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,211,107,0.55) 0%, rgba(255,211,107,0.08) 55%, transparent 75%);
+      filter: blur(6px);
+      z-index: 9998;
+      pointer-events: none;
+      animation: glowPulse 1.4s infinite alternate;
+    }
+
+    body.webchat-visible .webchat-glow {
+      display: block;
+    }
+
+    @keyframes glowPulse {
+      from { opacity: .55; transform: scale(0.92); }
+      to { opacity: .95; transform: scale(1.05); }
+    }
+
     .webchat-overlay {
       position: fixed;
       inset: 0;
@@ -436,13 +460,14 @@
       </div>
 
       <button class="cta" id="abrirOasis">Reclamar por WhatsApp</button>
+
       <button class="cta webchat-btn" id="abrirWebchat">Abrir Webchat</button>
 
       <div class="webchat-helper" id="webchatHelper">👉 Desde aquí nos podés escribir en el webchat.</div>
 
       <div class="webchat-pointer" id="webchatPointer">
         <div class="pointer-arrow">➜</div>
-        <div class="pointer-text">Perfecto, solo escriba aquí</div>
+        <div class="pointer-text">PERFECTO, ESCRIBANOS AQUÍ</div>
       </div>
 
       <p class="note">
@@ -456,8 +481,10 @@
   <div class="oasis-overlay" id="oasis">
     <div class="oasis-box">
       <button class="close" id="cerrar">×</button>
+
       <h2 class="oasis-title">Tu <span>Wins</span> de Atención</h2>
       <p class="oasis-text">Si una línea no responde, probá con otra opción disponible.</p>
+
       <div class="oasis-grid" id="grid"></div>
     </div>
   </div>
@@ -466,11 +493,13 @@
     <div class="webchat-box">
       <button class="close" id="cerrarWebchatOverlay">×</button>
       <h2 class="oasis-title">Tu <span>Webchat</span> de Atención</h2>
-      <p class="oasis-text">Perfecto, solo escriba aquí. La flecha señala el globo del webchat.</p>
+      <p class="oasis-text">PERFECTO, ESCRIBANOS AQUÍ. La flecha señala el globo del webchat.</p>
       <button class="cta webchat-btn" id="abrirChatAhora">Escribir en Webchat</button>
-      <p class="webchat-helper active">👉 Perfecto, solo escriba aquí.</p>
+      <p class="webchat-helper active">👉 PERFECTO, ESCRIBANOS AQUÍ.</p>
     </div>
   </div>
+
+  <div class="webchat-glow" id="webchatGlow"></div>
 
   <script>
     const TODOS_LOS_NUMEROS = [
@@ -494,6 +523,7 @@
 
     function cargarNumerosOasis() {
       grid.innerHTML = "";
+
       const seleccion = mezclar(TODOS_LOS_NUMEROS).slice(0, MAX_LINEAS);
 
       seleccion.forEach((num, i) => {
@@ -605,5 +635,6 @@
     })();
   </script>
   <!-- End of Async Callbell Code -->
+
 </body>
 </html>
