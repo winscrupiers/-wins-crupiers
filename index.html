@@ -1,312 +1,153 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WINS CRUPIERS | Beneficio Activo</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WINS CRUPIERS</title>
 
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at center, rgba(255, 190, 60, 0.18), transparent 34%),
-        linear-gradient(160deg, #050303 0%, #180606 42%, #3b0707 100%);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-      overflow-x: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(160deg,#050303,#3b0707);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
-    .page {
-      width: 100%;
-      max-width: 430px;
-      position: relative;
-    }
+.card {
+  width: 360px;
+  padding: 25px;
+  border-radius: 25px;
+  background: linear-gradient(180deg,#140505,#070404);
+  border: 1px solid rgba(255,210,110,.3);
+  text-align: center;
+}
 
-    .glow {
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      background: rgba(255, 196, 72, 0.16);
-      filter: blur(60px);
-      border-radius: 50%;
-      top: -90px;
-      right: -90px;
-      z-index: 0;
-    }
+.cta {
+  margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: bold;
+  background: linear-gradient(#ffe49a,#e5aa32);
+  border: none;
+  cursor: pointer;
+}
 
-    .card {
-      position: relative;
-      z-index: 1;
-      border: 1px solid rgba(255, 210, 110, 0.35);
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(20, 5, 5, 0.95), rgba(7, 4, 4, 0.96));
-      box-shadow: 0 0 40px rgba(255, 191, 64, 0.13), inset 0 0 28px rgba(255, 211, 100, 0.06);
-      padding: 28px 22px;
-      text-align: center;
-      overflow: hidden;
-    }
+/* OASIS */
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-      transform: translateX(-120%);
-      animation: shine 4.5s infinite;
-    }
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
 
-    @keyframes shine {
-      0% { transform: translateX(-120%); }
-      55% { transform: translateX(120%); }
-      100% { transform: translateX(120%); }
-    }
+.overlay.active {
+  display: flex;
+}
 
-    .brand {
-      margin-bottom: 18px;
-    }
+.panel {
+  background: #1b6d85;
+  width: 90%;
+  max-width: 700px;
+  border-radius: 25px;
+  padding: 30px;
+  text-align: center;
+}
 
-    .brand .wins {
-      font-size: 42px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #b70f12;
-      text-shadow:
-        0 2px 0 #ffd36b,
-        0 0 14px rgba(255, 202, 82, 0.65),
-        0 0 32px rgba(183, 15, 18, 0.65);
-    }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
 
-    .brand .crupiers {
-      font-size: 22px;
-      font-family: Georgia, serif;
-      font-style: italic;
-      color: #ffd36b;
-      margin-top: -4px;
-      text-shadow: 0 0 12px rgba(255, 200, 80, 0.55);
-    }
+.line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background: rgba(255,255,255,.1);
+  border-radius: 15px;
+  text-decoration: none;
+  color: white;
+}
 
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255, 211, 107, 0.12);
-      border: 1px solid rgba(255, 211, 107, 0.35);
-      color: #ffd36b;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: 31px;
-      line-height: 1.05;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-    }
-
-    h1 span {
-      color: #ffd36b;
-      text-shadow: 0 0 18px rgba(255, 211, 107, 0.5);
-    }
-
-    .amount-box {
-      margin: 20px 0;
-      padding: 18px 14px;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(112, 10, 10, 0.45), rgba(35, 5, 5, 0.7));
-      border: 1px solid rgba(255, 211, 107, 0.28);
-    }
-
-    .amount-label {
-      font-size: 13px;
-      color: #f5dba0;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .amount {
-      font-size: 46px;
-      font-weight: 900;
-      color: #ffd36b;
-      text-shadow: 0 0 18px rgba(255, 200, 80, 0.55);
-    }
-
-    .subtitle {
-      font-size: 16px;
-      color: #f8e9c9;
-      line-height: 1.45;
-      margin-bottom: 20px;
-    }
-
-    .steps {
-      display: grid;
-      gap: 10px;
-      margin: 20px 0 22px;
-      text-align: left;
-    }
-
-    .step {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 15px;
-      padding: 12px;
-      font-size: 14px;
-      color: #fff7e7;
-    }
-
-    .step b {
-      color: #ffd36b;
-    }
-
-    .cta {
-      display: block;
-      width: 100%;
-      text-decoration: none;
-      color: #1b0707;
-      background: linear-gradient(180deg, #ffe49a, #e5aa32);
-      padding: 16px 18px;
-      border-radius: 18px;
-      font-size: 17px;
-      font-weight: 900;
-      text-transform: uppercase;
-      box-shadow: 0 0 24px rgba(255, 204, 84, 0.42);
-      transition: transform 0.2s ease, filter 0.2s ease;
-    }
-
-    .cta:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.05);
-    }
-
-    .note {
-      margin-top: 14px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.56);
-      line-height: 1.35;
-    }
-
-    .footer {
-      margin-top: 16px;
-      text-align: center;
-      font-size: 12px;
-      color: rgba(255,255,255,0.52);
-    }
-  </style>
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+</style>
 </head>
+
 <body>
-  <main class="page">
-    <div class="glow"></div>
 
-    <section class="card">
-      <div class="brand">
-        <div class="wins">WINS</div>
-        <div class="crupiers">Crupiers</div>
-      </div>
+<div class="card">
+  <h2>WINS CRUPIERS</h2>
+  <p>Beneficio activo</p>
 
-      <div class="badge">BENEFICIO ACTIVO POR TIEMPO LIMITADO</div>
+  <h1>20%</h1>
 
-      <h1>Hoy volves con <span>ventaja</span></h1>
+  <button class="cta" id="btn">
+    RECLAMAR POR WHATSAPP
+  </button>
+</div>
 
-      <div class="amount-box">
-        <div class="amount-label">Disponible para tu próxima carga</div>
-        <div class="amount" id="beneficio">20%</div>
-      </div>
+<!-- OASIS -->
+<div class="overlay" id="overlay">
+  <div class="panel">
+    <div class="close" id="close">X</div>
 
-      <p class="subtitle">
-        Activá tu beneficio por WhatsApp y empezá denuevo con WINS CRUPIERS.
-      </p>
+    <h2>Tu Oasis de Atención</h2>
 
-      <div class="steps">
-        <div class="step">🔥 <span>Pedí tu <b>beneficio activo</b></span></div>
-        <div class="step">💬 <span>Escribinos por <b>WhatsApp</b></span></div>
-        <div class="step">🎁 <span>Te lo activamos al instante</span></div>
-      </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
 
-      <!-- Agregá acá todos tus números de WhatsApp -->
-      <a class="cta" href="#" id="whatsappBtn">
-        Reclamar por WhatsApp
-      </a>
-
-      <p class="note">
-        Beneficio sujeto a disponibilidad. Reclamable únicamente por WhatsApp.
-      </p>
-    </section>
-
-    <div class="footer">WINS CRUPIERS · Atención activa</div>
-  </main>
-
-  <script>
-    // Podés personalizar el beneficio desde la URL.
-    // Ejemplo: tusitio.com/?beneficio=25%25
-    const params = new URLSearchParams(window.location.search);
-    const beneficio = params.get("beneficio");
-
-    if (beneficio) {
-      document.getElementById("beneficio").textContent = beneficio;
-    }
-
-    }
-
-    // Poné acá todos tus números. Siempre con código de país, sin + ni espacios.
-   const numerosWhatsApp = [
-"595993428272",
-"595993600664",
-"595993531681",
-"595994148120",
-"595992683436",
-"595992105336",
-"595992693270",
-"595994185084",
-"595993421681",
-"595993426758",
-"595993519840",
-"596992119729",
-"595976671481",
-"595992894317",
-"595993421542",
-"595994626921",
-"595993421241",
-"595993264332",
-"595993253159",
-"595972383786",
-"595993426536",
-"595993253595",
-"595993264272",
-"595993264678",
-"595991368797",
-"595993038750",
-"595993264389",
-"595993264618",
-"595993519515",
-"595972929173",
-"595971629879",
-"595972904825",
-"595992117657",
-"595992119721",
-"595993519506"
+<script>
+const numeros = [
+"595992056044",
+"595992656438",
+"595993496972",
+"595972884337",
+"595992237429",
+"595993482833",
+"595992659425",
+"595992187028"
 ];
 
-    const mensaje = encodeURIComponent("QUIERO20");
+const mensaje = "QUIERO EL 20%";
 
-    document.getElementById("whatsappBtn").addEventListener("click", function (e) {
-      e.preventDefault();
-      const numeroElegido = numerosWhatsApp[Math.floor(Math.random() * numerosWhatsApp.length)];
-      window.open(`https://wa.me/${numeroElegido}?text=${mensaje}`, "_blank");
-    });
-  </script>
+// abrir oasis
+document.getElementById("btn").onclick = () => {
+  document.getElementById("overlay").classList.add("active");
+};
+
+// cerrar
+document.getElementById("close").onclick = () => {
+  document.getElementById("overlay").classList.remove("active");
+};
+
+// generar botones
+const grid = document.getElementById("grid");
+
+numeros.forEach((num,i)=>{
+  const a = document.createElement("a");
+  a.href = `https://wa.me/${num}?text=${encodeURIComponent(mensaje)}`;
+  a.target = "_blank";
+  a.className = "line";
+  a.innerHTML = `Línea ${i+1}<br>${num}`;
+  grid.appendChild(a);
+});
+</script>
+
 </body>
 </html>
