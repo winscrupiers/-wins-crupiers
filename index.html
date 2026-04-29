@@ -471,6 +471,20 @@
       return true;
     }
 
+    function abrirFallbackChat() {
+      const fijos = Array.from(document.querySelectorAll("body *")).filter(function (el) {
+        const st = window.getComputedStyle(el);
+        if (st.position !== "fixed") return false;
+        const r = el.getBoundingClientRect();
+        return r.width > 36 && r.height > 36 && window.innerWidth - r.right < 180 && window.innerHeight - r.bottom < 180;
+      });
+
+      const candidato = fijos[fijos.length - 1];
+      if (candidato) {
+        candidato.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
+      }
+    }
+
     function abrirYcentrarCallbell() {
       const flotantes = candidatosCallbell();
       if (!flotantes.length) return false;
@@ -499,7 +513,7 @@
       botonWebchat.textContent = "Abrir Webchat";
 
       if (!ok) {
-        alert("No encontré el widget de Callbell en pantalla. Asegurate de que el script esté cargado.");
+        abrirFallbackChat();
       }
     });
   </script>
