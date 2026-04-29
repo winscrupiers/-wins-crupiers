@@ -1,223 +1,230 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WINS CRUPIERS</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-
-body{
-min-height:100vh;
-background:radial-gradient(circle at 50% 35%,rgba(255,196,72,.16),transparent 28%),linear-gradient(160deg,#050202 0%,#130404 45%,#3a0606 100%);
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
-padding:22px;
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at center, rgba(255, 190, 60, 0.18), transparent 34%),
+    linear-gradient(160deg, #050303 0%, #180606 42%, #3b0707 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  overflow-x: hidden;
 }
 
-.card{
-width:100%;
-max-width:390px;
-background:linear-gradient(180deg,rgba(18,5,5,.98),rgba(5,3,3,.98));
-border:1px solid rgba(255,211,107,.38);
-border-radius:26px;
-padding:30px 22px;
-text-align:center;
-box-shadow:0 0 45px rgba(255,190,60,.16);
+.page {
+  width: 100%;
+  max-width: 430px;
+  position: relative;
 }
 
-.logo{
-font-size:44px;
-font-weight:900;
-letter-spacing:1px;
-color:#d71920;
-text-shadow:0 2px 0 #ffd36b,0 0 22px rgba(255,200,80,.55);
+.glow {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  background: rgba(255, 196, 72, 0.16);
+  filter: blur(60px);
+  border-radius: 50%;
+  top: -90px;
+  right: -90px;
+  z-index: 0;
 }
 
-.sublogo{
-font-size:20px;
-color:#ffd36b;
-margin-top:-3px;
-margin-bottom:22px;
+.card {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 210, 110, 0.35);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(20, 5, 5, 0.95), rgba(7, 4, 4, 0.96));
+  box-shadow: 0 0 40px rgba(255, 191, 64, 0.13), inset 0 0 28px rgba(255, 211, 100, 0.06);
+  padding: 28px 22px;
+  text-align: center;
+  overflow: hidden;
 }
 
-.badge{
-display:inline-block;
-font-size:12px;
-font-weight:800;
-letter-spacing:.5px;
-color:#ffd36b;
-border:1px solid rgba(255,211,107,.35);
-background:rgba(255,211,107,.1);
-border-radius:999px;
-padding:8px 13px;
-margin-bottom:18px;
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  transform: translateX(-120%);
+  animation: shine 4.5s infinite;
 }
 
-h1{
-font-size:25px;
-line-height:1.1;
-margin-bottom:12px;
-text-transform:uppercase;
+@keyframes shine {
+  0% { transform: translateX(-120%); }
+  55% { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
 }
 
-h1 span{color:#ffd36b}
-
-.amount{
-margin:18px 0;
-padding:17px;
-border-radius:20px;
-background:linear-gradient(180deg,rgba(104,8,8,.45),rgba(30,4,4,.75));
-border:1px solid rgba(255,211,107,.25);
+.brand {
+  margin-bottom: 18px;
 }
 
-.amount small{
-display:block;
-font-size:12px;
-color:#f5dba0;
-margin-bottom:5px;
-text-transform:uppercase;
+.brand .wins {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #b70f12;
+  text-shadow:
+    0 2px 0 #ffd36b,
+    0 0 14px rgba(255, 202, 82, 0.65),
+    0 0 32px rgba(183, 15, 18, 0.65);
 }
 
-.amount strong{
-font-size:48px;
-color:#ffd36b;
-text-shadow:0 0 18px rgba(255,200,80,.5);
+.brand .crupiers {
+  font-size: 22px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  color: #ffd36b;
+  margin-top: -4px;
+  text-shadow: 0 0 12px rgba(255, 200, 80, 0.55);
 }
 
-.text{
-font-size:15px;
-line-height:1.4;
-color:#f8e9c9;
-margin-bottom:20px;
+.badge {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 211, 107, 0.12);
+  border: 1px solid rgba(255, 211, 107, 0.35);
+  color: #ffd36b;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
 }
 
-.buttons{
-display:flex;
-flex-direction:column;
-gap:12px;
+h1 {
+  font-size: 31px;
+  line-height: 1.05;
+  margin-bottom: 16px;
+  text-transform: uppercase;
 }
 
-.btn{
-display:block;
-width:100%;
-padding:16px;
-border-radius:17px;
-text-decoration:none;
-font-weight:900;
-font-size:16px;
-text-transform:uppercase;
+h1 span {
+  color: #ffd36b;
+  text-shadow: 0 0 18px rgba(255, 211, 107, 0.5);
 }
 
-.btn-gold{
-background:linear-gradient(180deg,#ffe49a,#e3aa34);
-color:#1b0707;
-box-shadow:0 0 24px rgba(255,204,84,.35);
+.amount-box {
+  margin: 20px 0;
+  padding: 18px 14px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(112, 10, 10, 0.45), rgba(35, 5, 5, 0.7));
+  border: 1px solid rgba(255, 211, 107, 0.28);
 }
 
-.btn-white{
-background:linear-gradient(180deg,#ffffff,#dedede);
-color:#111;
+.amount-label {
+  font-size: 13px;
+  color: #f5dba0;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.note{
-font-size:12px;
-color:rgba(255,255,255,.55);
-margin-top:16px;
-line-height:1.35;
+.amount {
+  font-size: 46px;
+  font-weight: 900;
+  color: #ffd36b;
+  text-shadow: 0 0 18px rgba(255, 200, 80, 0.55);
 }
-</style>
-</head>
 
-<body>
+.subtitle {
+  font-size: 16px;
+  color: #f8e9c9;
+  line-height: 1.45;
+  margin-bottom: 20px;
+}
 
-<div class="card">
-  <div class="logo">WINS</div>
-  <div class="sublogo">Crupiers</div>
+.steps {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0 22px;
+  text-align: left;
+}
 
-  <div class="badge">BENEFICIO ACTIVO</div>
+.step {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 15px;
+  padding: 12px;
+  font-size: 14px;
+  color: #fff7e7;
+}
 
-  <h1>Hoy volvés con <span>ventaja</span></h1>
+.step b {
+  color: #ffd36b;
+}
 
-  <div class="amount">
-    <small>Disponible para tu próxima carga</small>
-    <strong id="beneficio">20%</strong>
+.cta {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: #1b0707;
+  background: linear-gradient(180deg, #ffe49a, #e5aa32);
+  padding: 16px 18px;
+  border-radius: 18px;
+  font-size: 17px;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 0 0 24px rgba(255, 204, 84, 0.42);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.note {
+  margin-top: 14px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.56);
+  line-height: 1.35;
+}
+
+.footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.52);
+}
+
+<section class="card">
+  <div class="brand">
+    <div class="wins">WINS</div>
+    <div class="crupiers">Crupiers</div>
   </div>
 
-  <p class="text">
-    Activá tu beneficio ahora y escribinos por el medio que prefieras.
+  <div class="badge">BENEFICIO ACTIVO POR TIEMPO LIMITADO</div>
+
+  <h1>Hoy volves con <span>ventaja</span></h1>
+
+  <div class="amount-box">
+    <div class="amount-label">Disponible para tu próxima carga</div>
+    <div class="amount" id="beneficio">20%</div>
+  </div>
+
+  <p class="subtitle">
+    Activá tu beneficio por WhatsApp y empezá de nuevo con WINS CRUPIERS.
   </p>
 
-  <div class="buttons">
-    <a href="#" class="btn btn-gold" id="whatsappBtn">Reclamar por WhatsApp</a>
-    <a href="#" class="btn btn-white" onclick="abrirChat()">Reclamar desde la web</a>
+  <div class="steps">
+    <div class="step">🔥 <span>Pedí tu <b>beneficio activo</b></span></div>
+    <div class="step">💬 <span>Escribinos por <b>WhatsApp</b></span></div>
+    <div class="step">🎁 <span>Te lo activamos al instante</span></div>
   </div>
+
+  <!-- Agregá acá todos tus números de WhatsApp -->
+  <a class="cta" href="#" id="whatsappBtn">
+    Reclamar por WhatsApp
+  </a>
 
   <p class="note">
-    Beneficio sujeto a disponibilidad. Atención activa las 24 hs.
+    Beneficio sujeto a disponibilidad. Reclamable únicamente por WhatsApp.
   </p>
-</div>
+</section>
 
-<script>
-const params = new URLSearchParams(window.location.search);
-const beneficio = params.get("beneficio");
-
-if (beneficio) {
-  document.getElementById("beneficio").textContent = beneficio;
-}
-
-const numerosWhatsApp = [
-  "595974876315",
-  "595972904825",
-  "595993253595"
-];
-
-const mensaje = encodeURIComponent("QUIERO20");
-
-document.getElementById("whatsappBtn").addEventListener("click", function(e){
-  e.preventDefault();
-  const numero = numerosWhatsApp[Math.floor(Math.random()*numerosWhatsApp.length)];
-  window.open(`https://wa.me/${numero}?text=${mensaje}`, "_blank");
-});
-
-function abrirChat(){
-  if(window.callbell && typeof window.callbell.open === "function"){
-    window.callbell.open();
-  } else {
-    setTimeout(function(){
-      if(window.callbell && typeof window.callbell.open === "function"){
-        window.callbell.open();
-      }
-    }, 1500);
-  }
-}
-</script>
-
-<script>
-if (!window.callbellSettings) {
-  window.callbellSettings = {};
-}
-window.callbellSettings["uuid"] = "591b8d8f-2863-4b6f-8371-cf66ec2e4620";
-window.callbellSettings["script_token"] = "YxhRGuSVgudQ3pPuDJC8cqC8";
-</script>
-
-<script>
-(function(){
-  var w = window;
-  var d = document;
-  var l = function(){
-    var s = d.createElement("script");
-    s.async = true;
-    s.src = "https://dash.callbell.eu/include/livechat/" + window.callbellSettings.script_token + "/" + window.callbellSettings.uuid + ".js";
-    var x = d.getElementsByTagName("script")[0];
-    x.parentNode.insertBefore(s, x);
-  };
-  w.addEventListener("load", l, false);
-})();
-</script>
-
-</body>
-</html>
+<div class="footer">WINS CRUPIERS · Atención activa</div>
