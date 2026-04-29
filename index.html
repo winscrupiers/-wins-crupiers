@@ -312,6 +312,40 @@
       font-weight: 700;
     }
 
+    .webchat-pointer {
+      display: none;
+      position: fixed;
+      right: 140px;
+      bottom: 62px;
+      z-index: 10000;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0,0,0,0.78);
+      border: 1px solid rgba(255,211,107,.4);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+
+    .webchat-pointer.active { display: flex; }
+
+    .pointer-arrow {
+      font-size: 28px;
+      color: #ffd36b;
+      animation: arrowPulse .8s infinite alternate;
+    }
+
+    .pointer-text {
+      color: #ffd36b;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: .4px;
+    }
+
+    @keyframes arrowPulse {
+      from { transform: translateX(0); }
+      to { transform: translateX(6px); }
+    }
+
     .webchat-helper.active {
       display: block;
       animation: pulseGlow 1.2s ease-in-out infinite alternate;
@@ -377,10 +411,14 @@
       </div>
 
       <button class="cta" id="abrirOasis">Reclamar por WhatsApp</button>
-
       <button class="cta webchat-btn" id="abrirWebchat">Abrir Webchat</button>
 
       <div class="webchat-helper" id="webchatHelper">👉 Desde aquí nos podés escribir en el webchat.</div>
+
+      <div class="webchat-pointer" id="webchatPointer">
+        <div class="pointer-arrow">➜</div>
+        <div class="pointer-text">WEBCHAT AQUÍ</div>
+      </div>
 
       <p class="note">
         Beneficio sujeto a disponibilidad. Reclamable únicamente por WhatsApp o Webchat.
@@ -393,10 +431,8 @@
   <div class="oasis-overlay" id="oasis">
     <div class="oasis-box">
       <button class="close" id="cerrar">×</button>
-
       <h2 class="oasis-title">Tu <span>Wins</span> de Atención</h2>
       <p class="oasis-text">Si una línea no responde, probá con otra opción disponible.</p>
-
       <div class="oasis-grid" id="grid"></div>
     </div>
   </div>
@@ -423,7 +459,6 @@
 
     function cargarNumerosOasis() {
       grid.innerHTML = "";
-
       const seleccion = mezclar(TODOS_LOS_NUMEROS).slice(0, MAX_LINEAS);
 
       seleccion.forEach((num, i) => {
@@ -464,40 +499,30 @@
 
     const botonWebchat = document.getElementById("abrirWebchat");
     const webchatHelper = document.getElementById("webchatHelper");
+    const webchatPointer = document.getElementById("webchatPointer");
 
-    function abrirCallbellSiExiste() {
-      const comandos = ["open_chat", "openChat", "show", "open"];
-      const apis = [window.Callbell, window.callbell];
-
-      for (const api of apis) {
-        if (typeof api !== "function") continue;
-        for (const cmd of comandos) {
-          try {
-            api(cmd);
-            return true;
-          } catch (error) {}
-        }
-      }
-      return false;
-    }
-
-    function mostrarWebchatGuiado() {
+    function mostrarGuiaWebchat() {
       document.body.classList.add("webchat-visible");
       webchatHelper.classList.add("active");
+      webchatPointer.classList.add("active");
 
       setTimeout(function () {
-        const abierto = abrirCallbellSiExiste();
-        if (!abierto) {
-          const launcher = document.querySelector('[id*="callbell"], [class*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
-          if (launcher) {
-            launcher.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
-          }
-        }
-      }, 300);
+        webchatPointer.classList.remove("active");
+      }, 8000);
     }
 
     botonWebchat.addEventListener("click", function () {
-      mostrarWebchatGuiado();
+      mostrarGuiaWebchat();
+
+      const popup = window.open(
+        "webchat.html",
+        "wins_webchat_window",
+        "popup=yes,width=420,height=760,top=80,left=120,resizable=yes,scrollbars=yes"
+      );
+
+      if (!popup) {
+        window.location.href = "webchat.html";
+      }
     });
   </script>
 
@@ -506,7 +531,7 @@
     if (!window.callbellSettings) {
       window.callbellSettings = {};
     }
-    window.callbellSettings["uuid"] = "7f79dc65-a855-4b83-82b5-133feeba5938";
+    window.callbellSettings["uuid"] = "1617cc7d-c306-467c-9c3e-b93be2b26457";
     window.callbellSettings["script_token"] = "YxhRGuSVgudQ3pPuDJC8cqC8";
   </script>
   <script>
@@ -524,6 +549,5 @@
     })();
   </script>
   <!-- End of Async Callbell Code -->
-
 </body>
 </html>
