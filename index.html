@@ -1,469 +1,244 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WINS CRUPIERS | Beneficio Activo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WINS CRUPIERS</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at center, rgba(255, 190, 60, 0.18), transparent 34%),
-        linear-gradient(160deg, #050303 0%, #180606 42%, #3b0707 100%);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-      overflow-x: hidden;
-    }
+body{
+  min-height:100vh;
+  background:linear-gradient(160deg,#050303,#3b0707);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+}
 
-    .page {
-      width: 100%;
-      max-width: 430px;
-      position: relative;
-    }
+.page{max-width:420px;width:100%}
 
-    .glow {
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      background: rgba(255, 196, 72, 0.16);
-      filter: blur(60px);
-      border-radius: 50%;
-      top: -90px;
-      right: -90px;
-      z-index: 0;
-    }
+.card{
+  border-radius:25px;
+  padding:25px;
+  background:linear-gradient(180deg,#140505,#070404);
+  border:1px solid rgba(255,210,110,.3);
+  text-align:center;
+}
 
-    .card {
-      position: relative;
-      z-index: 1;
-      border: 1px solid rgba(255, 210, 110, 0.35);
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(20, 5, 5, 0.95), rgba(7, 4, 4, 0.96));
-      box-shadow: 0 0 40px rgba(255, 191, 64, 0.13), inset 0 0 28px rgba(255, 211, 100, 0.06);
-      padding: 28px 22px;
-      text-align: center;
-      overflow: hidden;
-    }
+.logo{
+  font-size:42px;
+  font-weight:bold;
+  color:#d40b0b;
+  text-shadow:0 0 10px gold;
+}
 
-    .brand {
-      margin-bottom: 18px;
-    }
+.badge{
+  margin:15px 0;
+  color:#ffd36b;
+}
 
-    .brand .wins {
-      font-size: 42px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #b70f12;
-      text-shadow:
-        0 2px 0 #ffd36b,
-        0 0 14px rgba(255, 202, 82, 0.65),
-        0 0 32px rgba(183, 15, 18, 0.65);
-    }
+h1 span{color:#ffd36b}
 
-    .brand .crupiers {
-      font-size: 22px;
-      font-family: Georgia, serif;
-      font-style: italic;
-      color: #ffd36b;
-      margin-top: -4px;
-      text-shadow: 0 0 12px rgba(255, 200, 80, 0.55);
-    }
+.box{
+  margin:20px 0;
+  padding:15px;
+  border-radius:15px;
+  background:#5a0505;
+}
 
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255, 211, 107, 0.12);
-      border: 1px solid rgba(255, 211, 107, 0.35);
-      color: #ffd36b;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 18px;
-    }
+.amount{
+  font-size:40px;
+  color:#ffd36b;
+}
 
-    h1 {
-      font-size: 31px;
-      line-height: 1.05;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-    }
+.cta{
+  margin-top:10px;
+  width:100%;
+  padding:15px;
+  border-radius:15px;
+  font-weight:bold;
+  border:none;
+  cursor:pointer;
+}
 
-    h1 span {
-      color: #ffd36b;
-      text-shadow: 0 0 18px rgba(255, 211, 107, 0.5);
-    }
+.whatsapp-btn{
+  background:linear-gradient(#ffe49a,#e5aa32);
+}
 
-    .amount-box {
-      margin: 20px 0;
-      padding: 18px 14px;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(112, 10, 10, 0.45), rgba(35, 5, 5, 0.7));
-      border: 1px solid rgba(255, 211, 107, 0.28);
-    }
+.webchat-btn{
+  background:linear-gradient(#25d366,#128c4a);
+  color:#041b0d;
+}
 
-    .amount-label {
-      font-size: 13px;
-      color: #f5dba0;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
+.note{
+  margin-top:10px;
+  font-size:12px;
+  opacity:.7;
+}
 
-    .amount {
-      font-size: 46px;
-      font-weight: 900;
-      color: #ffd36b;
-      text-shadow: 0 0 18px rgba(255, 200, 80, 0.55);
-    }
+/* OASIS */
+.oasis-overlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.8);
+}
 
-    .subtitle {
-      font-size: 16px;
-      color: #f8e9c9;
-      line-height: 1.45;
-      margin-bottom: 20px;
-    }
+.oasis-overlay.active{display:flex;}
 
-    .steps {
-      display: grid;
-      gap: 10px;
-      margin: 20px 0 22px;
-      text-align: left;
-    }
+.oasis-box{
+  width:90%;
+  max-width:800px;
+  background:#140505;
+  border-radius:20px;
+  padding:25px;
+  border:1px solid rgba(255,210,110,.3);
+}
 
-    .step {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 15px;
-      padding: 12px;
-      font-size: 14px;
-      color: #fff7e7;
-    }
+.oasis-grid{
+  margin-top:15px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
 
-    .step b {
-      color: #ffd36b;
-    }
+.oasis-card{
+  padding:12px;
+  background:#1e0b0b;
+  border-radius:10px;
+  text-decoration:none;
+  color:white;
+}
 
-    .cta {
-      display: block;
-      width: 100%;
-      border: none;
-      cursor: pointer;
-      color: #1b0707;
-      background: linear-gradient(180deg, #ffe49a, #e5aa32);
-      padding: 16px 18px;
-      border-radius: 18px;
-      font-size: 17px;
-      font-weight: 900;
-      text-transform: uppercase;
-      box-shadow: 0 0 24px rgba(255, 204, 84, 0.42);
-      margin-top: 10px;
-    }
+.close{
+  float:right;
+  cursor:pointer;
+}
 
-    .webchat-btn {
-      background: linear-gradient(180deg, #25d366, #128c4a);
-      color: #041b0d;
-      box-shadow: 0 0 22px rgba(37, 211, 102, 0.38);
-    }
+@media(max-width:600px){
+  .oasis-grid{grid-template-columns:1fr}
+}
 
-    .note {
-      margin-top: 14px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.56);
-      line-height: 1.35;
-    }
-
-    .footer {
-      margin-top: 16px;
-      text-align: center;
-      font-size: 12px;
-      color: rgba(255,255,255,0.52);
-    }
-
-    .oasis-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,.82);
-      backdrop-filter: blur(8px);
-      z-index: 9999;
-      padding: 18px;
-    }
-
-    .oasis-overlay.active {
-      display: flex;
-    }
-
-    .oasis-box {
-      width: min(920px, 100%);
-      max-height: 92vh;
-      overflow: auto;
-      border-radius: 28px;
-      background:
-        radial-gradient(circle at center, rgba(255, 190, 60, 0.16), transparent 34%),
-        linear-gradient(180deg, rgba(20, 5, 5, 0.98), rgba(7, 4, 4, 0.98));
-      border: 1px solid rgba(255, 210, 110, 0.35);
-      box-shadow: 0 0 42px rgba(255, 191, 64, 0.18);
-      padding: 38px 26px;
-      text-align: center;
-      position: relative;
-    }
-
-    .close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 211, 107, 0.35);
-      background: rgba(255, 211, 107, 0.08);
-      color: #ffd36b;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .oasis-title {
-      font-size: 36px;
-      line-height: 1.05;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .oasis-title span {
-      color: #ffd36b;
-      text-shadow: 0 0 18px rgba(255, 211, 107, 0.55);
-    }
-
-    .oasis-text {
-      color: #f8e9c9;
-      font-size: 15px;
-      margin-bottom: 24px;
-    }
-
-    .oasis-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .oasis-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: white;
-      text-align: left;
-      padding: 13px;
-      border-radius: 15px;
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,211,107,0.16);
-    }
-
-    .oasis-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, #ffe49a, #e5aa32);
-      color: #1b0707;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-    }
-
-    .oasis-label {
-      color: #ffd36b;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: .7px;
-    }
-
-    .oasis-number {
-      font-weight: 900;
-      font-size: 15px;
-    }
-
-    @media(max-width:720px){
-      .oasis-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+/* OCULTAR BURBUJA CALLBELL */
+iframe[src*="callbell"],
+div[class*="callbell"]{
+  display:none!important;
+}
+</style>
 </head>
 
 <body>
-  <main class="page">
-    <div class="glow"></div>
 
-    <section class="card">
-      <div class="brand">
-        <div class="wins">WINS</div>
-        <div class="crupiers">Crupiers</div>
-      </div>
+<div class="page">
+  <div class="card">
+    <div class="logo">WINS</div>
+    <div class="badge">BENEFICIO ACTIVO</div>
 
-      <div class="badge">BENEFICIO ACTIVO POR TIEMPO LIMITADO</div>
+    <h1>HOY VOLVES CON <span>VENTAJA</span></h1>
 
-      <h1>Hoy volvés con <span>ventaja</span></h1>
-
-      <div class="amount-box">
-        <div class="amount-label">Disponible para tu próxima carga</div>
-        <div class="amount">20%</div>
-      </div>
-
-      <p class="subtitle">
-        Activá tu beneficio por WhatsApp y empezá de nuevo con WINS CRUPIERS.
-      </p>
-
-      <div class="steps">
-        <div class="step">🔥 <span>Pedí tu <b>beneficio activo</b></span></div>
-        <div class="step">💬 <span>Escribinos por <b>WhatsApp</b></span></div>
-        <div class="step">🎁 <span>Te lo activamos al instante</span></div>
-      </div>
-
-      <button class="cta" id="abrirOasis">Reclamar por WhatsApp</button>
-
-      <button class="cta webchat-btn" id="abrirWebchat">Abrir Webchat</button>
-
-      <p class="note">
-        Beneficio sujeto a disponibilidad. Reclamable únicamente por WhatsApp o Webchat.
-      </p>
-    </section>
-
-    <div class="footer">WINS CRUPIERS · Atención activa</div>
-  </main>
-
-  <div class="oasis-overlay" id="oasis">
-    <div class="oasis-box">
-      <button class="close" id="cerrar">×</button>
-
-      <h2 class="oasis-title">Tu <span>Wins</span> de Atención</h2>
-      <p class="oasis-text">Si una línea no responde, probá con otra opción disponible.</p>
-
-      <div class="oasis-grid" id="grid"></div>
+    <div class="box">
+      <div>Disponible para tu próxima carga</div>
+      <div class="amount">20%</div>
     </div>
+
+    <button class="cta whatsapp-btn" id="abrirOasis">
+      RECLAMAR POR WHATSAPP
+    </button>
+
+    <button class="cta webchat-btn" id="abrirWebchat" disabled>
+      CARGANDO WEBCHAT...
+    </button>
+
+    <div class="note">Reclamable por WhatsApp o Webchat</div>
   </div>
+</div>
 
-  <script>
-    const TODOS_LOS_NUMEROS = [
-      "595993428272","595993600664","595993531681","595994148120",
-      "595992683436","595992105336","595992693270","595994185084",
-      "595993421681","595993426758","595993519840","596992119729",
-      "595976671481","595992894317","595993421542","595994626921",
-      "595993421241","595993264332","595993253159","595972383786",
-      "595993426536","595993253595","595993264272","595993264678",
-      "595991368797","595993038750","595993264389","595993264618",
-      "595993519515","595972929173","595971629879","595972904825",
-      "595992117657","595992119721","595993519506"
-    ];
+<!-- OASIS -->
+<div class="oasis-overlay" id="oasis">
+  <div class="oasis-box">
+    <div class="close" id="cerrar">X</div>
+    <h2>Tu <span style="color:#ffd36b">Wins</span> de Atención</h2>
+    <div class="oasis-grid" id="grid"></div>
+  </div>
+</div>
 
-    const MAX_LINEAS = 6;
-    const grid = document.getElementById("grid");
+<script>
+const TODOS_LOS_NUMEROS = [
+"595993428272","595993600664","595993531681","595994148120",
+"595992683436","595992105336","595992693270","595994185084",
+"595993421681","595993426758","595993519840","596992119729",
+"595976671481","595992894317","595993421542","595994626921",
+"595993421241","595993264332","595993253159","595972383786",
+"595993426536","595993253595","595993264272","595993264678",
+"595991368797","595993038750","595993264389","595993264618",
+"595993519515","595972929173","595971629879","595972904825",
+"595992117657","595992119721","595993519506"
+];
 
-    function mezclar(array) {
-      return [...array].sort(() => Math.random() - 0.5);
-    }
+const grid = document.getElementById("grid");
 
-    function cargarNumerosOasis() {
-      grid.innerHTML = "";
+function mezclar(a){return [...a].sort(()=>Math.random()-0.5)}
 
-      const seleccion = mezclar(TODOS_LOS_NUMEROS).slice(0, MAX_LINEAS);
+function cargarOasis(){
+  grid.innerHTML="";
+  mezclar(TODOS_LOS_NUMEROS).slice(0,6).forEach((num,i)=>{
+    const a=document.createElement("a");
+    a.href=`https://wa.me/${num}?text=QUIERO20`;
+    a.target="_blank";
+    a.className="oasis-card";
+    a.innerHTML=`Línea ${i+1}<br>${num}`;
+    grid.appendChild(a);
+  });
+}
 
-      seleccion.forEach((num, i) => {
-        const visible = "+" + num.slice(0,3) + " " + num.slice(3,6) + " " + num.slice(6);
+document.getElementById("abrirOasis").onclick=()=>{
+  cargarOasis();
+  document.getElementById("oasis").classList.add("active");
+};
 
-        const a = document.createElement("a");
-        a.className = "oasis-card";
-        a.href = `https://wa.me/${num}?text=${encodeURIComponent("QUIERO20")}`;
-        a.target = "_blank";
-        a.rel = "noopener";
+document.getElementById("cerrar").onclick=()=>{
+  document.getElementById("oasis").classList.remove("active");
+};
 
-        a.innerHTML = `
-          <div class="oasis-icon">☎</div>
-          <div>
-            <div class="oasis-label">LÍNEA VIP ${i + 1}</div>
-            <div class="oasis-number">${visible}</div>
-          </div>
-        `;
+/* WEBCHAT CONTROL */
+const btn = document.getElementById("abrirWebchat");
 
-        grid.appendChild(a);
-      });
-    }
+function activarBoton(){
+  btn.disabled=false;
+  btn.textContent="ABRIR WEBCHAT";
+}
 
-    document.getElementById("abrirOasis").addEventListener("click", function () {
-      cargarNumerosOasis();
-      document.getElementById("oasis").classList.add("active");
-    });
+btn.onclick=()=>{
+  if(window.Callbell){
+    window.Callbell('open_chat');
+  }
+};
 
-    document.getElementById("cerrar").addEventListener("click", function () {
-      document.getElementById("oasis").classList.remove("active");
-    });
+const check=setInterval(()=>{
+  if(window.Callbell){
+    activarBoton();
+    clearInterval(check);
+  }
+},500);
+</script>
 
-    document.getElementById("oasis").addEventListener("click", function (e) {
-      if (e.target.id === "oasis") {
-        document.getElementById("oasis").classList.remove("active");
-      }
-    });
+<!-- CALLBELL -->
+<script>
+window.callbellSettings = {
+  uuid:"1617cc7d-c306-467c-9c3e-b93be2b26457",
+  script_token:"YxhRGuSVgudQ3pPuDJC8cqC8"
+};
+(function(){
+  var s=document.createElement('script');
+  s.async=true;
+  s.src='https://dash.callbell.eu/include/livechat/'+window.callbellSettings.script_token+'/'+window.callbellSettings.uuid+'.js';
+  document.head.appendChild(s);
+})();
+</script>
 
-    document.getElementById("abrirWebchat").addEventListener("click", function () {
-      if (window.Callbell && typeof window.Callbell === "function") {
-        window.Callbell("open_chat");
-        return;
-      }
-
-      const bubble = document.querySelector('[class*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
-
-      if (bubble) {
-        bubble.click();
-        return;
-      }
-
-      alert("El webchat está cargando. Esperá unos segundos y tocá nuevamente.");
-    });
-  </script>
-
-  <!-- Start of Async Callbell Code -->
-  <script>
-    if (!window.callbellSettings) {
-      window.callbellSettings = {};
-    }
-
-    window.callbellSettings["uuid"] = "1617cc7d-c306-467c-9c3e-b93be2b26457";
-    window.callbellSettings["script_token"] = "YxhRGuSVgudQ3pPuDJC8cqC8";
-  </script>
-
-  <script>
-    (function(){
-      var w = window;
-      var d = document;
-
-      var l = function(){
-        var s = d.createElement("script");
-        s.async = true;
-        s.src = "https://dash.callbell.eu/include/livechat/" + window.callbellSettings.script_token + "/" + window.callbellSettings.uuid + ".js";
-
-        var x = d.getElementsByTagName("script")[0];
-        x.parentNode.insertBefore(s, x);
-      };
-
-      w.addEventListener("load", l, false);
-    })();
-  </script>
-  <!-- End of Async Callbell Code -->
 </body>
 </html>
