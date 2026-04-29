@@ -1,139 +1,199 @@
-```html
+html
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WINS CRUPIERS | Beneficio Activo</title>
+<title>WINS CRUPIERS</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 
 body{
 min-height:100vh;
 background:
-radial-gradient(circle at center, rgba(255,190,60,0.18), transparent 34%),
-linear-gradient(160deg,#050303 0%,#180606 42%,#3b0707 100%);
-color:#fff;
+radial-gradient(circle at 50% 35%,rgba(255,196,72,.16),transparent 28%),
+linear-gradient(160deg,#050202 0%,#130404 45%,#3a0606 100%);
 display:flex;
 align-items:center;
 justify-content:center;
+color:white;
 padding:22px;
 }
 
-.page{width:100%;max-width:430px;position:relative;}
-
 .card{
-border:1px solid rgba(255,210,110,0.35);
-border-radius:28px;
-background:linear-gradient(180deg, rgba(20,5,5,0.95), rgba(7,4,4,0.96));
-box-shadow:0 0 40px rgba(255,191,64,0.13);
-padding:28px 22px;
+width:100%;
+max-width:390px;
+background:linear-gradient(180deg,rgba(18,5,5,.98),rgba(5,3,3,.98));
+border:1px solid rgba(255,211,107,.38);
+border-radius:26px;
+padding:30px 22px;
 text-align:center;
+box-shadow:0 0 45px rgba(255,190,60,.16);
 }
 
-.wins{
-font-size:42px;
+.logo{
+font-size:44px;
 font-weight:900;
-color:#b70f12;
-text-shadow:0 2px 0 #ffd36b,0 0 20px rgba(255,200,80,0.6);
+letter-spacing:1px;
+color:#d71920;
+text-shadow:0 2px 0 #ffd36b,0 0 22px rgba(255,200,80,.55);
 }
 
-.crupiers{
+.sublogo{
 font-size:20px;
 color:#ffd36b;
-margin-bottom:15px;
+margin-top:-3px;
+margin-bottom:22px;
 }
+
+.badge{
+display:inline-block;
+font-size:12px;
+font-weight:800;
+letter-spacing:.5px;
+color:#ffd36b;
+border:1px solid rgba(255,211,107,.35);
+background:rgba(255,211,107,.1);
+border-radius:999px;
+padding:8px 13px;
+margin-bottom:18px;
+}
+
+h1{
+font-size:25px;
+line-height:1.1;
+margin-bottom:12px;
+text-transform:uppercase;
+}
+
+h1 span{color:#ffd36b}
 
 .amount{
-font-size:46px;
-font-weight:900;
-color:#ffd36b;
-margin:15px 0;
+margin:18px 0;
+padding:17px;
+border-radius:20px;
+background:linear-gradient(180deg,rgba(104,8,8,.45),rgba(30,4,4,.75));
+border:1px solid rgba(255,211,107,.25);
 }
 
-.cta{
+.amount small{
+display:block;
+font-size:12px;
+color:#f5dba0;
+margin-bottom:5px;
+text-transform:uppercase;
+}
+
+.amount strong{
+font-size:48px;
+color:#ffd36b;
+text-shadow:0 0 18px rgba(255,200,80,.5);
+}
+
+.text{
+font-size:15px;
+line-height:1.4;
+color:#f8e9c9;
+margin-bottom:20px;
+}
+
+.buttons{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.btn{
 display:block;
 width:100%;
-text-decoration:none;
-background:linear-gradient(180deg,#ffe49a,#e5aa32);
-color:#1b0707;
 padding:16px;
-border-radius:18px;
+border-radius:17px;
+text-decoration:none;
 font-weight:900;
-margin-top:10px;
+font-size:16px;
+text-transform:uppercase;
 }
 
-.cta2{
-background:linear-gradient(180deg,#ffffff,#dcdcdc);
-color:#000;
+.btn-gold{
+background:linear-gradient(180deg,#ffe49a,#e3aa34);
+color:#1b0707;
+box-shadow:0 0 24px rgba(255,204,84,.35);
 }
 
-.subtitle{
-margin:15px 0;
-color:#f8e9c9;
+.btn-white{
+background:linear-gradient(180deg,#ffffff,#dedede);
+color:#111;
 }
 
+.note{
+font-size:12px;
+color:rgba(255,255,255,.55);
+margin-top:16px;
+line-height:1.35;
+}
 </style>
 </head>
 
 <body>
 
-<div class="page">
 <div class="card">
+  <div class="logo">WINS</div>
+  <div class="sublogo">Crupiers</div>
 
-<div class="wins">WINS</div>
-<div class="crupiers">Crupiers</div>
+  <div class="badge">BENEFICIO ACTIVO</div>
 
-<div class="subtitle">Tenés un beneficio activo</div>
+  <h1>Hoy volvés con <span>ventaja</span></h1>
 
-<div class="amount" id="beneficio">20%</div>
+  <div class="amount">
+    <small>Disponible para tu próxima carga</small>
+    <strong id="beneficio">20%</strong>
+  </div>
 
-<div class="subtitle">
-Activalo ahora mismo y empezá con ventaja 👇
-</div>
+  <p class="text">
+    Activá tu beneficio ahora y escribinos por el medio que prefieras.
+  </p>
 
-<!-- BOTONES -->
-<a href="#" class="cta" id="whatsappBtn">Reclamar por WhatsApp</a>
-<a href="#" class="cta cta2" onclick="abrirChat()">Reclamar desde la web</a>
+  <div class="buttons">
+    <a href="#" class="btn btn-gold" id="whatsappBtn">Reclamar por WhatsApp</a>
+    <a href="#" class="btn btn-white" onclick="abrirChat()">Reclamar desde la web</a>
+  </div>
 
-</div>
+  <p class="note">
+    Beneficio sujeto a disponibilidad. Atención activa las 24 hs.
+  </p>
 </div>
 
 <script>
-// BENEFICIO DINÁMICO
 const params = new URLSearchParams(window.location.search);
 const beneficio = params.get("beneficio");
 if (beneficio) {
-document.getElementById("beneficio").textContent = beneficio;
+  document.getElementById("beneficio").textContent = beneficio;
 }
 
-// NUMEROS WHATSAPP
 const numerosWhatsApp = [
-"595974876315",
-"595972904825",
-"595993253595"
+  "595974876315",
+  "595972904825",
+  "595993253595"
 ];
 
 const mensaje = encodeURIComponent("QUIERO20");
 
 document.getElementById("whatsappBtn").addEventListener("click", function(e){
-e.preventDefault();
-const numero = numerosWhatsApp[Math.floor(Math.random()*numerosWhatsApp.length)];
-window.open(`https://wa.me/${numero}?text=${mensaje}`, "_blank");
+  e.preventDefault();
+  const numero = numerosWhatsApp[Math.floor(Math.random()*numerosWhatsApp.length)];
+  window.open(`https://wa.me/${numero}?text=${mensaje}`, "_blank");
 });
 
-// ABRIR CALLBELL
 function abrirChat(){
-if(window.callbell && window.callbell.open){
-window.callbell.open();
-}else{
-alert("Cargando chat...");
-}
+  if(window.callbell && window.callbell.open){
+    window.callbell.open();
+  }else{
+    alert("Cargando chat...");
+  }
 }
 </script>
 
-<!-- CALLBELL -->
 <script>
 if (!window.callbellSettings) {window.callbellSettings = {}}
 window.callbellSettings["uuid"] = "591b8d8f-2863-4b6f-8371-cf66ec2e4620";
@@ -156,4 +216,3 @@ w.addEventListener('load',l,false);
 
 </body>
 </html>
-```
