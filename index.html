@@ -1,151 +1,400 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WINS CRUPIERS</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WINS CRUPIERS | Beneficio Activo</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(160deg,#050303,#3b0707);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 65% 15%,rgba(255,180,60,.18),transparent 28%),
+    linear-gradient(160deg,#050303 0%,#210404 45%,#4a0707 100%);
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:28px 16px;
 }
 
-.card {
-  width: 360px;
-  padding: 25px;
-  border-radius: 25px;
-  background: linear-gradient(180deg,#140505,#070404);
-  border: 1px solid rgba(255,210,110,.3);
-  text-align: center;
+.page{
+  width:100%;
+  max-width:430px;
 }
 
-.cta {
-  margin-top: 20px;
-  width: 100%;
-  padding: 15px;
-  border-radius: 15px;
-  font-weight: bold;
-  background: linear-gradient(#ffe49a,#e5aa32);
-  border: none;
-  cursor: pointer;
+.card{
+  border:1px solid rgba(255,200,80,.35);
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(22,3,3,.96),rgba(5,3,3,.98));
+  box-shadow:0 0 45px rgba(255,190,70,.12);
+  padding:34px 22px;
+  text-align:center;
+}
+
+.logo .wins{
+  font-size:44px;
+  font-weight:900;
+  color:#d40b0b;
+  letter-spacing:2px;
+  text-shadow:0 2px 0 #ffd56a,0 0 18px rgba(255,200,70,.75);
+}
+
+.logo .crupiers{
+  font-size:22px;
+  font-family:Georgia,serif;
+  font-style:italic;
+  color:#ffd36b;
+  margin-top:-5px;
+}
+
+.badge{
+  display:inline-block;
+  margin:24px 0 18px;
+  padding:9px 15px;
+  border-radius:999px;
+  border:1px solid rgba(255,211,107,.45);
+  color:#ffd36b;
+  font-size:13px;
+  font-weight:900;
+}
+
+h1{
+  font-size:30px;
+  line-height:1.05;
+  margin-bottom:24px;
+  text-transform:uppercase;
+}
+
+h1 span{
+  color:#ffd36b;
+  text-shadow:0 0 16px rgba(255,211,107,.65);
+}
+
+.amount-box{
+  padding:19px 12px;
+  border-radius:21px;
+  background:linear-gradient(180deg,rgba(110,5,5,.72),rgba(48,3,3,.75));
+  border:1px solid rgba(255,180,60,.35);
+  margin-bottom:22px;
+}
+
+.amount-label{
+  font-size:13px;
+  color:#ffe2a2;
+  margin-bottom:12px;
+}
+
+.amount{
+  font-size:48px;
+  font-weight:900;
+  color:#ffd36b;
+  text-shadow:0 0 18px rgba(255,200,80,.65);
+}
+
+.subtitle{
+  font-size:16px;
+  line-height:1.35;
+  margin-bottom:22px;
+}
+
+.steps{
+  display:grid;
+  gap:11px;
+  margin-bottom:22px;
+  text-align:left;
+}
+
+.step{
+  padding:13px 15px;
+  border-radius:15px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.09);
+  font-size:14px;
+}
+
+.step b{color:#ffd36b}
+
+.cta{
+  width:100%;
+  border:0;
+  cursor:pointer;
+  border-radius:16px;
+  padding:17px;
+  background:linear-gradient(180deg,#ffe49a,#e8af35);
+  color:#170404;
+  font-size:17px;
+  font-weight:900;
+  box-shadow:0 0 25px rgba(255,205,80,.45);
+}
+
+.note{
+  margin-top:14px;
+  font-size:12px;
+  color:rgba(255,255,255,.62);
+}
+
+.footer{
+  margin-top:16px;
+  text-align:center;
+  font-size:12px;
+  color:rgba(255,255,255,.55);
 }
 
 /* OASIS */
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.75);
-  display: none;
-  justify-content: center;
-  align-items: center;
+.oasis-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(8px);
 }
 
-.overlay.active {
-  display: flex;
+.oasis-overlay.active{
+  display:flex;
 }
 
-.panel {
-  background: #1b6d85;
-  width: 90%;
-  max-width: 700px;
-  border-radius: 25px;
-  padding: 30px;
-  text-align: center;
+.oasis-box{
+  width:min(980px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#176d86;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:34px;
+  padding:54px 48px;
+  text-align:center;
+  position:relative;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 15px;
-  margin-top: 20px;
+.close{
+  position:absolute;
+  top:18px;
+  right:18px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.1);
+  color:white;
+  font-size:24px;
+  cursor:pointer;
 }
 
-.line {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 15px;
-  background: rgba(255,255,255,.1);
-  border-radius: 15px;
-  text-decoration: none;
-  color: white;
+.oasis-mini{
+  color:#35dc7e;
+  font-weight:900;
+  letter-spacing:10px;
+  margin-bottom:20px;
 }
 
-.close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
+.oasis-box h2{
+  font-size:clamp(36px,7vw,70px);
+  line-height:1.05;
+  margin-bottom:22px;
+}
+
+.oasis-box h2 span{
+  color:#2ed482;
+}
+
+.oasis-box p{
+  max-width:650px;
+  margin:0 auto 42px;
+  color:rgba(255,255,255,.78);
+  font-size:20px;
+  line-height:1.35;
+}
+
+.oasis-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.oasis-card{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  min-height:92px;
+  padding:20px;
+  border-radius:22px;
+  text-decoration:none;
+  color:white;
+  text-align:left;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.22);
+}
+
+.oasis-icon{
+  width:50px;
+  height:50px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  background:#25d366;
+  font-size:26px;
+}
+
+.oasis-label{
+  color:#35dc7e;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.oasis-numero{
+  font-size:19px;
+  font-weight:900;
+}
+
+@media(max-width:720px){
+  .oasis-box{
+    padding:42px 18px 24px;
+  }
+
+  .oasis-grid{
+    grid-template-columns:1fr;
+  }
+
+  .oasis-box p{
+    font-size:16px;
+    margin-bottom:28px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h2>WINS CRUPIERS</h2>
-  <p>Beneficio activo</p>
+<main class="page">
+  <section class="card">
+    <div class="logo">
+      <div class="wins">WINS</div>
+      <div class="crupiers">Crupiers</div>
+    </div>
 
-  <h1>20%</h1>
+    <div class="badge">BENEFICIO ACTIVO POR TIEMPO LIMITADO</div>
 
-  <button class="cta" id="btn">
-    RECLAMAR POR WHATSAPP
-  </button>
-</div>
+    <h1>HOY VOLVÉS CON <span>VENTAJA</span></h1>
 
-<!-- OASIS -->
-<div class="overlay" id="overlay">
-  <div class="panel">
-    <div class="close" id="close">X</div>
+    <div class="amount-box">
+      <div class="amount-label">DISPONIBLE PARA TU PRÓXIMA CARGA</div>
+      <div class="amount">20%</div>
+    </div>
 
-    <h2>Tu Oasis de Atención</h2>
+    <p class="subtitle">
+      Activá tu beneficio por WhatsApp y empezá de nuevo con WINS CRUPIERS.
+    </p>
 
-    <div class="grid" id="grid"></div>
+    <div class="steps">
+      <div class="step">🔥 Pedí tu <b>beneficio activo</b></div>
+      <div class="step">💬 Escribinos por <b>WhatsApp</b></div>
+      <div class="step">🎁 Te lo activamos al instante</div>
+    </div>
+
+    <button class="cta" id="abrirOasis">RECLAMAR POR WHATSAPP</button>
+
+    <p class="note">
+      Beneficio sujeto a disponibilidad. Reclamable únicamente por WhatsApp.
+    </p>
+  </section>
+
+  <div class="footer">WINS CRUPIERS · Atención activa</div>
+</main>
+
+<div class="oasis-overlay" id="oasisOverlay">
+  <div class="oasis-box">
+    <button class="close" id="cerrarOasis">×</button>
+
+    <div class="oasis-mini">OASIS</div>
+    <h2>Tu <span>Oasis</span> de Atención Directa</h2>
+    <p>Si no recibís respuesta en una línea, nuestro equipo te espera en las siguientes opciones.</p>
+
+    <div class="oasis-grid" id="oasisGrid"></div>
   </div>
 </div>
 
 <script>
-const numeros = [
-"595992056044",
-"595992656438",
-"595993496972",
-"595972884337",
-"595992237429",
-"595993482833",
-"595992659425",
-"595992187028"
+const numerosOasis = [
+"595993428272",
+"595993600664",
+"595993531681",
+"595994148120",
+"595992683436",
+"595992105336",
+"595992693270",
+"595994185084",
+"595993421681",
+"595993426758",
+"595993519840",
+"596992119729",
+"595976671481",
+"595992894317",
+"595993421542",
+"595994626921",
+"595993421241",
+"595993264332",
+"595993253159",
+"595972383786",
+"595993426536",
+"595993253595",
+"595993264272",
+"595993264678",
+"595991368797",
+"595993038750",
+"595993264389",
+"595993264618",
+"595993519515",
+"595972929173",
+"595971629879",
+"595972904825",
+"595992117657",
+"595992119721",
+"595993519506"
 ];
 
-const mensaje = "QUIERO EL 20%";
+const mensaje = encodeURIComponent("QUIERO EL 20%");
+const oasisGrid = document.getElementById("oasisGrid");
 
-// abrir oasis
-document.getElementById("btn").onclick = () => {
-  document.getElementById("overlay").classList.add("active");
-};
+numerosOasis.forEach((num, i) => {
+  const visible = "+" + num.slice(0,3) + " " + num.slice(3,6) + " " + num.slice(6);
 
-// cerrar
-document.getElementById("close").onclick = () => {
-  document.getElementById("overlay").classList.remove("active");
-};
+  const card = document.createElement("a");
+  card.className = "oasis-card";
+  card.href = `https://wa.me/${num}?text=${mensaje}`;
+  card.target = "_blank";
+  card.rel = "noopener";
 
-// generar botones
-const grid = document.getElementById("grid");
+  card.innerHTML = `
+    <div class="oasis-icon">☏</div>
+    <div>
+      <div class="oasis-label">LÍNEA OASIS ${i + 1}</div>
+      <div class="oasis-numero">${visible}</div>
+    </div>
+  `;
 
-numeros.forEach((num,i)=>{
-  const a = document.createElement("a");
-  a.href = `https://wa.me/${num}?text=${encodeURIComponent(mensaje)}`;
-  a.target = "_blank";
-  a.className = "line";
-  a.innerHTML = `Línea ${i+1}<br>${num}`;
-  grid.appendChild(a);
+  oasisGrid.appendChild(card);
+});
+
+document.getElementById("abrirOasis").addEventListener("click", () => {
+  document.getElementById("oasisOverlay").classList.add("active");
+});
+
+document.getElementById("cerrarOasis").addEventListener("click", () => {
+  document.getElementById("oasisOverlay").classList.remove("active");
+});
+
+document.getElementById("oasisOverlay").addEventListener("click", (e) => {
+  if(e.target.id === "oasisOverlay"){
+    document.getElementById("oasisOverlay").classList.remove("active");
+  }
 });
 </script>
 
