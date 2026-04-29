@@ -420,20 +420,42 @@
       }
     });
 
-    document.getElementById("abrirWebchat").addEventListener("click", function () {
+    const botonWebchat = document.getElementById("abrirWebchat");
+
+    function abrirCallbellIntento(intentosRestantes) {
       if (window.Callbell && typeof window.Callbell === "function") {
         window.Callbell("open_chat");
+        botonWebchat.disabled = false;
+        botonWebchat.textContent = "Abrir Webchat";
         return;
       }
 
-      const bubble = document.querySelector('[class*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
-
+      const bubble = document.querySelector('[class*="callbell"], [id*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
       if (bubble) {
         bubble.click();
+        botonWebchat.disabled = false;
+        botonWebchat.textContent = "Abrir Webchat";
         return;
       }
 
-      alert("El webchat está cargando. Esperá unos segundos y tocá nuevamente.");
+      if (intentosRestantes > 0) {
+        setTimeout(function () {
+          abrirCallbellIntento(intentosRestantes - 1);
+        }, 250);
+        return;
+      }
+
+      botonWebchat.disabled = false;
+      botonWebchat.textContent = "Webchat no disponible";
+      setTimeout(function () {
+        botonWebchat.textContent = "Abrir Webchat";
+      }, 1800);
+    }
+
+    botonWebchat.addEventListener("click", function () {
+      botonWebchat.disabled = true;
+      botonWebchat.textContent = "Abriendo webchat...";
+      abrirCallbellIntento(20);
     });
   </script>
 
