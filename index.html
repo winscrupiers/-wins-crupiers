@@ -299,6 +299,31 @@
       font-size: 15px;
     }
 
+    .webchat-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(8px);
+      z-index: 10000;
+      padding: 18px;
+    }
+
+    .webchat-overlay.active { display: flex; }
+
+    .webchat-box {
+      width: min(520px, 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 210, 110, 0.35);
+      background: linear-gradient(180deg, rgba(20, 5, 5, 0.98), rgba(7, 4, 4, 0.98));
+      box-shadow: 0 0 42px rgba(255, 191, 64, 0.18);
+      padding: 28px 22px;
+      text-align: center;
+      position: relative;
+    }
+
     .webchat-helper {
       display: none;
       margin-top: 12px;
@@ -343,7 +368,7 @@
 
     @keyframes arrowPulse {
       from { transform: translateX(0); }
-      to { transform: translateX(6px); }
+      to { transform: translateX(6px);}
     }
 
     .webchat-helper.active {
@@ -411,7 +436,6 @@
       </div>
 
       <button class="cta" id="abrirOasis">Reclamar por WhatsApp</button>
-
       <button class="cta webchat-btn" id="abrirWebchat">Abrir Webchat</button>
 
       <div class="webchat-helper" id="webchatHelper">👉 Desde aquí nos podés escribir en el webchat.</div>
@@ -432,11 +456,19 @@
   <div class="oasis-overlay" id="oasis">
     <div class="oasis-box">
       <button class="close" id="cerrar">×</button>
-
       <h2 class="oasis-title">Tu <span>Wins</span> de Atención</h2>
       <p class="oasis-text">Si una línea no responde, probá con otra opción disponible.</p>
-
       <div class="oasis-grid" id="grid"></div>
+    </div>
+  </div>
+
+  <div class="webchat-overlay" id="webchatOverlay">
+    <div class="webchat-box">
+      <button class="close" id="cerrarWebchatOverlay">×</button>
+      <h2 class="oasis-title">Tu <span>Webchat</span> de Atención</h2>
+      <p class="oasis-text">Desde aquí nos podés escribir. Tocá el botón para abrir el chat.</p>
+      <button class="cta webchat-btn" id="abrirChatAhora">Escribir en Webchat</button>
+      <p class="webchat-helper active">👉 El chat se abre en la esquina inferior derecha.</p>
     </div>
   </div>
 
@@ -462,7 +494,6 @@
 
     function cargarNumerosOasis() {
       grid.innerHTML = "";
-
       const seleccion = mezclar(TODOS_LOS_NUMEROS).slice(0, MAX_LINEAS);
 
       seleccion.forEach((num, i) => {
@@ -517,22 +548,38 @@
 
     botonWebchat.addEventListener("click", function () {
       mostrarGuiaWebchat();
-
-      const popup = window.open(
-        "",
-        "wins_webchat_window",
-        "popup=yes,width=420,height=760,top=80,left=120,resizable=yes,scrollbars=yes"
-      );
-
-      if (!popup) {
-        return;
-      }
-
-      popup.document.open();
-      popup.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>WINS CRUPIERS | Webchat</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#090303;color:#ffd36b;font-family:Arial,Helvetica,sans-serif;}</style></head><body><div>Abriendo webchat...</div><script>window.callbellSettings={uuid:"${window.callbellSettings.uuid}",script_token:"${window.callbellSettings.script_token}"};(function(){var w=window;var d=document;var l=function(){var s=d.createElement('script');s.async=true;s.src='https://dash.callbell.eu/include/livechat/'+window.callbellSettings.script_token+'/'+window.callbellSettings.uuid+'.js';s.onload=function(){var i=0;var a=function(){i++;if(typeof window.Callbell==='function'){window.Callbell('open_chat');return;}if(i<30){setTimeout(a,200);}};a();};var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};w.addEventListener('load',l,false);})();<\/script></body></html>`);
-      popup.document.close();
+      document.getElementById("webchatOverlay").classList.add("active");
     });
 
+    document.getElementById("cerrarWebchatOverlay").addEventListener("click", function () {
+      document.getElementById("webchatOverlay").classList.remove("active");
+    });
+
+    document.getElementById("webchatOverlay").addEventListener("click", function (e) {
+      if (e.target.id === "webchatOverlay") {
+        document.getElementById("webchatOverlay").classList.remove("active");
+      }
+    });
+
+    document.getElementById("abrirChatAhora").addEventListener("click", function () {
+      const comandos = ["open_chat", "openChat", "show", "open"];
+      let abierto = false;
+
+      const apis = [window.Callbell, window.callbell];
+      for (const api of apis) {
+        if (typeof api !== "function") continue;
+        for (const cmd of comandos) {
+          try { api(cmd); abierto = true; break; } catch (e) {}
+        }
+        if (abierto) break;
+      }
+
+      document.body.classList.add("webchat-visible");
+      if (!abierto) {
+        const launcher = document.querySelector('[id*="callbell"], [class*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
+        if (launcher) launcher.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
+      }
+    });
   </script>
 
   <!-- Start of Async Callbell Code -->
@@ -558,6 +605,5 @@
     })();
   </script>
   <!-- End of Async Callbell Code -->
-
 </body>
 </html>
