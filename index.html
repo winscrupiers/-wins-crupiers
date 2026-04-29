@@ -352,7 +352,7 @@
     </div>
   </div>
 
-  <script>
+<script>
 const TODOS_LOS_NUMEROS = [
 "595993428272","595993600664","595993531681","595994148120",
 "595992683436","595992105336","595992693270","595994185084",
@@ -368,50 +368,41 @@ const TODOS_LOS_NUMEROS = [
 const MAX_LINEAS = 6;
 const grid = document.getElementById("grid");
 
-// 🔀 shuffle PRO (mezcla real)
 function mezclar(array){
-  return array
-    .map(a => [Math.random(), a])
-    .sort((a,b) => a[0]-b[0])
-    .map(a => a[1]);
+  return [...array].sort(() => Math.random() - 0.5);
 }
 
-// 🎯 elegimos solo 6 números distintos cada vez
-const numerosSeleccionados = mezclar(TODOS_LOS_NUMEROS).slice(0, MAX_LINEAS);
+function cargarNumerosOasis(){
+  grid.innerHTML = "";
 
-// 🧠 guardamos sesión (opcional pero PRO)
-if(!sessionStorage.getItem("wins_numeros")){
-  sessionStorage.setItem("wins_numeros", JSON.stringify(numerosSeleccionados));
+  const numerosSeleccionados = mezclar(TODOS_LOS_NUMEROS).slice(0, MAX_LINEAS);
+
+  numerosSeleccionados.forEach((num, i) => {
+    const visible = "+" + num.slice(0,3) + " " + num.slice(3,6) + " " + num.slice(6);
+
+    const a = document.createElement("a");
+    a.className = "oasis-card";
+    a.href = `https://wa.me/${num}?text=${encodeURIComponent("QUIERO20")}`;
+    a.target = "_blank";
+    a.rel = "noopener";
+
+    a.innerHTML = `
+      <div class="oasis-icon">☎</div>
+      <div>
+        <div class="oasis-label">LÍNEA VIP ${i + 1}</div>
+        <div class="oasis-number">${visible}</div>
+      </div>
+    `;
+
+    grid.appendChild(a);
+  });
 }
 
-const numerosFinales = JSON.parse(sessionStorage.getItem("wins_numeros"));
-
-// 🧩 render
-numerosFinales.forEach((num, i) => {
-  const visible = "+" + num.slice(0,3) + " " + num.slice(3,6) + " " + num.slice(6);
-
-  const a = document.createElement("a");
-  a.className = "oasis-card";
-  a.href = `https://wa.me/${num}?text=${encodeURIComponent("QUIERO20")}`;
-  a.target = "_blank";
-
-  a.innerHTML = `
-    <div class="oasis-icon">☏</div>
-    <div>
-      <div class="oasis-label">LÍNEA VIP ${i + 1}</div>
-      <div class="oasis-number">${visible}</div>
-    </div>
-  `;
-
-  grid.appendChild(a);
-});
-
-// abrir oasis
 document.getElementById("abrirOasis").onclick = () => {
+  cargarNumerosOasis();
   document.getElementById("oasis").classList.add("active");
 };
 
-// cerrar
 document.getElementById("cerrar").onclick = () => {
   document.getElementById("oasis").classList.remove("active");
 };
