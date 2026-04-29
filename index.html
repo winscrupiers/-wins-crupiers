@@ -299,6 +299,46 @@
       font-size: 15px;
     }
 
+    .webchat-helper {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 211, 107, 0.35);
+      background: rgba(255, 211, 107, 0.08);
+      color: #ffe8b5;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .webchat-helper.active {
+      display: block;
+      animation: pulseGlow 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 0 rgba(255,211,107,0.0); }
+      to { box-shadow: 0 0 18px rgba(255,211,107,0.35); }
+    }
+
+    [id*="callbell"],
+    [class*="callbell"],
+    iframe[src*="callbell"],
+    iframe[src*="livechat"] {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transition: opacity .2s ease;
+    }
+
+    body.webchat-visible [id*="callbell"],
+    body.webchat-visible [class*="callbell"],
+    body.webchat-visible iframe[src*="callbell"],
+    body.webchat-visible iframe[src*="livechat"] {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
     @media(max-width:720px){
       .oasis-grid {
         grid-template-columns: 1fr;
@@ -339,6 +379,8 @@
       <button class="cta" id="abrirOasis">Reclamar por WhatsApp</button>
 
       <button class="cta webchat-btn" id="abrirWebchat">Abrir Webchat</button>
+
+      <div class="webchat-helper" id="webchatHelper">👉 Desde aquí nos podés escribir en el webchat.</div>
 
       <p class="note">
         Beneficio sujeto a disponibilidad. Reclamable únicamente por WhatsApp o Webchat.
@@ -421,13 +463,41 @@
     });
 
     const botonWebchat = document.getElementById("abrirWebchat");
+    const webchatHelper = document.getElementById("webchatHelper");
+
+    function abrirCallbellSiExiste() {
+      const comandos = ["open_chat", "openChat", "show", "open"];
+      const apis = [window.Callbell, window.callbell];
+
+      for (const api of apis) {
+        if (typeof api !== "function") continue;
+        for (const cmd of comandos) {
+          try {
+            api(cmd);
+            return true;
+          } catch (error) {}
+        }
+      }
+      return false;
+    }
+
+    function mostrarWebchatGuiado() {
+      document.body.classList.add("webchat-visible");
+      webchatHelper.classList.add("active");
+
+      setTimeout(function () {
+        const abierto = abrirCallbellSiExiste();
+        if (!abierto) {
+          const launcher = document.querySelector('[id*="callbell"], [class*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
+          if (launcher) {
+            launcher.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
+          }
+        }
+      }, 300);
+    }
 
     botonWebchat.addEventListener("click", function () {
-      const webchatUrl = "webchat.html";
-      const popup = window.open(webchatUrl, "_blank", "noopener,noreferrer");
-      if (!popup) {
-        window.location.href = webchatUrl;
-      }
+      mostrarWebchatGuiado();
     });
   </script>
 
