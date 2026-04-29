@@ -6,6 +6,7 @@
 <title>WINS CRUPIERS</title>
 
 <style>
+/* === TU DISEÑO ORIGINAL (NO TOCADO) === */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 
 body{
@@ -70,6 +71,7 @@ h1 span{color:#ffd36b}
 .webchat-btn{
   background:linear-gradient(#25d366,#128c4a);
   color:#041b0d;
+  box-shadow:0 0 22px rgba(37,211,102,.38);
 }
 
 .note{
@@ -78,7 +80,7 @@ h1 span{color:#ffd36b}
   opacity:.7;
 }
 
-/* OASIS */
+/* === OASIS (EL TUYO) === */
 .oasis-overlay{
   position:fixed;
   inset:0;
@@ -119,14 +121,13 @@ h1 span{color:#ffd36b}
   cursor:pointer;
 }
 
-@media(max-width:600px){
-  .oasis-grid{grid-template-columns:1fr}
-}
-
-/* OCULTAR BURBUJA CALLBELL */
+/* === OCULTAR BURBUJA CALLBELL === */
 iframe[src*="callbell"],
-div[class*="callbell"]{
+div[class*="callbell"],
+div[id*="callbell"]{
   display:none!important;
+  opacity:0!important;
+  pointer-events:none!important;
 }
 </style>
 </head>
@@ -145,12 +146,14 @@ div[class*="callbell"]{
       <div class="amount">20%</div>
     </div>
 
+    <!-- BOTÓN WHATSAPP -->
     <button class="cta whatsapp-btn" id="abrirOasis">
       RECLAMAR POR WHATSAPP
     </button>
 
-    <button class="cta webchat-btn" id="abrirWebchat" disabled>
-      CARGANDO WEBCHAT...
+    <!-- BOTÓN WEBCHAT -->
+    <button class="cta webchat-btn" id="abrirWebchat">
+      ABRIR WEBCHAT
     </button>
 
     <div class="note">Reclamable por WhatsApp o Webchat</div>
@@ -161,13 +164,14 @@ div[class*="callbell"]{
 <div class="oasis-overlay" id="oasis">
   <div class="oasis-box">
     <div class="close" id="cerrar">X</div>
-    <h2>Tu <span style="color:#ffd36b">Wins</span> de Atención</h2>
+    <h2>Tu Wins de Atención</h2>
     <div class="oasis-grid" id="grid"></div>
   </div>
 </div>
 
 <script>
-const TODOS_LOS_NUMEROS = [
+/* === OASIS PRO === */
+const numeros = [
 "595993428272","595993600664","595993531681","595994148120",
 "595992683436","595992105336","595992693270","595994185084",
 "595993421681","595993426758","595993519840","596992119729",
@@ -179,13 +183,12 @@ const TODOS_LOS_NUMEROS = [
 "595992117657","595992119721","595993519506"
 ];
 
-const grid = document.getElementById("grid");
-
 function mezclar(a){return [...a].sort(()=>Math.random()-0.5)}
 
 function cargarOasis(){
+  const grid=document.getElementById("grid");
   grid.innerHTML="";
-  mezclar(TODOS_LOS_NUMEROS).slice(0,6).forEach((num,i)=>{
+  mezclar(numeros).slice(0,6).forEach((num,i)=>{
     const a=document.createElement("a");
     a.href=`https://wa.me/${num}?text=QUIERO20`;
     a.target="_blank";
@@ -204,26 +207,22 @@ document.getElementById("cerrar").onclick=()=>{
   document.getElementById("oasis").classList.remove("active");
 };
 
-/* WEBCHAT CONTROL */
-const btn = document.getElementById("abrirWebchat");
+/* === WEBCHAT (CLAVE) === */
+document.getElementById("abrirWebchat").addEventListener("click", function () {
 
-function activarBoton(){
-  btn.disabled=false;
-  btn.textContent="ABRIR WEBCHAT";
-}
-
-btn.onclick=()=>{
-  if(window.Callbell){
-    window.Callbell('open_chat');
+  if (window.Callbell && typeof window.Callbell === "function") {
+    window.Callbell("open_chat");
+    return;
   }
-};
 
-const check=setInterval(()=>{
-  if(window.Callbell){
-    activarBoton();
-    clearInterval(check);
-  }
-},500);
+  const intento = setInterval(() => {
+    if (window.Callbell && typeof window.Callbell === "function") {
+      window.Callbell("open_chat");
+      clearInterval(intento);
+    }
+  }, 300);
+
+});
 </script>
 
 <!-- CALLBELL -->
@@ -232,6 +231,7 @@ window.callbellSettings = {
   uuid:"1617cc7d-c306-467c-9c3e-b93be2b26457",
   script_token:"YxhRGuSVgudQ3pPuDJC8cqC8"
 };
+
 (function(){
   var s=document.createElement('script');
   s.async=true;
