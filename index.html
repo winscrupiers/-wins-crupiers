@@ -1476,7 +1476,7 @@
       const popup = window.open(
         "",
         "wins_webchat_window",
-        "popup=yes,width=500,height=450,top=80,left=120,resizable=yes,scrollbars=no"
+        "popup=yes,width=320,height=560,top=80,left=120,resizable=yes,scrollbars=no"
       );
 
       if (!popup) {
@@ -1565,10 +1565,10 @@
 
   .panel{
     position:relative;
-    width:100%;
-    max-width:440px;
-    padding:18px 18px 20px;
-    border-radius:22px;
+    width:min(320px, calc(100vw - 28px));
+    max-width:320px;
+    padding:16px 14px 18px;
+    border-radius:20px;
     text-align:center;
     background:
       radial-gradient(circle at top, rgba(255,211,107,.09), transparent 32%),
@@ -1673,16 +1673,16 @@
 
   .webchat-guide{
     position:absolute;
-    right:70px;
-    bottom:18px;
+    right:56px;
+    bottom:16px;
     z-index:4;
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:8px;
   }
 
   .guide-label{
-    padding:9px 12px;
+    padding:8px 10px;
     border-radius:12px;
     border:1px solid rgba(255,211,107,.42);
     background:rgba(0,0,0,.62);
@@ -1732,12 +1732,13 @@
 
   @media (max-width: 520px){
     .wrap{
-      padding:12px 12px 70px;
+      padding:12px 10px 70px;
       align-items:flex-start;
     }
     .panel{
       margin-top:0;
-      max-width:100%;
+      width:min(320px, calc(100vw - 20px));
+      max-width:320px;
       padding:16px 14px 18px;
       border-radius:20px;
     }
@@ -1816,8 +1817,8 @@
       <p class="desc">Abrí el chat y escribinos directamente desde el globo señalado. Atención rápida, simple y en el formato de WINS.</p>
 
       <div class="steps">
-        <div class="step"><div class="num">1</div><div>Buscá el globo abajo a la derecha.</div></div>
-        <div class="step"><div class="num">2</div><div>Tocá el botón del webchat.</div></div>
+        <div class="step"><div class="num">1</div><div>Tocá el botón del webchat.</div></div>
+        <div class="step"><div class="num">2</div><div>Buscá el globo abajo a la derecha.</div></div>
         <div class="step"><div class="num">3</div><div>Escribinos y activamos tu atención.</div></div>
       </div>
     </div>
