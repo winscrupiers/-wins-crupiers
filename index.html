@@ -194,7 +194,8 @@
       color: rgba(255,255,255,0.52);
     }
 
-    .oasis-overlay {
+    .oasis-overlay,
+    .webchat-overlay {
       position: fixed;
       inset: 0;
       display: none;
@@ -206,11 +207,13 @@
       padding: 18px;
     }
 
-    .oasis-overlay.active {
+    .oasis-overlay.active,
+    .webchat-overlay.active {
       display: flex;
     }
 
-    .oasis-box {
+    .oasis-box,
+    .webchat-box {
       width: min(920px, 100%);
       max-height: 92vh;
       overflow: auto;
@@ -223,6 +226,10 @@
       padding: 38px 26px;
       text-align: center;
       position: relative;
+    }
+
+    .webchat-box {
+      width: min(520px, 100%);
     }
 
     .close {
@@ -255,6 +262,7 @@
       color: #f8e9c9;
       font-size: 15px;
       margin-bottom: 24px;
+      line-height: 1.4;
     }
 
     .oasis-grid {
@@ -299,6 +307,24 @@
       font-size: 15px;
     }
 
+    .webchat-helper {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 211, 107, 0.35);
+      background: rgba(255, 211, 107, 0.08);
+      color: #ffe8b5;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 700;
+      animation: pulseGlow 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 0 rgba(255,211,107,0.0); }
+      to { box-shadow: 0 0 18px rgba(255,211,107,0.35); }
+    }
+
     .webchat-glow {
       display: none;
       position: fixed;
@@ -321,88 +347,6 @@
     @keyframes glowPulse {
       from { opacity: .55; transform: scale(0.92); }
       to { opacity: .95; transform: scale(1.05); }
-    }
-
-    .webchat-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,.82);
-      backdrop-filter: blur(8px);
-      z-index: 10000;
-      padding: 18px;
-    }
-
-    .webchat-overlay.active { display: flex; }
-
-    .webchat-box {
-      width: min(520px, 100%);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 210, 110, 0.35);
-      background: linear-gradient(180deg, rgba(20, 5, 5, 0.98), rgba(7, 4, 4, 0.98));
-      box-shadow: 0 0 42px rgba(255, 191, 64, 0.18);
-      padding: 28px 22px;
-      text-align: center;
-      position: relative;
-    }
-
-    .webchat-helper {
-      display: none;
-      margin-top: 12px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 211, 107, 0.35);
-      background: rgba(255, 211, 107, 0.08);
-      color: #ffe8b5;
-      font-size: 13px;
-      line-height: 1.35;
-      font-weight: 700;
-    }
-
-    .webchat-pointer {
-      display: none;
-      position: fixed;
-      right: 140px;
-      bottom: 62px;
-      z-index: 10000;
-      align-items: center;
-      gap: 10px;
-      background: rgba(0,0,0,0.78);
-      border: 1px solid rgba(255,211,107,.4);
-      border-radius: 14px;
-      padding: 10px 12px;
-    }
-
-    .webchat-pointer.active { display: flex; }
-
-    .pointer-arrow {
-      font-size: 28px;
-      color: #ffd36b;
-      animation: arrowPulse .8s infinite alternate;
-    }
-
-    .pointer-text {
-      color: #ffd36b;
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: .4px;
-    }
-
-    @keyframes arrowPulse {
-      from { transform: translateX(0); }
-      to { transform: translateX(6px);}
-    }
-
-    .webchat-helper.active {
-      display: block;
-      animation: pulseGlow 1.2s ease-in-out infinite alternate;
-    }
-
-    @keyframes pulseGlow {
-      from { box-shadow: 0 0 0 rgba(255,211,107,0.0); }
-      to { box-shadow: 0 0 18px rgba(255,211,107,0.35); }
     }
 
     [id*="callbell"],
@@ -463,13 +407,6 @@
 
       <button class="cta webchat-btn" id="abrirWebchat">Abrir Webchat</button>
 
-      <div class="webchat-helper" id="webchatHelper">👉 Desde aquí nos podés escribir en el webchat.</div>
-
-      <div class="webchat-pointer" id="webchatPointer">
-        <div class="pointer-arrow">➜</div>
-        <div class="pointer-text">PERFECTO, ESCRIBANOS AQUÍ</div>
-      </div>
-
       <p class="note">
         Beneficio sujeto a disponibilidad. Reclamable únicamente por WhatsApp o Webchat.
       </p>
@@ -492,10 +429,18 @@
   <div class="webchat-overlay" id="webchatOverlay">
     <div class="webchat-box">
       <button class="close" id="cerrarWebchatOverlay">×</button>
+
       <h2 class="oasis-title">Tu <span>Webchat</span> de Atención</h2>
-      <p class="oasis-text">PERFECTO, ESCRIBANOS AQUÍ. La flecha señala el globo del webchat.</p>
+
+      <p class="oasis-text">
+        PERFECTO, ESCRÍBANOS AQUÍ.
+      </p>
+
       <button class="cta webchat-btn" id="abrirChatAhora">Escribir en Webchat</button>
-      <p class="webchat-helper active">👉 PERFECTO, ESCRIBANOS AQUÍ.</p>
+
+      <p class="webchat-helper">
+        👉 Tocá el botón y escribinos desde el globo del webchat.
+      </p>
     </div>
   </div>
 
@@ -562,36 +507,13 @@
       }
     });
 
-    const botonWebchat = document.getElementById("abrirWebchat");
-    const webchatHelper = document.getElementById("webchatHelper");
-    const webchatPointer = document.getElementById("webchatPointer");
-
-    function mostrarGuiaWebchat() {
+    document.getElementById("abrirWebchat").addEventListener("click", function () {
+      document.getElementById("webchatOverlay").classList.add("active");
       document.body.classList.add("webchat-visible");
-      webchatHelper.classList.add("active");
-      webchatPointer.classList.add("active");
+    });
 
-      setTimeout(function () {
-        webchatPointer.classList.remove("active");
-      }, 8000);
-    }
-
-    botonWebchat.addEventListener("click", function () {
-      mostrarGuiaWebchat();
-
-      const popup = window.open(
-        "",
-        "wins_webchat_window",
-        "popup=yes,width=420,height=760,top=80,left=120,resizable=yes,scrollbars=no"
-      );
-
-      if (!popup) {
-        return;
-      }
-
-      popup.document.open();
-      popup.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>WINS CRUPIERS | Webchat</title><style>body{margin:0;min-height:100vh;background:#090303;color:#ffd36b;font-family:Arial,Helvetica,sans-serif;position:relative;overflow:hidden}.msg{position:absolute;left:50%;top:35%;transform:translateX(-50%);font-size:28px;font-weight:900;text-align:center;line-height:1.2}.arrow{position:absolute;right:88px;bottom:62px;font-size:38px;color:#ffd36b;animation:a .8s infinite alternate}.text{position:absolute;right:130px;bottom:70px;background:rgba(0,0,0,.65);padding:8px 10px;border-radius:10px;border:1px solid rgba(255,211,107,.5);font-weight:800}@keyframes a{from{transform:translateX(0)}to{transform:translateX(8px)}}.g{position:absolute;right:18px;bottom:16px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,211,107,.55),rgba(255,211,107,.08) 55%,transparent 75%);filter:blur(6px);z-index:0}</style></head><body><div class="msg">PERFECTO,<br/>ESCRIBANOS AQUÍ</div><div class="text">ESCRIBA AQUÍ</div><div class="arrow">➜</div><div class="g"></div><script>window.callbellSettings={uuid:"${window.callbellSettings.uuid}",script_token:"${window.callbellSettings.script_token}"};(function(){var w=window;var d=document;var l=function(){var s=d.createElement('script');s.async=true;s.src='https://dash.callbell.eu/include/livechat/'+window.callbellSettings.script_token+'/'+window.callbellSettings.uuid+'.js';s.onload=function(){var i=0;var a=function(){i++;if(typeof window.Callbell==='function'){window.Callbell('open_chat');return;}if(i<30){setTimeout(a,200);}};a();};var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};w.addEventListener('load',l,false);})();<\/script></body></html>`);
-      popup.document.close();
+    document.getElementById("cerrarWebchatOverlay").addEventListener("click", function () {
+      document.getElementById("webchatOverlay").classList.remove("active");
     });
 
     document.getElementById("webchatOverlay").addEventListener("click", function (e) {
@@ -601,25 +523,39 @@
     });
 
     document.getElementById("abrirChatAhora").addEventListener("click", function () {
+      document.body.classList.add("webchat-visible");
+
       const comandos = ["open_chat", "openChat", "show", "open"];
       let abierto = false;
 
       const apis = [window.Callbell, window.callbell];
+
       for (const api of apis) {
         if (typeof api !== "function") continue;
+
         for (const cmd of comandos) {
-          try { api(cmd); abierto = true; break; } catch (e) {}
+          try {
+            api(cmd);
+            abierto = true;
+            break;
+          } catch (e) {}
         }
+
         if (abierto) break;
       }
 
-      document.body.classList.add("webchat-visible");
       if (!abierto) {
         const launcher = document.querySelector('[id*="callbell"], [class*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
-        if (launcher) launcher.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
+
+        if (launcher) {
+          launcher.dispatchEvent(new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+            view: window
+          }));
+        }
       }
     });
-
   </script>
 
   <!-- Start of Async Callbell Code -->
@@ -627,20 +563,25 @@
     if (!window.callbellSettings) {
       window.callbellSettings = {};
     }
+
     window.callbellSettings["uuid"] = "1617cc7d-c306-467c-9c3e-b93be2b26457";
     window.callbellSettings["script_token"] = "YxhRGuSVgudQ3pPuDJC8cqC8";
   </script>
+
   <script>
     (function(){
       var w = window;
       var d = document;
+
       var l = function(){
         var s = d.createElement("script");
         s.async = true;
         s.src = "https://dash.callbell.eu/include/livechat/" + window.callbellSettings.script_token + "/" + window.callbellSettings.uuid + ".js";
+
         var x = d.getElementsByTagName("script")[0];
         x.parentNode.insertBefore(s, x);
       };
+
       w.addEventListener("load", l, false);
     })();
   </script>
