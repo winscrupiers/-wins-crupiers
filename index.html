@@ -30,11 +30,9 @@
 
     /* =========================================================
        MODO ESTUDIO CINE
-       Fondo con 2 videos en bucle + transición suave.
+       Fondo con video de casino desde link en bucle.
        Tu interfaz original queda intacta.
-       En GitHub subí:
-       video1.mp4
-       video2.mp4
+       No necesitás subir videos a GitHub.
        ========================================================= */
 
     .cinema-video-bg {
@@ -667,8 +665,9 @@
   <div class="video-loading-fallback"></div>
 
   <div class="cinema-video-bg" aria-hidden="true">
-    <video id="cinemaVideoA" muted playsinline preload="auto"></video>
-    <video id="cinemaVideoB" muted playsinline preload="auto"></video>
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto" class="active">
+      <source src="https://cdn.coverr.co/videos/coverr-casino-chips-5171/1080p.mp4" type="video/mp4">
+    </video>
   </div>
 
   <div class="cinema-color-grade"></div>
@@ -876,100 +875,18 @@
   </script>
 
 
+
   <script>
-    /*
-      MODO ESTUDIO CINE:
-      Renombrá tus videos en GitHub así:
-      - video1.mp4
-      - video2.mp4
+    const bgVideo = document.getElementById("bgVideo");
 
-      El cambio se hace con crossfade natural antes de que termine cada video.
-    */
-    const cinemaVideos = ["video1.mp4", "video2.mp4"];
-    const cinemaA = document.getElementById("cinemaVideoA");
-    const cinemaB = document.getElementById("cinemaVideoB");
-
-    let cinemaIndex = 0;
-    let activeCinema = cinemaA;
-    let nextCinema = cinemaB;
-    let isCinemaSwitching = false;
-
-    function safePlay(video) {
-      const playPromise = video.play();
-      if (playPromise && typeof playPromise.catch === "function") {
-        playPromise.catch(function () {});
-      }
-    }
-
-    function prepareCinemaVideo(video, src) {
-      if (!video.src.endsWith(src)) {
-        video.src = src;
-      }
-      video.muted = true;
-      video.playsInline = true;
-      video.setAttribute("playsinline", "");
-      video.setAttribute("muted", "");
-      video.preload = "auto";
-    }
-
-    function startCinemaMode() {
-      prepareCinemaVideo(activeCinema, cinemaVideos[cinemaIndex]);
-      activeCinema.classList.add("active");
-      safePlay(activeCinema);
-
-      prepareCinemaVideo(nextCinema, cinemaVideos[(cinemaIndex + 1) % cinemaVideos.length]);
-      nextCinema.load();
-    }
-
-    function switchCinemaScene() {
-      if (isCinemaSwitching) return;
-      isCinemaSwitching = true;
-
-      cinemaIndex = (cinemaIndex + 1) % cinemaVideos.length;
-
-      prepareCinemaVideo(nextCinema, cinemaVideos[cinemaIndex]);
-      nextCinema.currentTime = 0;
-      safePlay(nextCinema);
-
-      requestAnimationFrame(function () {
-        nextCinema.classList.add("active");
-        activeCinema.classList.remove("active");
+    if (bgVideo) {
+      bgVideo.muted = true;
+      bgVideo.play().catch(function () {
+        document.body.addEventListener("click", function () {
+          bgVideo.play();
+        }, { once: true });
       });
-
-      setTimeout(function () {
-        activeCinema.pause();
-
-        const temp = activeCinema;
-        activeCinema = nextCinema;
-        nextCinema = temp;
-
-        prepareCinemaVideo(nextCinema, cinemaVideos[(cinemaIndex + 1) % cinemaVideos.length]);
-        nextCinema.load();
-
-        isCinemaSwitching = false;
-      }, 1750);
     }
-
-    function monitorCinemaVideo() {
-      if (!activeCinema.duration || isCinemaSwitching) return;
-      const remaining = activeCinema.duration - activeCinema.currentTime;
-
-      if (remaining <= 1.75) {
-        switchCinemaScene();
-      }
-    }
-
-    cinemaA.addEventListener("timeupdate", monitorCinemaVideo);
-    cinemaB.addEventListener("timeupdate", monitorCinemaVideo);
-
-    cinemaA.addEventListener("ended", switchCinemaScene);
-    cinemaB.addEventListener("ended", switchCinemaScene);
-
-    document.addEventListener("visibilitychange", function () {
-      if (!document.hidden) safePlay(activeCinema);
-    });
-
-    startCinemaMode();
   </script>
 
   <!-- Start of Async Callbell Code -->
