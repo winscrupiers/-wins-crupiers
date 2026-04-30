@@ -24,6 +24,75 @@
       justify-content: center;
       padding: 22px;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(255, 211, 107, .16), transparent 28%),
+        radial-gradient(circle at 20% 20%, rgba(120, 0, 0, .55), transparent 28%),
+        radial-gradient(circle at 80% 80%, rgba(255, 185, 55, .10), transparent 32%),
+        linear-gradient(145deg, #020101 0%, #120303 40%, #360606 72%, #050101 100%);
+      animation: casinoGlowMove 8s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background-image:
+        linear-gradient(115deg, transparent 0%, rgba(255, 211, 107, .08) 48%, transparent 58%),
+        repeating-radial-gradient(circle at center, rgba(255,211,107,.045) 0 1px, transparent 1px 18px);
+      opacity: .75;
+      animation: casinoLightSweep 7s ease-in-out infinite;
+    }
+
+    @keyframes casinoGlowMove {
+      from { filter: brightness(.95); transform: scale(1); }
+      to { filter: brightness(1.15); transform: scale(1.04); }
+    }
+
+    @keyframes casinoLightSweep {
+      0% { transform: translateX(-18%); opacity: .35; }
+      50% { opacity: .85; }
+      100% { transform: translateX(18%); opacity: .35; }
+    }
+
+    .casino-symbols {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .casino-symbols span {
+      position: absolute;
+      bottom: -80px;
+      color: rgba(255, 211, 107, .22);
+      font-size: 34px;
+      text-shadow: 0 0 18px rgba(255, 211, 107, .35);
+      animation: casinoFloat 14s linear infinite;
+    }
+
+    .casino-symbols span:nth-child(1) { left: 8%; animation-delay: 0s; animation-duration: 15s; }
+    .casino-symbols span:nth-child(2) { left: 24%; animation-delay: 3s; animation-duration: 18s; }
+    .casino-symbols span:nth-child(3) { left: 42%; animation-delay: 1s; animation-duration: 16s; }
+    .casino-symbols span:nth-child(4) { left: 61%; animation-delay: 4s; animation-duration: 19s; }
+    .casino-symbols span:nth-child(5) { left: 77%; animation-delay: 2s; animation-duration: 17s; font-size: 24px; }
+    .casino-symbols span:nth-child(6) { left: 90%; animation-delay: 5s; animation-duration: 20s; }
+
+    @keyframes casinoFloat {
+      0% { transform: translateY(0) rotate(0deg) scale(.75); opacity: 0; }
+      15% { opacity: .45; }
+      80% { opacity: .28; }
+      100% { transform: translateY(-115vh) rotate(160deg) scale(1.15); opacity: 0; }
     }
 
     .page {
@@ -49,35 +118,53 @@
       z-index: 1;
       border: 1px solid rgba(255, 210, 110, 0.35);
       border-radius: 28px;
-      background: linear-gradient(180deg, rgba(20, 5, 5, 0.95), rgba(7, 4, 4, 0.96));
-      box-shadow: 0 0 40px rgba(255, 191, 64, 0.13), inset 0 0 28px rgba(255, 211, 100, 0.06);
+      background:
+        radial-gradient(circle at top, rgba(255, 211, 107, 0.08), transparent 34%),
+        linear-gradient(180deg, rgba(20, 5, 5, 0.95), rgba(7, 4, 4, 0.96));
+      box-shadow:
+        0 0 40px rgba(255, 191, 64, 0.13),
+        inset 0 0 28px rgba(255, 211, 100, 0.06);
       padding: 28px 22px;
       text-align: center;
       overflow: hidden;
+      backdrop-filter: blur(7px);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(120deg, transparent, rgba(255,211,107,.16), transparent);
+      transform: translateX(-120%);
+      animation: cardShine 5.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes cardShine {
+      0%, 55% { transform: translateX(-120%); }
+      100% { transform: translateX(120%); }
     }
 
     .brand {
       margin-bottom: 18px;
+      position: relative;
+      z-index: 2;
     }
 
-    .brand .wins {
-      font-size: 42px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #b70f12;
-      text-shadow:
-        0 2px 0 #ffd36b,
-        0 0 14px rgba(255, 202, 82, 0.65),
-        0 0 32px rgba(183, 15, 18, 0.65);
+    .brand-logo {
+      width: 100%;
+      max-width: 260px;
+      display: block;
+      margin: 0 auto;
+      filter:
+        drop-shadow(0 0 14px rgba(255, 211, 107, .55))
+        drop-shadow(0 0 28px rgba(183, 15, 18, .45));
+      animation: logoBreath 2.8s ease-in-out infinite alternate;
     }
 
-    .brand .crupiers {
-      font-size: 22px;
-      font-family: Georgia, serif;
-      font-style: italic;
-      color: #ffd36b;
-      margin-top: -4px;
-      text-shadow: 0 0 12px rgba(255, 200, 80, 0.55);
+    @keyframes logoBreath {
+      from { transform: scale(1); }
+      to { transform: scale(1.035); }
     }
 
     .badge {
@@ -98,6 +185,8 @@
       line-height: 1.05;
       margin-bottom: 16px;
       text-transform: uppercase;
+      position: relative;
+      z-index: 2;
     }
 
     h1 span {
@@ -109,8 +198,12 @@
       margin: 20px 0;
       padding: 18px 14px;
       border-radius: 22px;
-      background: linear-gradient(180deg, rgba(112, 10, 10, 0.45), rgba(35, 5, 5, 0.7));
+      background:
+        radial-gradient(circle at center, rgba(255,211,107,.10), transparent 58%),
+        linear-gradient(180deg, rgba(112, 10, 10, 0.45), rgba(35, 5, 5, 0.7));
       border: 1px solid rgba(255, 211, 107, 0.28);
+      position: relative;
+      z-index: 2;
     }
 
     .amount-label {
@@ -133,6 +226,8 @@
       color: #f8e9c9;
       line-height: 1.45;
       margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
     }
 
     .steps {
@@ -140,6 +235,8 @@
       gap: 10px;
       margin: 20px 0 22px;
       text-align: left;
+      position: relative;
+      z-index: 2;
     }
 
     .step {
@@ -172,6 +269,14 @@
       text-transform: uppercase;
       box-shadow: 0 0 24px rgba(255, 204, 84, 0.42);
       margin-top: 10px;
+      position: relative;
+      z-index: 2;
+      transition: .22s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 34px rgba(255, 204, 84, 0.58);
     }
 
     .webchat-btn {
@@ -185,6 +290,8 @@
       font-size: 12px;
       color: rgba(255,255,255,0.56);
       line-height: 1.35;
+      position: relative;
+      z-index: 2;
     }
 
     .footer {
@@ -426,18 +533,30 @@
       .oasis-grid {
         grid-template-columns: 1fr;
       }
+
+      .brand-logo {
+        max-width: 235px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <div class="casino-symbols">
+    <span>♦</span>
+    <span>♠</span>
+    <span>♥</span>
+    <span>♣</span>
+    <span>●</span>
+    <span>◆</span>
+  </div>
+
   <main class="page">
     <div class="glow"></div>
 
     <section class="card">
       <div class="brand">
-        <div class="wins">WINS</div>
-        <div class="crupiers">Crupiers</div>
+        <img src="wins-logo.png" alt="WINS CRUPIERS" class="brand-logo">
       </div>
 
       <div class="badge">BENEFICIO ACTIVO POR TIEMPO LIMITADO</div>
