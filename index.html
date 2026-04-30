@@ -1276,6 +1276,184 @@
       text-shadow: none !important;
     }
 
+
+    /* =========================================================
+       NUEVA GUÍA WEBCHAT EN LA MISMA PÁGINA
+       Al entrar: globo oculto.
+       Al tocar Abrir Webchat: se oculta la interfaz principal
+       y aparece esta guía señalando el globo abajo a la derecha.
+       ========================================================= */
+
+    body.guia-webchat-activa .page {
+      display: none !important;
+    }
+
+    .webchat-guide-screen {
+      width: 100%;
+      max-width: 430px;
+      display: none;
+      position: relative;
+      z-index: 20;
+    }
+
+    body.guia-webchat-activa .webchat-guide-screen {
+      display: block;
+      animation: guideIn .28s ease-out both;
+    }
+
+    @keyframes guideIn {
+      from { opacity: 0; transform: translateY(12px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .guide-card {
+      position: relative;
+      border: 1px solid rgba(255, 210, 110, 0.46);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top, rgba(255, 211, 107, .10), transparent 34%),
+        linear-gradient(180deg, rgba(38, 4, 5, .97), rgba(9, 2, 2, .985));
+      box-shadow:
+        0 0 42px rgba(255, 191, 64, .16),
+        0 20px 50px rgba(0,0,0,.40),
+        inset 0 0 28px rgba(255, 211, 100, .07);
+      padding: 28px 22px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .guide-card::before {
+      content: "";
+      position: absolute;
+      inset: -40% -20% auto;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255,211,107,.14), transparent 60%);
+      pointer-events: none;
+    }
+
+    .guide-title {
+      font-size: 30px;
+      line-height: 1.05;
+      margin: 14px 0 12px;
+      text-transform: uppercase;
+      color: #ffe8a8;
+      position: relative;
+      z-index: 1;
+    }
+
+    .guide-title span {
+      color: #ffd36b;
+      text-shadow: 0 0 18px rgba(255, 211, 107, 0.5);
+    }
+
+    .guide-subtitle {
+      font-size: 15px;
+      color: #f8e9c9;
+      line-height: 1.45;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .guide-steps {
+      display: grid;
+      gap: 10px;
+      text-align: left;
+      margin: 18px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .guide-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(70, 6, 8, .58);
+      border: 1px solid rgba(255, 211, 107, .28);
+      border-radius: 15px;
+      padding: 12px;
+      color: #fff7e7;
+      font-size: 14px;
+    }
+
+    .guide-step-number {
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: #1b0707;
+      background: linear-gradient(180deg, #fff0b5 0%, #e5aa32 58%, #9b5d12 100%);
+      box-shadow: 0 0 14px rgba(255, 204, 84, 0.28);
+    }
+
+    .guide-mini-note {
+      margin-top: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.35;
+    }
+
+    .guide-pointer-fixed {
+      display: none;
+      position: fixed;
+      right: 92px;
+      bottom: 38px;
+      z-index: 10002;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    body.guia-webchat-activa .guide-pointer-fixed {
+      display: flex;
+    }
+
+    .guide-pointer-label {
+      padding: 9px 11px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,211,107,.46);
+      background: rgba(0,0,0,.76);
+      color: #ffd36b;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .3px;
+      box-shadow: 0 0 18px rgba(255,211,107,.16);
+      white-space: nowrap;
+    }
+
+    .guide-pointer-arrow {
+      font-size: 38px;
+      line-height: 1;
+      color: #ffd36b;
+      text-shadow: 0 0 18px rgba(255,211,107,.75);
+      animation: arrowPulse .8s infinite alternate;
+    }
+
+    body.guia-webchat-activa .webchat-glow {
+      display: block !important;
+      z-index: 10001;
+    }
+
+    @media(max-width:720px){
+      .guide-pointer-fixed {
+        right: 76px;
+        bottom: 36px;
+      }
+
+      .guide-pointer-label {
+        font-size: 12px;
+        padding: 8px 9px;
+      }
+
+      .guide-pointer-arrow {
+        font-size: 32px;
+      }
+    }
+
   </style>
 </head>
 
@@ -1378,6 +1556,38 @@
     <div class="footer">WINS CRUPIERS · Atención activa</div>
   </main>
 
+
+  <section class="webchat-guide-screen" id="webchatGuideScreen">
+    <div class="guide-card">
+      <div class="brand">
+        <div class="wins">WINS</div>
+        <div class="crupiers">Crupiers</div>
+      </div>
+
+      <div class="badge">WEBCHAT DE ATENCIÓN</div>
+
+      <h2 class="guide-title">Perfecto, <span>escribinos aquí</span></h2>
+
+      <p class="guide-subtitle">
+        El globo del webchat ya está habilitado. Mirá abajo a la derecha: lo dejamos marcado para que entres directo.
+      </p>
+
+      <div class="guide-steps">
+        <div class="guide-step"><div class="guide-step-number">1</div><div>Buscá el <b>globo señalado</b> abajo a la derecha.</div></div>
+        <div class="guide-step"><div class="guide-step-number">2</div><div>Tocá el globo y escribinos por el <b>webchat</b>.</div></div>
+        <div class="guide-step"><div class="guide-step-number">3</div><div>Te respondemos desde atención WINS.</div></div>
+      </div>
+
+      <button class="cta webchat-btn" id="abrirChatAhora">Abrir chat ahora</button>
+      <p class="guide-mini-note">Si no se abre automáticamente, tocá el globo marcado abajo a la derecha.</p>
+    </div>
+  </section>
+
+  <div class="guide-pointer-fixed" id="guidePointerFixed">
+    <div class="guide-pointer-label">ESCRIBÍ EN ESTE GLOBO</div>
+    <div class="guide-pointer-arrow">➜</div>
+  </div>
+
   <div class="oasis-overlay" id="oasis">
     <div class="oasis-box">
       <button class="close" id="cerrar">×</button>
@@ -1389,15 +1599,7 @@
     </div>
   </div>
 
-  <div class="webchat-overlay" id="webchatOverlay">
-    <div class="webchat-box">
-      <button class="close" id="cerrarWebchatOverlay">×</button>
-      <h2 class="oasis-title">Tu <span>Webchat</span> de Atención</h2>
-      <p class="oasis-text">PERFECTO, ESCRIBANOS AQUÍ. La flecha señala el globo del webchat.</p>
-      <button class="cta webchat-btn" id="abrirChatAhora">Escribir en Webchat</button>
-      <p class="webchat-helper active">👉 PERFECTO, ESCRIBANOS AQUÍ.</p>
-    </div>
-  </div>
+
 
   <div class="webchat-glow" id="webchatGlow"></div>
 
@@ -1463,439 +1665,55 @@
     });
 
     const botonWebchat = document.getElementById("abrirWebchat");
-    const webchatHelper = document.getElementById("webchatHelper");
-    const webchatPointer = document.getElementById("webchatPointer");
 
     function mostrarGuiaWebchat() {
       document.body.classList.add("webchat-visible");
+      document.body.classList.add("guia-webchat-activa");
+    }
+
+    function buscarLauncherCallbell() {
+      return document.querySelector(
+        '[id*="callbell"], [class*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]'
+      );
+    }
+
+    function abrirChatCallbell() {
+      const comandos = ["open_chat", "openChat", "show", "open"];
+      const apis = [window.Callbell, window.callbell];
+
+      for (const api of apis) {
+        if (typeof api !== "function") continue;
+
+        for (const cmd of comandos) {
+          try {
+            api(cmd);
+            return true;
+          } catch (e) {}
+        }
+      }
+
+      const launcher = buscarLauncherCallbell();
+      if (launcher) {
+        launcher.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
+        return true;
+      }
+
+      return false;
     }
 
     botonWebchat.addEventListener("click", function () {
       mostrarGuiaWebchat();
 
-      const popup = window.open(
-        "",
-        "wins_webchat_window",
-        "popup=yes,width=320,height=560,top=80,left=120,resizable=yes,scrollbars=no"
-      );
-
-      if (!popup) {
-        return;
-      }
-
-      popup.document.open();
-      popup.document.write(`<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>WINS CRUPIERS | Webchat</title>
-<style>
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    min-height:100vh;
-    font-family:Arial,Helvetica,sans-serif;
-    color:#ffe7ab;
-    overflow:hidden;
-    position:relative;
-    background:
-      radial-gradient(circle at 50% 16%, rgba(255,210,110,.12), transparent 24%),
-      radial-gradient(circle at 82% 86%, rgba(255,211,107,.16), transparent 15%),
-      linear-gradient(180deg, #140202 0%, #070101 100%);
-  }
-
-  /* Oculta cualquier resto del diseño anterior por si quedó en caché/markup viejo */
-  .focus-box, .focus-title, .focus-action, .mini-logo{
-    display:none !important;
-    visibility:hidden !important;
-    opacity:0 !important;
-  }
-
-  .bg-casino{
-    position:absolute;
-    inset:0;
-    background:
-      radial-gradient(circle at 20% 18%, rgba(120,0,0,.16), transparent 24%),
-      radial-gradient(circle at 80% 20%, rgba(255,211,107,.07), transparent 16%),
-      radial-gradient(circle at 50% 100%, rgba(255,211,107,.08), transparent 28%);
-    pointer-events:none;
-  }
-
-  .bg-casino::before{
-    content:"";
-    position:absolute;
-    inset:-20%;
-    background:
-      radial-gradient(circle at 15% 25%, rgba(255,255,255,.7) 0 1px, transparent 1px),
-      radial-gradient(circle at 78% 52%, rgba(255,255,255,.55) 0 1px, transparent 1px),
-      radial-gradient(circle at 62% 30%, rgba(255,255,255,.6) 0 1px, transparent 1px),
-      radial-gradient(circle at 34% 76%, rgba(255,255,255,.5) 0 1px, transparent 1px);
-    background-size: 120px 120px, 150px 150px, 180px 180px, 140px 140px;
-    opacity:.18;
-    animation: grain 10s linear infinite;
-  }
-
-  .bg-casino::after{
-    content:"";
-    position:absolute;
-    left:50%;
-    bottom:-160px;
-    transform:translateX(-50%);
-    width:420px;
-    height:220px;
-    border-radius:50%;
-    background:
-      radial-gradient(circle at center, rgba(255,211,107,.28), transparent 48%),
-      repeating-conic-gradient(from 0deg,
-        rgba(135,8,8,.72) 0deg 16deg,
-        rgba(15,5,5,.9) 16deg 32deg);
-    opacity:.20;
-    box-shadow: inset 0 0 20px rgba(0,0,0,.4), 0 0 36px rgba(255,211,107,.10);
-  }
-
-  .wrap{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    padding:14px 14px 78px;
-  }
-
-  .panel{
-    position:relative;
-    width:min(320px, calc(100vw - 28px));
-    max-width:320px;
-    padding:16px 14px 18px;
-    border-radius:20px;
-    text-align:center;
-    background:
-      radial-gradient(circle at top, rgba(255,211,107,.09), transparent 32%),
-      linear-gradient(180deg, rgba(38,4,5,.96), rgba(8,2,2,.98));
-    border:1px solid rgba(255,211,107,.38);
-    box-shadow:
-      0 0 36px rgba(255,191,64,.12),
-      0 18px 40px rgba(0,0,0,.35),
-      inset 0 0 28px rgba(255,211,107,.06);
-  }
-
-  .logo{
-    margin-bottom:10px;
-  }
-
-  .logo .wins{
-    font-size:27px;
-    font-weight:900;
-    letter-spacing:1.5px;
-    color:#b70f12;
-    text-shadow:
-      0 1px 0 #ffd36b,
-      0 0 10px rgba(255,211,107,.34),
-      0 0 18px rgba(183,15,18,.45);
-  }
-
-  .logo .crupiers{
-    margin-top:-4px;
-    font-size:13px;
-    font-family:Georgia,serif;
-    font-style:italic;
-    color:#ffd36b;
-  }
-
-  .badge{
-    display:inline-block;
-    margin-bottom:10px;
-    padding:6px 11px;
-    border-radius:999px;
-    border:1px solid rgba(255,211,107,.34);
-    background:rgba(94,9,10,.48);
-    color:#ffd36b;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:.7px;
-    text-transform:uppercase;
-  }
-
-  .title{
-    font-size:18px;
-    line-height:1.08;
-    font-weight:900;
-    text-transform:uppercase;
-    color:#fff6df;
-    margin:0 0 8px;
-  }
-
-  .title span{
-    color:#ffd36b;
-    text-shadow:0 0 14px rgba(255,211,107,.3);
-  }
-
-  .desc{
-    margin:0 auto 12px;
-    max-width:250px;
-    font-size:13px;
-    line-height:1.32;
-    color:#ffe7ab;
-  }
-
-  .steps{
-    display:grid;
-    gap:8px;
-    text-align:left;
-    margin:0;
-  }
-
-  .step{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:8px 10px;
-    border-radius:12px;
-    background:rgba(70,6,8,.54);
-    border:1px solid rgba(255,211,107,.24);
-    color:#fff2d2;
-    font-size:13px;
-  }
-
-  .step .num{
-    width:22px;
-    height:22px;
-    min-width:22px;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    font-size:12px;
-    font-weight:900;
-    color:#210505;
-    background:linear-gradient(180deg, #fff0b5 0%, #e5aa32 58%, #9b5d12 100%);
-  }
-
-  .webchat-guide{
-    position:absolute;
-    right:56px;
-    bottom:16px;
-    z-index:4;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-
-  .guide-label{
-    padding:8px 10px;
-    border-radius:12px;
-    border:1px solid rgba(255,211,107,.42);
-    background:rgba(0,0,0,.62);
-    color:#ffd36b;
-    font-size:15px;
-    font-weight:900;
-    box-shadow:0 0 18px rgba(255,211,107,.12);
-    white-space:nowrap;
-  }
-
-  .guide-arrow{
-    font-size:34px;
-    line-height:1;
-    color:#ffd36b;
-    text-shadow:0 0 16px rgba(255,211,107,.55);
-    animation: arrowPulse .9s ease-in-out infinite alternate;
-  }
-
-  .bubble-glow{
-    position:absolute;
-    right:4px;
-    bottom:0;
-    width:106px;
-    height:106px;
-    border-radius:50%;
-    background:radial-gradient(circle, rgba(255,211,107,.55) 0%, rgba(255,211,107,.12) 48%, transparent 72%);
-    filter:blur(8px);
-    animation:pulse 1.5s ease-in-out infinite alternate;
-    z-index:1;
-    pointer-events:none;
-  }
-
-  @keyframes pulse{
-    from{opacity:.62; transform:scale(.92);}
-    to{opacity:.96; transform:scale(1.08);}
-  }
-
-  @keyframes arrowPulse{
-    from{transform:translateX(0);}
-    to{transform:translateX(8px);}
-  }
-
-  @keyframes grain{
-    from{transform:translate(0,0);}
-    to{transform:translate(12px,-8px);}
-  }
-
-  @media (max-width: 520px){
-    .wrap{
-      padding:12px 10px 70px;
-      align-items:flex-start;
-    }
-    .panel{
-      margin-top:0;
-      width:min(320px, calc(100vw - 20px));
-      max-width:320px;
-      padding:16px 14px 18px;
-      border-radius:20px;
-    }
-    .logo{
-      margin-bottom:8px;
-    }
-    .logo .wins{
-      font-size:25px;
-    }
-    .logo .crupiers{
-      font-size:14px;
-    }
-    .badge{
-      margin-bottom:9px;
-      font-size:9px;
-      padding:5px 10px;
-    }
-    .title{
-      font-size:17px;
-      margin-bottom:7px;
-    }
-    .desc{
-      font-size:12px;
-      line-height:1.28;
-      max-width:100%;
-      margin-bottom:10px;
-    }
-    .steps{
-      gap:7px;
-    }
-    .step{
-      padding:7px 9px;
-      font-size:12px;
-    }
-    .step .num{
-      width:21px;
-      height:21px;
-      min-width:21px;
-      font-size:11px;
-    }
-    .webchat-guide{
-      right:58px;
-      bottom:14px;
-      gap:7px;
-    }
-    .guide-label{
-      font-size:12px;
-      padding:8px 10px;
-    }
-    .guide-arrow{
-      font-size:30px;
-    }
-    .bubble-glow{
-      right:0;
-      bottom:-4px;
-      width:98px;
-      height:98px;
-    }
-  }
-</style>
-</head>
-<body>
-  <div class="bg-casino"></div>
-
-  <div class="wrap">
-    <div class="panel">
-      <div class="logo">
-        <div class="wins">WINS</div>
-        <div class="crupiers">Crupiers</div>
-      </div>
-
-      <div class="badge">WEBCHAT DE ATENCIÓN</div>
-
-      <h1 class="title">Perfecto, <span>escribinos aquí</span></h1>
-
-      <p class="desc">Abrí el chat y escribinos directamente desde el globo señalado. Atención rápida, simple y en el formato de WINS.</p>
-
-      <div class="steps">
-        <div class="step"><div class="num">1</div><div>Tocá el botón del webchat.</div></div>
-        <div class="step"><div class="num">2</div><div>Buscá el globo abajo a la derecha.</div></div>
-        <div class="step"><div class="num">3</div><div>Escribinos y activamos tu atención.</div></div>
-      </div>
-    </div>
-
-    <div class="webchat-guide">
-      <div class="guide-label">ESCRIBÍ AL GLOBO</div>
-      <div class="guide-arrow">➜</div>
-    </div>
-
-    <div class="bubble-glow"></div>
-  </div>
-
-<script>
-window.callbellSettings={uuid:"${window.callbellSettings.uuid}",script_token:"${window.callbellSettings.script_token}"};
-(function(){
-  var w=window;
-  var d=document;
-  var l=function(){
-    var s=d.createElement('script');
-    s.async=true;
-    s.src='https://dash.callbell.eu/include/livechat/'+window.callbellSettings.script_token+'/'+window.callbellSettings.uuid+'.js';
-    s.onload=function(){
-      var i=0;
-      var a=function(){
-        i++;
-        if(typeof window.Callbell==='function'){
-          /* Elimina restos viejos si existieran */
-          var removeOld = function(){
-            d.querySelectorAll('.focus-box,.mini-logo').forEach(function(el){ el.remove(); });
-          };
-          removeOld();
-          setTimeout(removeOld, 1200);
-
-          window.Callbell('open_chat');
-          return;
-        }
-        if(i<30){
-          setTimeout(a,200);
-        }
-      };
-      a();
-    };
-    var x=d.getElementsByTagName('script')[0];
-    x.parentNode.insertBefore(s,x);
-  };
-  w.addEventListener('load',l,false);
-})();
-<\/script>
-</body>
-</html>`);
-      popup.document.close();
-    });
-
-    document.getElementById("webchatOverlay").addEventListener("click", function (e) {
-      if (e.target.id === "webchatOverlay") {
-        document.getElementById("webchatOverlay").classList.remove("active");
-      }
+      /* No abrimos ventana nueva: la interfaz principal desaparece
+         y queda la guía en la misma página señalando el globo. */
+      setTimeout(function () {
+        buscarLauncherCallbell();
+      }, 350);
     });
 
     document.getElementById("abrirChatAhora").addEventListener("click", function () {
-      const comandos = ["open_chat", "openChat", "show", "open"];
-      let abierto = false;
-
-      const apis = [window.Callbell, window.callbell];
-      for (const api of apis) {
-        if (typeof api !== "function") continue;
-        for (const cmd of comandos) {
-          try { api(cmd); abierto = true; break; } catch (e) {}
-        }
-        if (abierto) break;
-      }
-
-      document.body.classList.add("webchat-visible");
-      if (!abierto) {
-        const launcher = document.querySelector('[id*="callbell"], [class*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
-        if (launcher) launcher.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
-      }
+      mostrarGuiaWebchat();
+      abrirChatCallbell();
     });
 
   </script>
