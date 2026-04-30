@@ -1,136 +1,186 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WINS CRUPIERS</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WINS CRUPIERS | Beneficio Activo</title>
 
 <style>
-body {
-  margin:0;
-  background:#0b0505;
-  font-family:Arial;
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+
+body{
+min-height:100vh;
+background:linear-gradient(160deg,#050303,#3b0707);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
 }
 
-/* ===== BOTONES ===== */
-.cta {
-  padding:14px;
-  border-radius:12px;
-  border:none;
-  font-weight:900;
-  margin:10px;
-  cursor:pointer;
+.card{
+width:100%;
+max-width:420px;
+background:#120404;
+padding:25px;
+border-radius:20px;
+text-align:center;
 }
 
-/* ===== GLOW CORREGIDO ===== */
-.webchat-glow {
-  display: none;
-  position: fixed;
-  right: 26px;   /* ← AJUSTADO */
-  bottom: 26px;  /* ← AJUSTADO */
-  width: 95px;
-  height: 95px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,211,107,0.65) 0%, rgba(255,211,107,0.12) 55%, transparent 75%);
-  filter: blur(6px);
-  z-index: 9998;
-  pointer-events: none;
-  animation: glowPulse 1.4s infinite alternate;
+.cta{
+display:block;
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+font-weight:900;
+margin-top:10px;
+cursor:pointer;
 }
 
-body.webchat-visible .webchat-glow {
-  display: block;
+.webchat-btn{
+background:#25d366;
 }
 
-@keyframes glowPulse {
-  from { opacity: .55; transform: scale(0.92); }
-  to { opacity: .95; transform: scale(1.05); }
+/* GLOW CORREGIDO */
+.webchat-glow{
+display:none;
+position:fixed;
+right:26px;
+bottom:26px;
+width:95px;
+height:95px;
+border-radius:50%;
+background:radial-gradient(circle,rgba(255,211,107,.65)0%,rgba(255,211,107,.12)55%,transparent 75%);
+filter:blur(6px);
+z-index:9998;
+animation:glowPulse 1.4s infinite alternate;
+pointer-events:none;
 }
 
-/* MOBILE */
-@media(max-width:720px){
-  .webchat-glow {
-    right: 20px;
-    bottom: 20px;
-    width: 80px;
-    height: 80px;
-  }
+body.webchat-visible .webchat-glow{
+display:block;
 }
 
-/* ===== OCULTAR CALLBELL HASTA ACTIVAR ===== */
+@keyframes glowPulse{
+from{opacity:.5;transform:scale(.9)}
+to{opacity:.9;transform:scale(1.05)}
+}
+
+/* OCULTAR CALLBELL */
 [id*="callbell"],
 [class*="callbell"],
-iframe[src*="callbell"],
-iframe[src*="livechat"] {
-  opacity: 0 !important;
-  pointer-events: none !important;
+iframe[src*="callbell"]{
+opacity:0!important;
+pointer-events:none!important;
 }
 
 body.webchat-visible [id*="callbell"],
 body.webchat-visible [class*="callbell"],
-body.webchat-visible iframe[src*="callbell"],
-body.webchat-visible iframe[src*="livechat"] {
-  opacity: 1 !important;
-  pointer-events: auto !important;
+body.webchat-visible iframe[src*="callbell"]{
+opacity:1!important;
+pointer-events:auto!important;
+}
+
+/* OVERLAY */
+.webchat-overlay{
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+background:rgba(0,0,0,.85);
+z-index:9999;
+}
+
+.webchat-overlay.active{
+display:flex;
+}
+
+.webchat-box{
+background:#120404;
+padding:25px;
+border-radius:20px;
+text-align:center;
+max-width:400px;
+width:100%;
 }
 </style>
 </head>
 
 <body>
 
-<button class="cta" id="abrirWebchat">
+<div class="card">
+<h2>WINS CRUPIERS</h2>
+
+<button class="cta webchat-btn" id="abrirWebchat">
 ABRIR WEBCHAT
 </button>
+</div>
+
+<div class="webchat-overlay" id="webchatOverlay">
+<div class="webchat-box">
+<h3>PERFECTO, ESCRIBANOS AQUÍ</h3>
+
+<button class="cta webchat-btn" id="abrirChatAhora">
+ESCRIBIR
+</button>
+</div>
+</div>
 
 <div class="webchat-glow"></div>
 
 <script>
-const botonWebchat = document.getElementById("abrirWebchat");
+const botonWebchat=document.getElementById("abrirWebchat");
 
-botonWebchat.addEventListener("click", function () {
+botonWebchat.addEventListener("click",function(){
+document.getElementById("webchatOverlay").classList.add("active");
+document.body.classList.add("webchat-visible");
+});
 
-  document.body.classList.add("webchat-visible");
+document.getElementById("abrirChatAhora").addEventListener("click",function(){
 
-  const comandos = ["open_chat", "openChat", "show", "open"];
-  let abierto = false;
+document.body.classList.add("webchat-visible");
 
-  const apis = [window.Callbell, window.callbell];
+const comandos=["open_chat","openChat","show","open"];
+let abierto=false;
 
-  for (const api of apis) {
-    if (typeof api !== "function") continue;
+const apis=[window.Callbell,window.callbell];
 
-    for (const cmd of comandos) {
-      try {
-        api(cmd);
-        abierto = true;
-        break;
-      } catch (e) {}
-    }
+for(const api of apis){
+if(typeof api!=="function")continue;
 
-    if (abierto) break;
-  }
+for(const cmd of comandos){
+try{
+api(cmd);
+abierto=true;
+break;
+}catch(e){}
+}
+if(abierto)break;
+}
 
-  if (!abierto) {
-    const launcher = document.querySelector('[id*="callbell"], [class*="callbell"], iframe[src*="callbell"]');
-    if (launcher) launcher.click();
-  }
+if(!abierto){
+const launcher=document.querySelector('[id*="callbell"],[class*="callbell"],iframe[src*="callbell"]');
+if(launcher)launcher.click();
+}
 });
 </script>
 
 <!-- CALLBELL -->
 <script>
-window.callbellSettings = {
-  uuid: "1617cc7d-c306-467c-9c3e-b93be2b26457",
-  script_token: "YxhRGuSVgudQ3pPuDJC8cqC8"
+window.callbellSettings={
+uuid:"1617cc7d-c306-467c-9c3e-b93be2b26457",
+script_token:"YxhRGuSVgudQ3pPuDJC8cqC8"
 };
 </script>
 
 <script>
 (function(){
-  var s=document.createElement("script");
-  s.async=true;
-  s.src="https://dash.callbell.eu/include/livechat/"+window.callbellSettings.script_token+"/"+window.callbellSettings.uuid+".js";
-  document.body.appendChild(s);
+var s=document.createElement("script");
+s.async=true;
+s.src="https://dash.callbell.eu/include/livechat/"+window.callbellSettings.script_token+"/"+window.callbellSettings.uuid+".js";
+document.body.appendChild(s);
 })();
 </script>
 
