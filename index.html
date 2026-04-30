@@ -56,20 +56,105 @@
       overflow: hidden;
     }
 
-    .brand { margin-bottom: 18px; }
+    .brand {
+      margin-bottom: 18px;
+    }
 
     .brand .wins {
       font-size: 42px;
       font-weight: 900;
       letter-spacing: 2px;
       color: #b70f12;
-      text-shadow: 0 2px 0 #ffd36b, 0 0 14px rgba(255, 202, 82, 0.65);
+      text-shadow:
+        0 2px 0 #ffd36b,
+        0 0 14px rgba(255, 202, 82, 0.65),
+        0 0 32px rgba(183, 15, 18, 0.65);
     }
 
     .brand .crupiers {
       font-size: 22px;
       font-family: Georgia, serif;
       font-style: italic;
+      color: #ffd36b;
+      margin-top: -4px;
+      text-shadow: 0 0 12px rgba(255, 200, 80, 0.55);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 211, 107, 0.12);
+      border: 1px solid rgba(255, 211, 107, 0.35);
+      color: #ffd36b;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 31px;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      color: #ffd36b;
+      text-shadow: 0 0 18px rgba(255, 211, 107, 0.5);
+    }
+
+    .amount-box {
+      margin: 20px 0;
+      padding: 18px 14px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(112, 10, 10, 0.45), rgba(35, 5, 5, 0.7));
+      border: 1px solid rgba(255, 211, 107, 0.28);
+    }
+
+    .amount-label {
+      font-size: 13px;
+      color: #f5dba0;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .amount {
+      font-size: 46px;
+      font-weight: 900;
+      color: #ffd36b;
+      text-shadow: 0 0 18px rgba(255, 200, 80, 0.55);
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #f8e9c9;
+      line-height: 1.45;
+      margin-bottom: 20px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0 22px;
+      text-align: left;
+    }
+
+    .step {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 15px;
+      padding: 12px;
+      font-size: 14px;
+      color: #fff7e7;
+    }
+
+    .step b {
       color: #ffd36b;
     }
 
@@ -84,44 +169,249 @@
       border-radius: 18px;
       font-size: 17px;
       font-weight: 900;
+      text-transform: uppercase;
+      box-shadow: 0 0 24px rgba(255, 204, 84, 0.42);
       margin-top: 10px;
     }
 
     .webchat-btn {
       background: linear-gradient(180deg, #25d366, #128c4a);
       color: #041b0d;
+      box-shadow: 0 0 22px rgba(37, 211, 102, 0.38);
     }
 
-    /* 🔥 GLOW CORREGIDO */
+    .note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.56);
+      line-height: 1.35;
+    }
+
+    .footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.52);
+    }
+
+    .oasis-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      padding: 18px;
+    }
+
+    .oasis-overlay.active {
+      display: flex;
+    }
+
+    .oasis-box {
+      width: min(920px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at center, rgba(255, 190, 60, 0.16), transparent 34%),
+        linear-gradient(180deg, rgba(20, 5, 5, 0.98), rgba(7, 4, 4, 0.98));
+      border: 1px solid rgba(255, 210, 110, 0.35);
+      box-shadow: 0 0 42px rgba(255, 191, 64, 0.18);
+      padding: 38px 26px;
+      text-align: center;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 211, 107, 0.35);
+      background: rgba(255, 211, 107, 0.08);
+      color: #ffd36b;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .oasis-title {
+      font-size: 36px;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .oasis-title span {
+      color: #ffd36b;
+      text-shadow: 0 0 18px rgba(255, 211, 107, 0.55);
+    }
+
+    .oasis-text {
+      color: #f8e9c9;
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .oasis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .oasis-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+      text-align: left;
+      padding: 13px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,211,107,0.16);
+    }
+
+    .oasis-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffe49a, #e5aa32);
+      color: #1b0707;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .oasis-label {
+      color: #ffd36b;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .7px;
+    }
+
+    .oasis-number {
+      font-weight: 900;
+      font-size: 15px;
+    }
+
     .webchat-glow {
       display: none;
       position: fixed;
-      right: 26px;
-      bottom: 26px;
-      width: 95px;
-      height: 95px;
+      right: 16px;
+      bottom: 12px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,211,107,0.65) 0%, rgba(255,211,107,0.12) 55%, transparent 75%);
+      background: radial-gradient(circle, rgba(255,211,107,0.55) 0%, rgba(255,211,107,0.08) 55%, transparent 75%);
       filter: blur(6px);
       z-index: 9998;
       pointer-events: none;
       animation: glowPulse 1.4s infinite alternate;
     }
 
-    body.webchat-visible .webchat-glow { display: block; }
+    body.webchat-visible .webchat-glow {
+      display: block;
+    }
 
     @keyframes glowPulse {
       from { opacity: .55; transform: scale(0.92); }
       to { opacity: .95; transform: scale(1.05); }
     }
 
-    /* OCULTAR CALLBELL */
+    .webchat-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(8px);
+      z-index: 10000;
+      padding: 18px;
+    }
+
+    .webchat-overlay.active { display: flex; }
+
+    .webchat-box {
+      width: min(520px, 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 210, 110, 0.35);
+      background: linear-gradient(180deg, rgba(20, 5, 5, 0.98), rgba(7, 4, 4, 0.98));
+      box-shadow: 0 0 42px rgba(255, 191, 64, 0.18);
+      padding: 28px 22px;
+      text-align: center;
+      position: relative;
+    }
+
+    .webchat-helper {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 211, 107, 0.35);
+      background: rgba(255, 211, 107, 0.08);
+      color: #ffe8b5;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .webchat-pointer {
+      display: none;
+      position: fixed;
+      right: 140px;
+      bottom: 62px;
+      z-index: 10000;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0,0,0,0.78);
+      border: 1px solid rgba(255,211,107,.4);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+
+    .webchat-pointer.active { display: flex; }
+
+    .pointer-arrow {
+      font-size: 28px;
+      color: #ffd36b;
+      animation: arrowPulse .8s infinite alternate;
+    }
+
+    .pointer-text {
+      color: #ffd36b;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: .4px;
+    }
+
+    @keyframes arrowPulse {
+      from { transform: translateX(0); }
+      to { transform: translateX(6px);}
+    }
+
+    .webchat-helper.active {
+      display: block;
+      animation: pulseGlow 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      from { box-shadow: 0 0 0 rgba(255,211,107,0.0); }
+      to { box-shadow: 0 0 18px rgba(255,211,107,0.35); }
+    }
+
     [id*="callbell"],
     [class*="callbell"],
     iframe[src*="callbell"],
     iframe[src*="livechat"] {
       opacity: 0 !important;
       pointer-events: none !important;
+      transition: opacity .2s ease;
     }
 
     body.webchat-visible [id*="callbell"],
@@ -132,24 +422,10 @@
       pointer-events: auto !important;
     }
 
-    .webchat-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,.82);
-      z-index: 10000;
-    }
-
-    .webchat-overlay.active { display: flex; }
-
-    .webchat-box {
-      width: min(520px, 100%);
-      border-radius: 24px;
-      background: #120404;
-      padding: 28px;
-      text-align: center;
+    @media(max-width:720px){
+      .oasis-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -164,73 +440,211 @@
         <div class="crupiers">Crupiers</div>
       </div>
 
+      <div class="badge">BENEFICIO ACTIVO POR TIEMPO LIMITADO</div>
+
+      <h1>Hoy volvés con <span>ventaja</span></h1>
+
+      <div class="amount-box">
+        <div class="amount-label">Disponible para tu próxima carga</div>
+        <div class="amount">20%</div>
+      </div>
+
+      <p class="subtitle">
+        Activá tu beneficio por WhatsApp y empezá de nuevo con WINS CRUPIERS.
+      </p>
+
+      <div class="steps">
+        <div class="step">🔥 <span>Pedí tu <b>beneficio activo</b></span></div>
+        <div class="step">💬 <span>Escribinos por <b>WhatsApp</b></span></div>
+        <div class="step">🎁 <span>Te lo activamos al instante</span></div>
+      </div>
+
+      <button class="cta" id="abrirOasis">Reclamar por WhatsApp</button>
+
       <button class="cta webchat-btn" id="abrirWebchat">Abrir Webchat</button>
+
+      <div class="webchat-helper" id="webchatHelper">👉 Desde aquí nos podés escribir en el webchat.</div>
+
+      <div class="webchat-pointer" id="webchatPointer">
+        <div class="pointer-arrow">➜</div>
+        <div class="pointer-text">PERFECTO, ESCRIBANOS AQUÍ</div>
+      </div>
+
+      <p class="note">
+        Beneficio sujeto a disponibilidad. Reclamable únicamente por WhatsApp o Webchat.
+      </p>
     </section>
+
+    <div class="footer">WINS CRUPIERS · Atención activa</div>
   </main>
 
-  <!-- WEBCHAT -->
-  <div class="webchat-overlay" id="webchatOverlay">
-    <div class="webchat-box">
-      <h2>PERFECTO, ESCRIBANOS AQUÍ</h2>
-      <button class="cta webchat-btn" id="abrirChatAhora">Escribir</button>
+  <div class="oasis-overlay" id="oasis">
+    <div class="oasis-box">
+      <button class="close" id="cerrar">×</button>
+
+      <h2 class="oasis-title">Tu <span>Wins</span> de Atención</h2>
+      <p class="oasis-text">Si una línea no responde, probá con otra opción disponible.</p>
+
+      <div class="oasis-grid" id="grid"></div>
     </div>
   </div>
 
-  <div class="webchat-glow"></div>
+  <div class="webchat-overlay" id="webchatOverlay">
+    <div class="webchat-box">
+      <button class="close" id="cerrarWebchatOverlay">×</button>
+      <h2 class="oasis-title">Tu <span>Webchat</span> de Atención</h2>
+      <p class="oasis-text">PERFECTO, ESCRIBANOS AQUÍ. La flecha señala el globo del webchat.</p>
+      <button class="cta webchat-btn" id="abrirChatAhora">Escribir en Webchat</button>
+      <p class="webchat-helper active">👉 PERFECTO, ESCRIBANOS AQUÍ.</p>
+    </div>
+  </div>
+
+  <div class="webchat-glow" id="webchatGlow"></div>
 
   <script>
+    const TODOS_LOS_NUMEROS = [
+      "595993428272","595993600664","595993531681","595994148120",
+      "595992683436","595992105336","595992693270","595994185084",
+      "595993421681","595993426758","595993519840","596992119729",
+      "595976671481","595992894317","595993421542","595994626921",
+      "595993421241","595993264332","595993253159","595972383786",
+      "595993426536","595993253595","595993264272","595993264678",
+      "595991368797","595993038750","595993264389","595993264618",
+      "595993519515","595972929173","595971629879","595972904825",
+      "595992117657","595992119721","595993519506"
+    ];
+
+    const MAX_LINEAS = 6;
+    const grid = document.getElementById("grid");
+
+    function mezclar(array) {
+      return [...array].sort(() => Math.random() - 0.5);
+    }
+
+    function cargarNumerosOasis() {
+      grid.innerHTML = "";
+
+      const seleccion = mezclar(TODOS_LOS_NUMEROS).slice(0, MAX_LINEAS);
+
+      seleccion.forEach((num, i) => {
+        const visible = "+" + num.slice(0,3) + " " + num.slice(3,6) + " " + num.slice(6);
+
+        const a = document.createElement("a");
+        a.className = "oasis-card";
+        a.href = `https://wa.me/${num}?text=${encodeURIComponent("QUIERO20")}`;
+        a.target = "_blank";
+        a.rel = "noopener";
+
+        a.innerHTML = `
+          <div class="oasis-icon">☎</div>
+          <div>
+            <div class="oasis-label">LÍNEA VIP ${i + 1}</div>
+            <div class="oasis-number">${visible}</div>
+          </div>
+        `;
+
+        grid.appendChild(a);
+      });
+    }
+
+    document.getElementById("abrirOasis").addEventListener("click", function () {
+      cargarNumerosOasis();
+      document.getElementById("oasis").classList.add("active");
+    });
+
+    document.getElementById("cerrar").addEventListener("click", function () {
+      document.getElementById("oasis").classList.remove("active");
+    });
+
+    document.getElementById("oasis").addEventListener("click", function (e) {
+      if (e.target.id === "oasis") {
+        document.getElementById("oasis").classList.remove("active");
+      }
+    });
+
     const botonWebchat = document.getElementById("abrirWebchat");
+    const webchatHelper = document.getElementById("webchatHelper");
+    const webchatPointer = document.getElementById("webchatPointer");
+
+    function mostrarGuiaWebchat() {
+      document.body.classList.add("webchat-visible");
+      webchatHelper.classList.add("active");
+      webchatPointer.classList.add("active");
+
+      setTimeout(function () {
+        webchatPointer.classList.remove("active");
+      }, 8000);
+    }
 
     botonWebchat.addEventListener("click", function () {
-      document.getElementById("webchatOverlay").classList.add("active");
-      document.body.classList.add("webchat-visible");
+      mostrarGuiaWebchat();
+
+      const popup = window.open(
+        "",
+        "wins_webchat_window",
+        "popup=yes,width=420,height=760,top=80,left=120,resizable=yes,scrollbars=no"
+      );
+
+      if (!popup) {
+        return;
+      }
+
+      popup.document.open();
+      popup.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>WINS CRUPIERS | Webchat</title><style>body{margin:0;min-height:100vh;background:#090303;color:#ffd36b;font-family:Arial,Helvetica,sans-serif;position:relative;overflow:hidden}.msg{position:absolute;left:50%;top:35%;transform:translateX(-50%);font-size:28px;font-weight:900;text-align:center;line-height:1.2}.arrow{position:absolute;right:88px;bottom:62px;font-size:38px;color:#ffd36b;animation:a .8s infinite alternate}.text{position:absolute;right:130px;bottom:70px;background:rgba(0,0,0,.65);padding:8px 10px;border-radius:10px;border:1px solid rgba(255,211,107,.5);font-weight:800}@keyframes a{from{transform:translateX(0)}to{transform:translateX(8px)}}.g{position:absolute;right:18px;bottom:16px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,211,107,.55),rgba(255,211,107,.08) 55%,transparent 75%);filter:blur(6px);z-index:0}</style></head><body><div class="msg">PERFECTO,<br/>ESCRIBANOS AQUÍ</div><div class="text">ESCRIBA AQUÍ</div><div class="arrow">➜</div><div class="g"></div><script>window.callbellSettings={uuid:"${window.callbellSettings.uuid}",script_token:"${window.callbellSettings.script_token}"};(function(){var w=window;var d=document;var l=function(){var s=d.createElement('script');s.async=true;s.src='https://dash.callbell.eu/include/livechat/'+window.callbellSettings.script_token+'/'+window.callbellSettings.uuid+'.js';s.onload=function(){var i=0;var a=function(){i++;if(typeof window.Callbell==='function'){window.Callbell('open_chat');return;}if(i<30){setTimeout(a,200);}};a();};var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};w.addEventListener('load',l,false);})();<\/script></body></html>`);
+      popup.document.close();
+    });
+
+    document.getElementById("webchatOverlay").addEventListener("click", function (e) {
+      if (e.target.id === "webchatOverlay") {
+        document.getElementById("webchatOverlay").classList.remove("active");
+      }
     });
 
     document.getElementById("abrirChatAhora").addEventListener("click", function () {
-      document.body.classList.add("webchat-visible");
-
-      const comandos = ["open_chat","openChat","show","open"];
+      const comandos = ["open_chat", "openChat", "show", "open"];
       let abierto = false;
 
       const apis = [window.Callbell, window.callbell];
-
       for (const api of apis) {
         if (typeof api !== "function") continue;
-
         for (const cmd of comandos) {
-          try {
-            api(cmd);
-            abierto = true;
-            break;
-          } catch(e){}
+          try { api(cmd); abierto = true; break; } catch (e) {}
         }
-
         if (abierto) break;
       }
 
+      document.body.classList.add("webchat-visible");
       if (!abierto) {
-        const launcher = document.querySelector('[id*="callbell"], [class*="callbell"], iframe[src*="callbell"]');
-        if (launcher) launcher.click();
+        const launcher = document.querySelector('[id*="callbell"], [class*="callbell"], iframe[src*="callbell"], iframe[src*="livechat"]');
+        if (launcher) launcher.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
       }
     });
+
   </script>
 
-  <!-- CALLBELL -->
+  <!-- Start of Async Callbell Code -->
   <script>
-    window.callbellSettings = {
-      uuid: "1617cc7d-c306-467c-9c3e-b93be2b26457",
-      script_token: "YxhRGuSVgudQ3pPuDJC8cqC8"
-    };
+    if (!window.callbellSettings) {
+      window.callbellSettings = {};
+    }
+    window.callbellSettings["uuid"] = "1617cc7d-c306-467c-9c3e-b93be2b26457";
+    window.callbellSettings["script_token"] = "YxhRGuSVgudQ3pPuDJC8cqC8";
   </script>
-
   <script>
     (function(){
-      var s=document.createElement("script");
-      s.async=true;
-      s.src="https://dash.callbell.eu/include/livechat/"+window.callbellSettings.script_token+"/"+window.callbellSettings.uuid+".js";
-      document.body.appendChild(s);
+      var w = window;
+      var d = document;
+      var l = function(){
+        var s = d.createElement("script");
+        s.async = true;
+        s.src = "https://dash.callbell.eu/include/livechat/" + window.callbellSettings.script_token + "/" + window.callbellSettings.uuid + ".js";
+        var x = d.getElementsByTagName("script")[0];
+        x.parentNode.insertBefore(s, x);
+      };
+      w.addEventListener("load", l, false);
     })();
   </script>
+  <!-- End of Async Callbell Code -->
 
 </body>
 </html>
