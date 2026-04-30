@@ -1,188 +1,236 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>WINS CRUPIERS | Beneficio Activo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WINS CRUPIERS | Beneficio Activo</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-body{
-min-height:100vh;
-background:linear-gradient(160deg,#050303,#3b0707);
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-}
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at center, rgba(255, 190, 60, 0.18), transparent 34%),
+        linear-gradient(160deg, #050303 0%, #180606 42%, #3b0707 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      overflow-x: hidden;
+    }
 
-.card{
-width:100%;
-max-width:420px;
-background:#120404;
-padding:25px;
-border-radius:20px;
-text-align:center;
-}
+    .page {
+      width: 100%;
+      max-width: 430px;
+      position: relative;
+    }
 
-.cta{
-display:block;
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-font-weight:900;
-margin-top:10px;
-cursor:pointer;
-}
+    .glow {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      background: rgba(255, 196, 72, 0.16);
+      filter: blur(60px);
+      border-radius: 50%;
+      top: -90px;
+      right: -90px;
+      z-index: 0;
+    }
 
-.webchat-btn{
-background:#25d366;
-}
+    .card {
+      position: relative;
+      z-index: 1;
+      border: 1px solid rgba(255, 210, 110, 0.35);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(20, 5, 5, 0.95), rgba(7, 4, 4, 0.96));
+      box-shadow: 0 0 40px rgba(255, 191, 64, 0.13), inset 0 0 28px rgba(255, 211, 100, 0.06);
+      padding: 28px 22px;
+      text-align: center;
+      overflow: hidden;
+    }
 
-/* GLOW CORREGIDO */
-.webchat-glow{
-display:none;
-position:fixed;
-right:26px;
-bottom:26px;
-width:95px;
-height:95px;
-border-radius:50%;
-background:radial-gradient(circle,rgba(255,211,107,.65)0%,rgba(255,211,107,.12)55%,transparent 75%);
-filter:blur(6px);
-z-index:9998;
-animation:glowPulse 1.4s infinite alternate;
-pointer-events:none;
-}
+    .brand { margin-bottom: 18px; }
 
-body.webchat-visible .webchat-glow{
-display:block;
-}
+    .brand .wins {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #b70f12;
+      text-shadow: 0 2px 0 #ffd36b, 0 0 14px rgba(255, 202, 82, 0.65);
+    }
 
-@keyframes glowPulse{
-from{opacity:.5;transform:scale(.9)}
-to{opacity:.9;transform:scale(1.05)}
-}
+    .brand .crupiers {
+      font-size: 22px;
+      font-family: Georgia, serif;
+      font-style: italic;
+      color: #ffd36b;
+    }
 
-/* OCULTAR CALLBELL */
-[id*="callbell"],
-[class*="callbell"],
-iframe[src*="callbell"]{
-opacity:0!important;
-pointer-events:none!important;
-}
+    .cta {
+      display: block;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      color: #1b0707;
+      background: linear-gradient(180deg, #ffe49a, #e5aa32);
+      padding: 16px 18px;
+      border-radius: 18px;
+      font-size: 17px;
+      font-weight: 900;
+      margin-top: 10px;
+    }
 
-body.webchat-visible [id*="callbell"],
-body.webchat-visible [class*="callbell"],
-body.webchat-visible iframe[src*="callbell"]{
-opacity:1!important;
-pointer-events:auto!important;
-}
+    .webchat-btn {
+      background: linear-gradient(180deg, #25d366, #128c4a);
+      color: #041b0d;
+    }
 
-/* OVERLAY */
-.webchat-overlay{
-position:fixed;
-inset:0;
-display:none;
-align-items:center;
-justify-content:center;
-background:rgba(0,0,0,.85);
-z-index:9999;
-}
+    /* 🔥 GLOW CORREGIDO */
+    .webchat-glow {
+      display: none;
+      position: fixed;
+      right: 26px;
+      bottom: 26px;
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,211,107,0.65) 0%, rgba(255,211,107,0.12) 55%, transparent 75%);
+      filter: blur(6px);
+      z-index: 9998;
+      pointer-events: none;
+      animation: glowPulse 1.4s infinite alternate;
+    }
 
-.webchat-overlay.active{
-display:flex;
-}
+    body.webchat-visible .webchat-glow { display: block; }
 
-.webchat-box{
-background:#120404;
-padding:25px;
-border-radius:20px;
-text-align:center;
-max-width:400px;
-width:100%;
-}
-</style>
+    @keyframes glowPulse {
+      from { opacity: .55; transform: scale(0.92); }
+      to { opacity: .95; transform: scale(1.05); }
+    }
+
+    /* OCULTAR CALLBELL */
+    [id*="callbell"],
+    [class*="callbell"],
+    iframe[src*="callbell"],
+    iframe[src*="livechat"] {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    body.webchat-visible [id*="callbell"],
+    body.webchat-visible [class*="callbell"],
+    body.webchat-visible iframe[src*="callbell"],
+    body.webchat-visible iframe[src*="livechat"] {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    .webchat-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.82);
+      z-index: 10000;
+    }
+
+    .webchat-overlay.active { display: flex; }
+
+    .webchat-box {
+      width: min(520px, 100%);
+      border-radius: 24px;
+      background: #120404;
+      padding: 28px;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
+  <main class="page">
+    <div class="glow"></div>
 
-<div class="card">
-<h2>WINS CRUPIERS</h2>
+    <section class="card">
+      <div class="brand">
+        <div class="wins">WINS</div>
+        <div class="crupiers">Crupiers</div>
+      </div>
 
-<button class="cta webchat-btn" id="abrirWebchat">
-ABRIR WEBCHAT
-</button>
-</div>
+      <button class="cta webchat-btn" id="abrirWebchat">Abrir Webchat</button>
+    </section>
+  </main>
 
-<div class="webchat-overlay" id="webchatOverlay">
-<div class="webchat-box">
-<h3>PERFECTO, ESCRIBANOS AQUÍ</h3>
+  <!-- WEBCHAT -->
+  <div class="webchat-overlay" id="webchatOverlay">
+    <div class="webchat-box">
+      <h2>PERFECTO, ESCRIBANOS AQUÍ</h2>
+      <button class="cta webchat-btn" id="abrirChatAhora">Escribir</button>
+    </div>
+  </div>
 
-<button class="cta webchat-btn" id="abrirChatAhora">
-ESCRIBIR
-</button>
-</div>
-</div>
+  <div class="webchat-glow"></div>
 
-<div class="webchat-glow"></div>
+  <script>
+    const botonWebchat = document.getElementById("abrirWebchat");
 
-<script>
-const botonWebchat=document.getElementById("abrirWebchat");
+    botonWebchat.addEventListener("click", function () {
+      document.getElementById("webchatOverlay").classList.add("active");
+      document.body.classList.add("webchat-visible");
+    });
 
-botonWebchat.addEventListener("click",function(){
-document.getElementById("webchatOverlay").classList.add("active");
-document.body.classList.add("webchat-visible");
-});
+    document.getElementById("abrirChatAhora").addEventListener("click", function () {
+      document.body.classList.add("webchat-visible");
 
-document.getElementById("abrirChatAhora").addEventListener("click",function(){
+      const comandos = ["open_chat","openChat","show","open"];
+      let abierto = false;
 
-document.body.classList.add("webchat-visible");
+      const apis = [window.Callbell, window.callbell];
 
-const comandos=["open_chat","openChat","show","open"];
-let abierto=false;
+      for (const api of apis) {
+        if (typeof api !== "function") continue;
 
-const apis=[window.Callbell,window.callbell];
+        for (const cmd of comandos) {
+          try {
+            api(cmd);
+            abierto = true;
+            break;
+          } catch(e){}
+        }
 
-for(const api of apis){
-if(typeof api!=="function")continue;
+        if (abierto) break;
+      }
 
-for(const cmd of comandos){
-try{
-api(cmd);
-abierto=true;
-break;
-}catch(e){}
-}
-if(abierto)break;
-}
+      if (!abierto) {
+        const launcher = document.querySelector('[id*="callbell"], [class*="callbell"], iframe[src*="callbell"]');
+        if (launcher) launcher.click();
+      }
+    });
+  </script>
 
-if(!abierto){
-const launcher=document.querySelector('[id*="callbell"],[class*="callbell"],iframe[src*="callbell"]');
-if(launcher)launcher.click();
-}
-});
-</script>
+  <!-- CALLBELL -->
+  <script>
+    window.callbellSettings = {
+      uuid: "1617cc7d-c306-467c-9c3e-b93be2b26457",
+      script_token: "YxhRGuSVgudQ3pPuDJC8cqC8"
+    };
+  </script>
 
-<!-- CALLBELL -->
-<script>
-window.callbellSettings={
-uuid:"1617cc7d-c306-467c-9c3e-b93be2b26457",
-script_token:"YxhRGuSVgudQ3pPuDJC8cqC8"
-};
-</script>
-
-<script>
-(function(){
-var s=document.createElement("script");
-s.async=true;
-s.src="https://dash.callbell.eu/include/livechat/"+window.callbellSettings.script_token+"/"+window.callbellSettings.uuid+".js";
-document.body.appendChild(s);
-})();
-</script>
+  <script>
+    (function(){
+      var s=document.createElement("script");
+      s.async=true;
+      s.src="https://dash.callbell.eu/include/livechat/"+window.callbellSettings.script_token+"/"+window.callbellSettings.uuid+".js";
+      document.body.appendChild(s);
+    })();
+  </script>
 
 </body>
 </html>
