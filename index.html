@@ -30,9 +30,9 @@
 
     /* =========================================================
        MODO ESTUDIO CINE
-       Fondo con video de casino desde link en bucle.
+       Fondo con video2.mp4 en bucle.
        Tu interfaz original queda intacta.
-       No necesitás subir videos a GitHub.
+       En GitHub subí video2.mp4 junto al index.html.
        ========================================================= */
 
     .cinema-video-bg {
@@ -666,7 +666,7 @@
 
   <div class="cinema-video-bg" aria-hidden="true">
     <video id="bgVideo" autoplay muted loop playsinline preload="auto" class="active">
-      <source src="https://cdn.coverr.co/videos/coverr-casino-chips-5171/1080p.mp4" type="video/mp4">
+      <source src="video2.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -881,6 +881,9 @@
 
     if (bgVideo) {
       bgVideo.muted = true;
+      bgVideo.loop = true;
+      bgVideo.playsInline = true;
+
       bgVideo.play().catch(function () {
         document.body.addEventListener("click", function () {
           bgVideo.play();
