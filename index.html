@@ -1102,6 +1102,180 @@
       opacity: .035 !important;
     }
 
+
+    /* =========================================================
+       SOLO COLORES FORMATO WINS EN INTERFAZ
+       Rojo zafiro / dark red / dorado. Fondo intacto.
+       ========================================================= */
+
+    .page,
+    .card,
+    .brand,
+    .badge,
+    h1,
+    h1 span,
+    .amount-box,
+    .amount-label,
+    .amount,
+    .subtitle,
+    .steps,
+    .step,
+    .step span,
+    .step b,
+    .cta,
+    .note,
+    .footer,
+    .oasis-box,
+    .oasis-title,
+    .oasis-title span,
+    .oasis-text,
+    .oasis-card,
+    .oasis-label,
+    .oasis-number,
+    .webchat-box,
+    .webchat-helper,
+    .webchat-pointer,
+    .pointer-text,
+    .pointer-arrow,
+    .close {
+      color: #ffe8a8 !important;
+    }
+
+    .card {
+      border: 1px solid rgba(255, 211, 107, .48) !important;
+      background:
+        radial-gradient(circle at top, rgba(255, 211, 107, .10), transparent 34%),
+        linear-gradient(180deg, rgba(38, 4, 5, .97), rgba(9, 2, 2, .985)) !important;
+      box-shadow:
+        0 0 42px rgba(255, 191, 64, .16),
+        0 20px 50px rgba(0,0,0,.40),
+        inset 0 0 28px rgba(255, 211, 100, .07) !important;
+    }
+
+    .brand .wins {
+      color: #b70f12 !important;
+      text-shadow:
+        0 2px 0 #ffd36b,
+        0 0 14px rgba(255, 202, 82, .65),
+        0 0 32px rgba(183, 15, 18, .65) !important;
+    }
+
+    .brand .crupiers,
+    h1 span,
+    .amount,
+    .amount-label,
+    .badge,
+    .step b,
+    .oasis-title span,
+    .oasis-label {
+      color: #ffd36b !important;
+    }
+
+    h1,
+    .subtitle,
+    .step span,
+    .note,
+    .footer,
+    .oasis-text,
+    .oasis-number {
+      color: #ffe8a8 !important;
+    }
+
+    .badge {
+      background: rgba(95, 5, 7, .46) !important;
+      border: 1px solid rgba(255, 211, 107, .42) !important;
+    }
+
+    .amount-box {
+      background:
+        radial-gradient(circle at center, rgba(255, 211, 107, .08), transparent 58%),
+        linear-gradient(180deg, rgba(128, 8, 8, .55), rgba(31, 4, 4, .82)) !important;
+      border: 1px solid rgba(255, 211, 107, .34) !important;
+    }
+
+    .step {
+      background: rgba(70, 6, 8, .58) !important;
+      border: 1px solid rgba(255, 211, 107, .28) !important;
+    }
+
+    .step-icon {
+      color: #ffd36b !important;
+      text-shadow: 0 0 10px rgba(255,211,107,.42);
+      font-size: 15px;
+      line-height: 1;
+      display: inline-block;
+      margin-right: 2px;
+    }
+
+    .cta,
+    .webchat-btn,
+    #abrirWebchat,
+    #abrirChatAhora {
+      background: linear-gradient(180deg, #fff0b5 0%, #e5aa32 58%, #9b5d12 100%) !important;
+      color: #1b0707 !important;
+      border: 1px solid rgba(255, 211, 107, .55) !important;
+      box-shadow:
+        0 0 26px rgba(255, 204, 84, .42),
+        inset 0 1px 0 rgba(255,255,255,.38) !important;
+    }
+
+    .cta::before {
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 232, 168, .42) 45%, transparent 62%) !important;
+    }
+
+    .cta .ripple {
+      background: rgba(255, 211, 107, .58) !important;
+    }
+
+    .oasis-box,
+    .webchat-box {
+      background:
+        radial-gradient(circle at center, rgba(255, 190, 60, .13), transparent 34%),
+        linear-gradient(180deg, rgba(34, 4, 5, .98), rgba(9, 2, 2, .98)) !important;
+      border: 1px solid rgba(255, 210, 110, .40) !important;
+      box-shadow: 0 0 42px rgba(255, 191, 64, .18) !important;
+    }
+
+    .oasis-card {
+      background: rgba(70, 6, 8, .52) !important;
+      border: 1px solid rgba(255, 211, 107, .22) !important;
+    }
+
+    .oasis-icon {
+      background: linear-gradient(180deg, #fff0b5 0%, #e5aa32 58%, #9b5d12 100%) !important;
+      color: #1b0707 !important;
+    }
+
+    .close {
+      background: rgba(95, 5, 7, .45) !important;
+      border: 1px solid rgba(255, 211, 107, .40) !important;
+      color: #ffd36b !important;
+    }
+
+    .webchat-helper,
+    .webchat-pointer {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      background: rgba(70, 6, 8, .68) !important;
+      border: 1px solid rgba(255, 211, 107, .35) !important;
+      color: #ffd36b !important;
+    }
+
+    .webchat-glow {
+      background: radial-gradient(circle, rgba(255,211,107,.58) 0%, rgba(130,8,8,.18) 55%, transparent 75%) !important;
+    }
+
+    /* En la interfaz no queda verde, azul, violeta ni blanco puro */
+    .subtitle,
+    .step,
+    .note,
+    .footer,
+    .oasis-text,
+    .webchat-helper {
+      text-shadow: none !important;
+    }
+
   </style>
 </head>
 
@@ -1180,9 +1354,9 @@
       </p>
 
       <div class="steps">
-        <div class="step">🔥 <span>Pedí tu <b>beneficio activo</b></span></div>
-        <div class="step">💬 <span>Escribinos por <b>WhatsApp</b></span></div>
-        <div class="step">🎁 <span>Te lo activamos al instante</span></div>
+        <div class="step"><span class="step-icon">◆</span><span>Pedí tu <b>beneficio activo</b></span></div>
+        <div class="step"><span class="step-icon">◆</span><span>Escribinos por <b>WhatsApp</b></span></div>
+        <div class="step"><span class="step-icon">◆</span><span>Te lo activamos al instante</span></div>
       </div>
 
       <button class="cta" id="abrirOasis">Reclamar por WhatsApp</button>
@@ -1294,12 +1468,6 @@
 
     function mostrarGuiaWebchat() {
       document.body.classList.add("webchat-visible");
-      webchatHelper.classList.add("active");
-      webchatPointer.classList.add("active");
-
-      setTimeout(function () {
-        webchatPointer.classList.remove("active");
-      }, 8000);
     }
 
     botonWebchat.addEventListener("click", function () {
