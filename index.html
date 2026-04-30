@@ -722,6 +722,68 @@
       box-shadow: 0 0 22px rgba(37, 211, 102, 0.38);
     }
 
+    /* Animaciones premium al tocar botones */
+    .cta {
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        filter .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .cta::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.42) 45%, transparent 62%);
+      transform: translateX(-130%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px) scale(1.01);
+      filter: brightness(1.06);
+    }
+
+    .cta:active,
+    .cta.is-pressing {
+      transform: scale(.965);
+      filter: brightness(1.13);
+    }
+
+    .cta.is-pressing::before {
+      opacity: 1;
+      animation: buttonShine .58s ease-out;
+    }
+
+    @keyframes buttonShine {
+      from { transform: translateX(-130%); }
+      to { transform: translateX(130%); }
+    }
+
+    .cta .ripple {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      width: 18px;
+      height: 18px;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(255,255,255,.55);
+      animation: ripple .62s ease-out forwards;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes ripple {
+      to {
+        transform: translate(-50%, -50%) scale(18);
+        opacity: 0;
+      }
+    }
+
     .note {
       margin-top: 14px;
       font-size: 12px;
@@ -1230,6 +1292,33 @@
         }, { once: true });
       });
     }
+  </script>
+
+
+  <script>
+    document.querySelectorAll(".cta").forEach(function (btn) {
+      btn.addEventListener("pointerdown", function (e) {
+        btn.classList.add("is-pressing");
+
+        const rect = btn.getBoundingClientRect();
+        const ripple = document.createElement("span");
+        ripple.className = "ripple";
+        ripple.style.left = (e.clientX - rect.left) + "px";
+        ripple.style.top = (e.clientY - rect.top) + "px";
+
+        btn.appendChild(ripple);
+
+        setTimeout(function () {
+          ripple.remove();
+        }, 650);
+      });
+
+      ["pointerup", "pointerleave", "pointercancel"].forEach(function (eventName) {
+        btn.addEventListener(eventName, function () {
+          btn.classList.remove("is-pressing");
+        });
+      });
+    });
   </script>
 
   <!-- Start of Async Callbell Code -->
