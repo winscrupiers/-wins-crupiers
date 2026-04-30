@@ -1476,7 +1476,7 @@
       const popup = window.open(
         "",
         "wins_webchat_window",
-        "popup=yes,width=420,height=760,top=80,left=120,resizable=yes,scrollbars=no"
+        "popup=yes,width=500,height=450,top=80,left=120,resizable=yes,scrollbars=no"
       );
 
       if (!popup) {
@@ -1558,17 +1558,17 @@
     position:relative;
     min-height:100vh;
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     justify-content:center;
-    padding:34px 22px 140px;
+    padding:14px 14px 78px;
   }
 
   .panel{
     position:relative;
     width:100%;
-    max-width:320px;
-    padding:24px 22px 28px;
-    border-radius:26px;
+    max-width:440px;
+    padding:18px 18px 20px;
+    border-radius:22px;
     text-align:center;
     background:
       radial-gradient(circle at top, rgba(255,211,107,.09), transparent 32%),
@@ -1581,11 +1581,11 @@
   }
 
   .logo{
-    margin-bottom:18px;
+    margin-bottom:10px;
   }
 
   .logo .wins{
-    font-size:31px;
+    font-size:27px;
     font-weight:900;
     letter-spacing:1.5px;
     color:#b70f12;
@@ -1597,7 +1597,7 @@
 
   .logo .crupiers{
     margin-top:-4px;
-    font-size:17px;
+    font-size:13px;
     font-family:Georgia,serif;
     font-style:italic;
     color:#ffd36b;
@@ -1605,25 +1605,25 @@
 
   .badge{
     display:inline-block;
-    margin-bottom:18px;
-    padding:7px 12px;
+    margin-bottom:10px;
+    padding:6px 11px;
     border-radius:999px;
     border:1px solid rgba(255,211,107,.34);
     background:rgba(94,9,10,.48);
     color:#ffd36b;
-    font-size:11px;
+    font-size:10px;
     font-weight:800;
     letter-spacing:.7px;
     text-transform:uppercase;
   }
 
   .title{
-    font-size:20px;
+    font-size:18px;
     line-height:1.08;
     font-weight:900;
     text-transform:uppercase;
     color:#fff6df;
-    margin:0 0 12px;
+    margin:0 0 8px;
   }
 
   .title span{
@@ -1632,16 +1632,16 @@
   }
 
   .desc{
-    margin:0 auto 18px;
+    margin:0 auto 12px;
     max-width:250px;
-    font-size:14px;
-    line-height:1.45;
+    font-size:13px;
+    line-height:1.32;
     color:#ffe7ab;
   }
 
   .steps{
     display:grid;
-    gap:10px;
+    gap:8px;
     text-align:left;
     margin:0;
   }
@@ -1650,8 +1650,8 @@
     display:flex;
     align-items:center;
     gap:10px;
-    padding:10px 12px;
-    border-radius:14px;
+    padding:8px 10px;
+    border-radius:12px;
     background:rgba(70,6,8,.54);
     border:1px solid rgba(255,211,107,.24);
     color:#fff2d2;
@@ -1659,9 +1659,9 @@
   }
 
   .step .num{
-    width:24px;
-    height:24px;
-    min-width:24px;
+    width:22px;
+    height:22px;
+    min-width:22px;
     border-radius:50%;
     display:grid;
     place-items:center;
@@ -1673,8 +1673,8 @@
 
   .webchat-guide{
     position:absolute;
-    right:72px;
-    bottom:26px;
+    right:70px;
+    bottom:18px;
     z-index:4;
     display:flex;
     align-items:center;
@@ -1682,8 +1682,8 @@
   }
 
   .guide-label{
-    padding:11px 14px;
-    border-radius:14px;
+    padding:9px 12px;
+    border-radius:12px;
     border:1px solid rgba(255,211,107,.42);
     background:rgba(0,0,0,.62);
     color:#ffd36b;
@@ -1694,7 +1694,7 @@
   }
 
   .guide-arrow{
-    font-size:42px;
+    font-size:34px;
     line-height:1;
     color:#ffd36b;
     text-shadow:0 0 16px rgba(255,211,107,.55);
@@ -1703,10 +1703,10 @@
 
   .bubble-glow{
     position:absolute;
-    right:8px;
-    bottom:6px;
-    width:126px;
-    height:126px;
+    right:4px;
+    bottom:0;
+    width:106px;
+    height:106px;
     border-radius:50%;
     background:radial-gradient(circle, rgba(255,211,107,.55) 0%, rgba(255,211,107,.12) 48%, transparent 72%);
     filter:blur(8px);
@@ -1732,39 +1732,69 @@
 
   @media (max-width: 520px){
     .wrap{
-      padding:26px 16px 132px;
+      padding:12px 12px 70px;
       align-items:flex-start;
     }
     .panel{
-      margin-top:14px;
+      margin-top:0;
       max-width:100%;
-      padding:22px 18px 24px;
-      border-radius:24px;
+      padding:16px 14px 18px;
+      border-radius:20px;
+    }
+    .logo{
+      margin-bottom:8px;
+    }
+    .logo .wins{
+      font-size:25px;
+    }
+    .logo .crupiers{
+      font-size:14px;
+    }
+    .badge{
+      margin-bottom:9px;
+      font-size:9px;
+      padding:5px 10px;
     }
     .title{
-      font-size:18px;
+      font-size:17px;
+      margin-bottom:7px;
     }
     .desc{
-      font-size:13px;
+      font-size:12px;
+      line-height:1.28;
       max-width:100%;
+      margin-bottom:10px;
+    }
+    .steps{
+      gap:7px;
+    }
+    .step{
+      padding:7px 9px;
+      font-size:12px;
+    }
+    .step .num{
+      width:21px;
+      height:21px;
+      min-width:21px;
+      font-size:11px;
     }
     .webchat-guide{
-      right:64px;
-      bottom:20px;
-      gap:8px;
+      right:58px;
+      bottom:14px;
+      gap:7px;
     }
     .guide-label{
-      font-size:13px;
-      padding:10px 12px;
+      font-size:12px;
+      padding:8px 10px;
     }
     .guide-arrow{
-      font-size:36px;
+      font-size:30px;
     }
     .bubble-glow{
-      right:2px;
-      bottom:0;
-      width:118px;
-      height:118px;
+      right:0;
+      bottom:-4px;
+      width:98px;
+      height:98px;
     }
   }
 </style>
@@ -1786,8 +1816,8 @@
       <p class="desc">Abrí el chat y escribinos directamente desde el globo señalado. Atención rápida, simple y en el formato de WINS.</p>
 
       <div class="steps">
-        <div class="step"><div class="num">1</div><div>Tocá el botón del webchat.</div></div>
-        <div class="step"><div class="num">2</div><div>Buscá el globo abajo a la derecha.</div></div>
+        <div class="step"><div class="num">1</div><div>Buscá el globo abajo a la derecha.</div></div>
+        <div class="step"><div class="num">2</div><div>Tocá el botón del webchat.</div></div>
         <div class="step"><div class="num">3</div><div>Escribinos y activamos tu atención.</div></div>
       </div>
     </div>
