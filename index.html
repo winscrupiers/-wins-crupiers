@@ -1505,6 +1505,13 @@
       linear-gradient(180deg, #140202 0%, #070101 100%);
   }
 
+  /* Oculta cualquier resto del diseño anterior por si quedó en caché/markup viejo */
+  .focus-box, .focus-title, .focus-action, .mini-logo{
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+  }
+
   .bg-casino{
     position:absolute;
     inset:0;
@@ -1664,11 +1671,10 @@
     background:linear-gradient(180deg, #fff0b5 0%, #e5aa32 58%, #9b5d12 100%);
   }
 
-  /* Indicación directa hacia el globo */
   .webchat-guide{
     position:absolute;
-    right:76px;
-    bottom:28px;
+    right:72px;
+    bottom:26px;
     z-index:4;
     display:flex;
     align-items:center;
@@ -1723,6 +1729,44 @@
     from{transform:translate(0,0);}
     to{transform:translate(12px,-8px);}
   }
+
+  @media (max-width: 520px){
+    .wrap{
+      padding:26px 16px 132px;
+      align-items:flex-start;
+    }
+    .panel{
+      margin-top:14px;
+      max-width:100%;
+      padding:22px 18px 24px;
+      border-radius:24px;
+    }
+    .title{
+      font-size:18px;
+    }
+    .desc{
+      font-size:13px;
+      max-width:100%;
+    }
+    .webchat-guide{
+      right:64px;
+      bottom:20px;
+      gap:8px;
+    }
+    .guide-label{
+      font-size:13px;
+      padding:10px 12px;
+    }
+    .guide-arrow{
+      font-size:36px;
+    }
+    .bubble-glow{
+      right:2px;
+      bottom:0;
+      width:118px;
+      height:118px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -1770,6 +1814,13 @@ window.callbellSettings={uuid:"${window.callbellSettings.uuid}",script_token:"${
       var a=function(){
         i++;
         if(typeof window.Callbell==='function'){
+          /* Elimina restos viejos si existieran */
+          var removeOld = function(){
+            d.querySelectorAll('.focus-box,.mini-logo').forEach(function(el){ el.remove(); });
+          };
+          removeOld();
+          setTimeout(removeOld, 1200);
+
           window.Callbell('open_chat');
           return;
         }
