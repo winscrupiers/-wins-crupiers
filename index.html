@@ -1484,7 +1484,368 @@
       }
 
       popup.document.open();
-      popup.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>WINS CRUPIERS | Webchat</title><style>body{margin:0;min-height:100vh;background:#090303;color:#ffd36b;font-family:Arial,Helvetica,sans-serif;position:relative;overflow:hidden}.msg{position:absolute;left:50%;top:35%;transform:translateX(-50%);font-size:28px;font-weight:900;text-align:center;line-height:1.2}.arrow{position:absolute;right:88px;bottom:62px;font-size:38px;color:#ffd36b;animation:a .8s infinite alternate}.text{position:absolute;right:130px;bottom:70px;background:rgba(0,0,0,.65);padding:8px 10px;border-radius:10px;border:1px solid rgba(255,211,107,.5);font-weight:800}@keyframes a{from{transform:translateX(0)}to{transform:translateX(8px)}}.g{position:absolute;right:18px;bottom:16px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,211,107,.55),rgba(255,211,107,.08) 55%,transparent 75%);filter:blur(6px);z-index:0}</style></head><body><div class="msg">PERFECTO,<br/>ESCRIBANOS AQUÍ</div><div class="text">ESCRIBA AQUÍ</div><div class="arrow">➜</div><div class="g"></div><script>window.callbellSettings={uuid:"${window.callbellSettings.uuid}",script_token:"${window.callbellSettings.script_token}"};(function(){var w=window;var d=document;var l=function(){var s=d.createElement('script');s.async=true;s.src='https://dash.callbell.eu/include/livechat/'+window.callbellSettings.script_token+'/'+window.callbellSettings.uuid+'.js';s.onload=function(){var i=0;var a=function(){i++;if(typeof window.Callbell==='function'){window.Callbell('open_chat');return;}if(i<30){setTimeout(a,200);}};a();};var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};w.addEventListener('load',l,false);})();<\/script></body></html>`);
+      popup.document.write(`<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WINS CRUPIERS | Webchat</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    color:#ffe7ab;
+    overflow:hidden;
+    position:relative;
+    background:
+      radial-gradient(circle at 50% 16%, rgba(255,210,110,.12), transparent 24%),
+      radial-gradient(circle at 82% 86%, rgba(255,211,107,.16), transparent 15%),
+      linear-gradient(180deg, #140202 0%, #070101 100%);
+  }
+
+  .bg-casino{
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 20% 18%, rgba(120,0,0,.16), transparent 24%),
+      radial-gradient(circle at 80% 20%, rgba(255,211,107,.07), transparent 16%),
+      radial-gradient(circle at 50% 100%, rgba(255,211,107,.08), transparent 28%);
+    pointer-events:none;
+  }
+
+  .bg-casino::before{
+    content:"";
+    position:absolute;
+    inset:-20%;
+    background:
+      radial-gradient(circle at 15% 25%, rgba(255,255,255,.7) 0 1px, transparent 1px),
+      radial-gradient(circle at 78% 52%, rgba(255,255,255,.55) 0 1px, transparent 1px),
+      radial-gradient(circle at 62% 30%, rgba(255,255,255,.6) 0 1px, transparent 1px),
+      radial-gradient(circle at 34% 76%, rgba(255,255,255,.5) 0 1px, transparent 1px);
+    background-size: 120px 120px, 150px 150px, 180px 180px, 140px 140px;
+    opacity:.18;
+    animation: grain 10s linear infinite;
+  }
+
+  .bg-casino::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:-160px;
+    transform:translateX(-50%);
+    width:420px;
+    height:220px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at center, rgba(255,211,107,.28), transparent 48%),
+      repeating-conic-gradient(from 0deg,
+        rgba(135,8,8,.72) 0deg 16deg,
+        rgba(15,5,5,.9) 16deg 32deg);
+    filter:blur(1px);
+    opacity:.20;
+    box-shadow: inset 0 0 20px rgba(0,0,0,.4), 0 0 36px rgba(255,211,107,.10);
+  }
+
+  .wrap{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:26px 22px 110px;
+  }
+
+  .panel{
+    position:relative;
+    width:100%;
+    max-width:320px;
+    padding:24px 22px 28px;
+    border-radius:26px;
+    text-align:center;
+    background:
+      radial-gradient(circle at top, rgba(255,211,107,.09), transparent 32%),
+      linear-gradient(180deg, rgba(38,4,5,.96), rgba(8,2,2,.98));
+    border:1px solid rgba(255,211,107,.38);
+    box-shadow:
+      0 0 36px rgba(255,191,64,.12),
+      0 18px 40px rgba(0,0,0,.35),
+      inset 0 0 28px rgba(255,211,107,.06);
+  }
+
+  .logo{
+    margin-bottom:18px;
+  }
+
+  .logo .wins{
+    font-size:31px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    color:#b70f12;
+    text-shadow:
+      0 1px 0 #ffd36b,
+      0 0 10px rgba(255,211,107,.34),
+      0 0 18px rgba(183,15,18,.45);
+  }
+
+  .logo .crupiers{
+    margin-top:-4px;
+    font-size:17px;
+    font-family:Georgia,serif;
+    font-style:italic;
+    color:#ffd36b;
+  }
+
+  .badge{
+    display:inline-block;
+    margin-bottom:18px;
+    padding:7px 12px;
+    border-radius:999px;
+    border:1px solid rgba(255,211,107,.34);
+    background:rgba(94,9,10,.48);
+    color:#ffd36b;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.7px;
+    text-transform:uppercase;
+  }
+
+  .title{
+    font-size:20px;
+    line-height:1.08;
+    font-weight:900;
+    text-transform:uppercase;
+    color:#fff6df;
+    margin:0 0 12px;
+  }
+
+  .title span{
+    color:#ffd36b;
+    text-shadow:0 0 14px rgba(255,211,107,.3);
+  }
+
+  .desc{
+    margin:0 auto 18px;
+    max-width:250px;
+    font-size:14px;
+    line-height:1.45;
+    color:#ffe7ab;
+  }
+
+  .steps{
+    display:grid;
+    gap:10px;
+    text-align:left;
+    margin:0 0 18px;
+  }
+
+  .step{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:14px;
+    background:rgba(70,6,8,.54);
+    border:1px solid rgba(255,211,107,.24);
+    color:#fff2d2;
+    font-size:13px;
+  }
+
+  .step .num{
+    width:24px;
+    height:24px;
+    min-width:24px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:12px;
+    font-weight:900;
+    color:#210505;
+    background:linear-gradient(180deg, #fff0b5 0%, #e5aa32 58%, #9b5d12 100%);
+  }
+
+  .focus-box{
+    margin-top:8px;
+    padding:14px 14px 16px;
+    border-radius:18px;
+    border:1px solid rgba(255,211,107,.34);
+    background:
+      radial-gradient(circle at center, rgba(255,211,107,.08), transparent 58%),
+      linear-gradient(180deg, rgba(102,8,9,.44), rgba(28,4,4,.78));
+  }
+
+  .focus-title{
+    font-size:12px;
+    color:#ffd36b;
+    font-weight:800;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+
+  .focus-action{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 16px;
+    border-radius:16px;
+    background:linear-gradient(180deg, #fff0b5 0%, #e5aa32 58%, #9b5d12 100%);
+    color:#1b0707;
+    font-weight:900;
+    font-size:14px;
+    text-transform:uppercase;
+    box-shadow:0 0 24px rgba(255,204,84,.28);
+  }
+
+  .arrow-zone{
+    position:absolute;
+    right:34px;
+    bottom:38px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    z-index:3;
+  }
+
+  .hint{
+    padding:10px 14px;
+    border-radius:14px;
+    border:1px solid rgba(255,211,107,.42);
+    background:rgba(0,0,0,.58);
+    color:#ffd36b;
+    font-size:14px;
+    font-weight:900;
+    box-shadow:0 0 18px rgba(255,211,107,.12);
+  }
+
+  .arrow{
+    font-size:44px;
+    line-height:1;
+    color:#ffd36b;
+    text-shadow:0 0 16px rgba(255,211,107,.55);
+    animation: arrowPulse .9s ease-in-out infinite alternate;
+  }
+
+  .bubble-glow{
+    position:absolute;
+    right:8px;
+    bottom:6px;
+    width:126px;
+    height:126px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,211,107,.55) 0%, rgba(255,211,107,.12) 48%, transparent 72%);
+    filter:blur(8px);
+    animation:pulse 1.5s ease-in-out infinite alternate;
+    z-index:1;
+  }
+
+  .mini-logo{
+    position:absolute;
+    right:20px;
+    bottom:17px;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:9px;
+    font-weight:900;
+    line-height:1.05;
+    text-align:center;
+    color:#ffd36b;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(255,211,107,.14), transparent 40%),
+      linear-gradient(180deg, #5f0607 0%, #140404 100%);
+    border:1px solid rgba(255,211,107,.30);
+    box-shadow:0 0 18px rgba(0,0,0,.28);
+    z-index:2;
+  }
+
+  @keyframes pulse{
+    from{opacity:.62; transform:scale(.92);}
+    to{opacity:.96; transform:scale(1.08);}
+  }
+
+  @keyframes arrowPulse{
+    from{transform:translateX(0);}
+    to{transform:translateX(8px);}
+  }
+
+  @keyframes grain{
+    from{transform:translate(0,0);}
+    to{transform:translate(12px,-8px);}
+  }
+</style>
+</head>
+<body>
+  <div class="bg-casino"></div>
+
+  <div class="wrap">
+    <div class="panel">
+      <div class="logo">
+        <div class="wins">WINS</div>
+        <div class="crupiers">Crupiers</div>
+      </div>
+
+      <div class="badge">WEBCHAT DE ATENCIÓN</div>
+
+      <h1 class="title">Perfecto, <span>escribinos aquí</span></h1>
+
+      <p class="desc">Abrí el chat y escribinos directamente desde el globo señalado. Atención rápida, simple y en el formato de WINS.</p>
+
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div>Tocá el botón del webchat.</div></div>
+        <div class="step"><div class="num">2</div><div>Buscá el globo abajo a la derecha.</div></div>
+        <div class="step"><div class="num">3</div><div>Escribinos y activamos tu atención.</div></div>
+      </div>
+
+      <div class="focus-box">
+        <div class="focus-title">Punto de acción</div>
+        <div class="focus-action">Escribí aquí</div>
+      </div>
+    </div>
+
+    <div class="arrow-zone">
+      <div class="hint">ESCRIBÍ AQUÍ</div>
+      <div class="arrow">➜</div>
+    </div>
+
+    <div class="bubble-glow"></div>
+    <div class="mini-logo">WINS</div>
+  </div>
+
+<script>
+window.callbellSettings={uuid:"${window.callbellSettings.uuid}",script_token:"${window.callbellSettings.script_token}"};
+(function(){
+  var w=window;
+  var d=document;
+  var l=function(){
+    var s=d.createElement('script');
+    s.async=true;
+    s.src='https://dash.callbell.eu/include/livechat/'+window.callbellSettings.script_token+'/'+window.callbellSettings.uuid+'.js';
+    s.onload=function(){
+      var i=0;
+      var a=function(){
+        i++;
+        if(typeof window.Callbell==='function'){
+          window.Callbell('open_chat');
+          return;
+        }
+        if(i<30){
+          setTimeout(a,200);
+        }
+      };
+      a();
+    };
+    var x=d.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(s,x);
+  };
+  w.addEventListener('load',l,false);
+})();
+<\/script>
+</body>
+</html>`);
       popup.document.close();
     });
 
